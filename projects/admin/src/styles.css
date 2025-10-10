@@ -1,0 +1,6 @@
+/* You can add global styles to this file, and also import other style files */
+/* Import Tailwind CSS if your build tool supports it, otherwise include compiled CSS directly */
+/* @import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities"; */
+@import "tailwindcss";
