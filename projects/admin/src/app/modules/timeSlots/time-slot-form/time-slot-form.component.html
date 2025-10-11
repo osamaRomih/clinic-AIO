@@ -1,0 +1,46 @@
+
+
+<h2 mat-dialog-title>Doctor Schedule</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="timeSlotForm">
+        <!-- <div class="w-full mb-3">
+            <mat-form-field class="w-full">
+                <mat-label>Pick start time</mat-label>
+                <input matInput [matTimepicker]="startTimePicker" formControlName="startTime">
+                <mat-timepicker-toggle matIconSuffix [for]="startTimePicker" interval="15m">
+                    <mat-icon matTimepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-timepicker-toggle>
+                <mat-timepicker #startTimePicker/>
+                @if(timeSlotForm.get('startTime')?.hasError('required')){
+                    <mat-error>Start time is required</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="w-full mb-3">
+            <mat-form-field class="w-full">
+                <mat-label>Pick end time</mat-label>
+                <input matInput [matTimepicker]="endTimePicker" formControlName="endTime">
+                <mat-timepicker-toggle matIconSuffix [for]="endTimePicker" interval="15m">
+                    <mat-icon matTimepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-timepicker-toggle>
+                <mat-timepicker #endTimePicker/>
+                @if(timeSlotForm.get('endTime')?.hasError('required')){
+                    <mat-error>End time is required</mat-error>
+                }
+            </mat-form-field>
+        </div> -->
+    </form>
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+  <button matButton (click)="closeDiaglog()">Close</button>
+  @if(data?.timeSlot?.id ==undefined){
+    
+    <button matButton (click)="addTimeSlot()" cdkFocusInitial>Create</button>
+  }@else{
+    <button matButton (click)="updateTimeSlot(data?.timeSlot?.id!)" cdkFocusInitial>Update</button>
+  }
+
+</mat-dialog-actions>

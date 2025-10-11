@@ -1,0 +1,59 @@
+<aside id="logo-sidebar"
+   class="w-[250px] dark:bg-gray-800 h-screen transition-transform sm:translate-x-0 pt-[32px] pl-[24px] border-r-[0.5px] border-[#ededed] dark:border-[#1e2939]"
+   aria-label="Sidebar">
+   <div class="flex flex-col justify-between h-full px-3 py-4 overflow-y-auto bg-white dark:bg-gray-800 ">
+      <div>
+         <a href="https://flowbite.com/" class="flex items-center mb-[32px] dark:text-white">
+            <img src="logo.svg" class="h-6 me-3 sm:h-7 dark:text-gray-400 " alt="Logo" />
+            <span class="self-center text-xl font-semibold whitespace-nowrap ">EzBooky</span>
+         </a>
+         <ul class="space-y-2 font-medium">
+            <li class="mb-[24px]">
+               <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+                  class="flex items-center text-gray-900 rounded-lg group">
+                  <img src="home-icon.svg" alt="home icon" />
+                  <span class="ml-[8px] font-400 text-[18px] dark:text-white">Home</span>
+               </a>
+            </li>
+            <li class="mb-[24px]">
+               <a routerLink="/calander" routerLinkActive="active"
+                  class="flex items-center text-gray-900 rounded-lg group">
+                  <img src="calander-icon.svg" alt="home icon" />
+                  <span class="ml-[8px] font-semibold dark:text-white">Calander</span>
+               </a>
+            </li>
+            <li class="mb-[24px]">
+               <a routerLink="/availability" routerLinkActive="active"
+                  class="dark:text-white flex items-center text-gray-900 rounded-lg group">
+                  <img src="calander-icon.svg" alt="home icon" />
+                  <span class="ml-[8px] font-semibold ">Availability</span>
+               </a>
+            </li>
+            <li class="mb-[24px]">
+               <a routerLink="/booking" routerLinkActive="active"
+                  class="dark:text-white flex items-center text-gray-900 rounded-lg group">
+                  <img src="booking-icon.svg" alt="home icon" />
+                  <span class="ml-[8px] font-semibold ">Bookings</span>
+               </a>
+            </li>
+         </ul>
+      </div>
+
+      <div class="mb-[72px] flex items-center justify-between">
+         <div class="flex items-center">
+            <div class="w-[40px] h-[40px] rounded-full">
+               <img src="avatar.png" alt="avatar" class="w-full h-full" />
+            </div>
+            <div class="flex flex-col ml-[8px]">
+               <div class="text-[14px] leading-[20px]">{{`${authService.user()?.firstName } ${authService.user()?.lastName }`}}</div>
+               <div class="text-[#8491A5] text-[12px]">{{authService.user()?.email }}</div>
+            </div>
+         </div>
+         <div class="flex items-center ">
+            <button class="flex-1 cursor-pointer" (click)="logout()">
+               <img src="logout-icon.png" alt="logout" />
+            </button>
+         </div>
+      </div>
+   </div>
+</aside>
