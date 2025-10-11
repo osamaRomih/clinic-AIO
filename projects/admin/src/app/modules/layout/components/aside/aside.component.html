@@ -1,59 +1,38 @@
-<aside id="logo-sidebar"
-   class="w-[250px] dark:bg-gray-800 h-screen transition-transform sm:translate-x-0 pt-[32px] pl-[24px] border-r-[0.5px] border-[#ededed] dark:border-[#1e2939]"
-   aria-label="Sidebar">
-   <div class="flex flex-col justify-between h-full px-3 py-4 overflow-y-auto bg-white dark:bg-gray-800 ">
-      <div>
-         <a href="https://flowbite.com/" class="flex items-center mb-[32px] dark:text-white">
-            <img src="logo.svg" class="h-6 me-3 sm:h-7 dark:text-gray-400 " alt="Logo" />
-            <span class="self-center text-xl font-semibold whitespace-nowrap ">EzBooky</span>
-         </a>
-         <ul class="space-y-2 font-medium">
-            <li class="mb-[24px]">
-               <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-                  class="flex items-center text-gray-900 rounded-lg group">
-                  <img src="home-icon.svg" alt="home icon" />
-                  <span class="ml-[8px] font-400 text-[18px] dark:text-white">Home</span>
-               </a>
-            </li>
-            <li class="mb-[24px]">
-               <a routerLink="/calander" routerLinkActive="active"
-                  class="flex items-center text-gray-900 rounded-lg group">
-                  <img src="calander-icon.svg" alt="home icon" />
-                  <span class="ml-[8px] font-semibold dark:text-white">Calander</span>
-               </a>
-            </li>
-            <li class="mb-[24px]">
-               <a routerLink="/availability" routerLinkActive="active"
-                  class="dark:text-white flex items-center text-gray-900 rounded-lg group">
-                  <img src="calander-icon.svg" alt="home icon" />
-                  <span class="ml-[8px] font-semibold ">Availability</span>
-               </a>
-            </li>
-            <li class="mb-[24px]">
-               <a routerLink="/booking" routerLinkActive="active"
-                  class="dark:text-white flex items-center text-gray-900 rounded-lg group">
-                  <img src="booking-icon.svg" alt="home icon" />
-                  <span class="ml-[8px] font-semibold ">Bookings</span>
-               </a>
-            </li>
-         </ul>
-      </div>
-
-      <div class="mb-[72px] flex items-center justify-between">
-         <div class="flex items-center">
-            <div class="w-[40px] h-[40px] rounded-full">
-               <img src="avatar.png" alt="avatar" class="w-full h-full" />
-            </div>
-            <div class="flex flex-col ml-[8px]">
-               <div class="text-[14px] leading-[20px]">{{`${authService.user()?.firstName } ${authService.user()?.lastName }`}}</div>
-               <div class="text-[#8491A5] text-[12px]">{{authService.user()?.email }}</div>
-            </div>
-         </div>
-         <div class="flex items-center ">
-            <button class="flex-1 cursor-pointer" (click)="logout()">
-               <img src="logout-icon.png" alt="logout" />
-            </button>
-         </div>
-      </div>
-   </div>
-</aside>
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light vh-100" style="width: 280px;">
+    <a href="/"  class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+      <span class="fs-4">Sidebar</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a routerLink="/home" routerLinkActive="active" class="nav-link" aria-current="page">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+          Home
+        </a>
+      </li>
+      <li>
+        <a routerLink="/availability" routerLinkActive="active" class="nav-link">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+          Availability
+        </a>
+      </li>
+      
+      
+      
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+        <strong>mdo</strong>
+      </a>
+      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+        <li><a class="dropdown-item" href="#">New project...</a></li>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">Sign out</a></li>
+      </ul>
+    </div>
+  </div>

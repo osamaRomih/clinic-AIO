@@ -1,22 +1,24 @@
 import { Component } from '@angular/core';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatIcon } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import moment from 'moment';
-import { ITimeSlot, TimeslotService } from 'DAL';
+import { DaySlotsResponse, ITimeSlot, TimeslotService } from 'DAL';
 import { ToastrService } from 'ngx-toastr';
 import {TimeSlotFormComponent} from '../time-slot-form/time-slot-form.component'
+import {MatTabGroup, MatTabsModule} from '@angular/material/tabs';
+
 
 @Component({
   selector: 'app-all-time-slots',
   standalone: true,
   imports: [
+    MatTabGroup,
     MatTabsModule,
     MatIcon,
     MatButton,
@@ -25,7 +27,9 @@ import {TimeSlotFormComponent} from '../time-slot-form/time-slot-form.component'
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-  ],
+    MatIconModule,
+    MatButtonModule
+],
   templateUrl: './all-time-slots.component.html',
   styleUrl: './all-time-slots.component.scss',
 })
@@ -39,9 +43,8 @@ export class AllTimeSlotsComponent {
     'Thursday',
     'Friday',
   ];
-  displayedColumns: string[] = ['startTime', 'endTime', 'actions'];
-  dataSource!: any;
-  selectedDay!: string;
+  timeSlots!: DaySlotsResponse[];
+  
   constructor(
     private dialog: MatDialog,
     private timeSlotService: TimeslotService,
@@ -49,17 +52,22 @@ export class AllTimeSlotsComponent {
   ) {}
 
   ngOnInit(): void {
-    this.selectedDay = this.daysOfWeek[0];
     this.getAllTimeSlots();
   }
 
   getAllTimeSlots() {
-    this.timeSlotService.getAll(this.selectedDay).subscribe({
+    this.timeSlotService.getAll().subscribe({
       next: (res) => {
-        this.dataSource = this.mappingTimeSlots(res);
+        this.timeSlots = res.slots;
         console.log(res);
       },
     });
+  }
+
+  getTimeSlotsByDay(day:string){
+    var result = this.timeSlots.find(x=>x.day==day);
+
+    return result ? result.timeSlots : [];
   }
 
   updateTimeSlot(day: string, timeSlot: ITimeSlot) {
@@ -102,24 +110,9 @@ export class AllTimeSlotsComponent {
     });
   }
 
-  onTabChange(event: any) {
-    this.selectedDay = this.daysOfWeek[event.index];
-    this.getAllTimeSlots();
+
+  formatTime(time:any){
+    return moment(time,'HH:mm:ss').format('hh:mm A')
   }
 
-  mappingTimeSlots(times: ITimeSlot[]) {
-    let sortedTimes = times.sort((a, b) => {
-      const timeA = new Date(`1970-01-01T${a.startTime}`).getTime();
-      const timeB = new Date(`1970-01-01T${b.startTime}`).getTime();
-      return timeA - timeB;
-    });
-
-    return sortedTimes.map((item) => {
-      return {
-        id: item.id,
-        startTime: moment(item.startTime, 'HH:mm:ss').format('hh:mm A'),
-        endTime: moment(item.endTime, 'HH:mm:ss').format('hh:mm A'),
-      };
-    });
-  }
 }

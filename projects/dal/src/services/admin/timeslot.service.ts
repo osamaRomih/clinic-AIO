@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ITimeSlot } from '../../models/timeslot';
+import { ITimeSlot, WeeklyScheduleResponse } from '../../models/timeslot';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,8 @@ export class TimeslotService {
     return this.httpClient.put(`${this.baseAPI}/timeSlots/${id}`,model);
   }
 
-  getAll(day:string){
-    return this.httpClient.get<ITimeSlot[]>(`${this.baseAPI}/days/${day}/timeslots`);
+  getAll(){
+    return this.httpClient.get<WeeklyScheduleResponse>(`${this.baseAPI}/timeslots`);
   }
 
   deleteTimeSlot(id:number){

@@ -20,6 +20,10 @@ export {InitService} from './services/admin/init.service'
 
 // admin interfaces
 export {ITimeSlot} from './models/timeslot'
+export {WeeklyScheduleResponse} from './models/timeslot'
+export {DaySlotsResponse} from './models/timeslot'
+export {TimeSlotResponse} from './models/timeslot'
+
 export {ILoginRequest} from './models/login-request'
 export {ILoginResponse} from './models/login-response'
 export {IUser} from './models/user'

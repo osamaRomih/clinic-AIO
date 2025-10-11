@@ -13,7 +13,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'timeslots', component: AllTimeSlotsComponent },
+      { path: 'availability', component: AllTimeSlotsComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

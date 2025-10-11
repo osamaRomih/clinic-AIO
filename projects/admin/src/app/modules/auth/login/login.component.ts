@@ -61,5 +61,6 @@ export class LoginComponent implements OnInit {
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.preventDefault();
+    event.stopPropagation();
   }
 }

@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './components/header/header.component';
+import { AsideComponent } from './components/aside/aside.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [],
+  imports: [RouterOutlet,HeaderComponent,AsideComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
