@@ -38,8 +38,7 @@ import { JsonPipe } from '@angular/common';
     MatDialogTitle,
     MatDialogActions,
     ReactiveFormsModule,
-    MatButton,
-    JsonPipe
+    MatButton
   ],
   templateUrl: './time-slot-form.component.html',
   styleUrl: './time-slot-form.component.scss',

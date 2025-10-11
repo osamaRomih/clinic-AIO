@@ -1,0 +1,16 @@
+.section-heading .section-title{
+  font-size: 25px;
+  color:#2196f3;
+  margin-bottom: 20px;
+  font-weight: 500;
+  gap:8px;
+}
+
+.icon-display{
+  transform: scale(1.5);
+}
+
+
+// :host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+//   // transform: translateY(-1.7175em) scale(1) !important
+// }

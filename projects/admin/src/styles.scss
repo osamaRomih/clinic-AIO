@@ -1,0 +1,17 @@
+
+.NgxEditor {
+    height: 250px !important;
+    overflow-y: scroll;
+  }
+
+  .NgxEditor__Content {
+    min-height: 300px !important;
+  }
+
+// .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,  
+//  .mat-form-field-appearance-outline.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label { 
+//         transform: translateY(-1.7175em) scale(1) !important;
+//     }
+// .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+//     --mat-mdc-form-field-floating-label-scale: 1;
+//     }

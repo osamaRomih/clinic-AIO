@@ -5,6 +5,8 @@ import { AllTimeSlotsComponent } from './modules/timeSlots/all-time-slots/all-ti
 import { LoginComponent } from './modules/auth/login/login.component';
 import { RegisterComponent } from './modules/auth/register/register.component';
 import { authGuard } from './guards/auth.guard';
+import { AllPrescriptionComponent } from './modules/prescriptions/all-prescription/all-prescription.component';
+import { AddPrescriptionComponent } from './modules/prescriptions/add-prescription/add-prescription.component';
 
 export const routes: Routes = [
   {
@@ -14,6 +16,8 @@ export const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'availability', component: AllTimeSlotsComponent },
+      { path: 'prescription', component: AllPrescriptionComponent },
+      { path: 'prescriptions/add-prescription', component: AddPrescriptionComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },
