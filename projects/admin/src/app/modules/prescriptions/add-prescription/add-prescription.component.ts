@@ -10,8 +10,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButton, MatIconButton } from "@angular/material/button";
 import { CommonModule } from '@angular/common';
-
-
+import { PrescriptionService } from 'DAL';
 @Component({
   selector: 'app-add-prescription',
   standalone: true,
@@ -24,8 +23,7 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy{
   html = '';
   editor!: Editor;
 
-  constructor(private fb:FormBuilder){
-
+  constructor(private service:PrescriptionService,private fb:FormBuilder){
   }
 
   prescriptionForm!:FormGroup;
@@ -39,7 +37,7 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy{
 
   createForm(){
     this.prescriptionForm = this.fb.group({
-      patientName:['',[Validators.required]],
+      patientId:[0,[Validators.required]],
       date:['',[Validators.required]],
       age:[0,[Validators.required]],
       diagnosis:['',[Validators.required]],
@@ -51,6 +49,7 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy{
 
   createMedicationForm() {
     this.medicationForm = this.fb.group({
+      id:[0],
       name: ['', Validators.required],
       dosage: ['', Validators.required],
       frequency: [0, Validators.required],
@@ -88,5 +87,10 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy{
   onSubmit(){
     const formValue = this.prescriptionForm.value;
     console.log('Prescription Submitted:', formValue);
+    this.service.create(formValue).subscribe({
+      next:(res)=>{
+        console.log(res);
+      }
+    })
   }
 }

@@ -9,6 +9,8 @@ export * from './lib/dal.component';
 export {TimeslotService} from './services/admin/timeslot.service'
 export {AuthService} from './services/admin/auth.service'
 export {InitService} from './services/admin/init.service'
+export {PrescriptionService} from './services/admin/prescription.service'
+
 
 // patient services
 
@@ -23,6 +25,9 @@ export {ITimeSlot} from './models/timeslot'
 export {WeeklyScheduleResponse} from './models/timeslot'
 export {DaySlotsResponse} from './models/timeslot'
 export {TimeSlotResponse} from './models/timeslot'
+export {IPrescription,IPrescriptionItem} from './models/prescription'
+export {IPrescriptionResponse} from './models/prescription'
+
 
 export {ILoginRequest} from './models/login-request'
 export {ILoginResponse} from './models/login-response'
@@ -34,3 +39,9 @@ export {IUser} from './models/user'
 export {authInterceptor} from './interceptors/auth.interceptor'
 export {errorInterceptor} from './interceptors/error.interceptor'
 export {loaderInterceptor} from './interceptors/loader.interceptor'
+
+
+
+
+
+export {MOCK_PRESCRIPTIONS} from './models/prescription'
