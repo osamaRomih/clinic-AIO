@@ -10,6 +10,7 @@ export {TimeslotService} from './services/admin/timeslot.service'
 export {AuthService} from './services/admin/auth.service'
 export {InitService} from './services/admin/init.service'
 export {PrescriptionService} from './services/admin/prescription.service'
+export {ProfileService} from './services/admin/profile.service'
 
 
 // patient services

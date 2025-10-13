@@ -8,6 +8,7 @@ import { authGuard } from './guards/auth.guard';
 import { AllPrescriptionComponent } from './modules/prescriptions/all-prescription/all-prescription.component';
 import { AddPrescriptionComponent } from './modules/prescriptions/add-prescription/add-prescription.component';
 import { UpdatePrescriptionComponent } from './modules/prescriptions/update-prescription/update-prescription.component';
+import { ProfileComponent } from './modules/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'profile', component: ProfileComponent },
       { path: 'availability', component: AllTimeSlotsComponent },
       { path: 'prescription', component: AllPrescriptionComponent },
       { path: 'prescriptions/add-prescription', component: AddPrescriptionComponent },
