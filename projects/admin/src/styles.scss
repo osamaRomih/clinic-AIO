@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 
 .NgxEditor {
     height: 250px !important;
@@ -15,3 +16,11 @@
 // .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
 //     --mat-mdc-form-field-floating-label-scale: 1;
 //     }
+/* Ensure the mat-form-field takes up the full width of the cell content area */
+:root {
+  @include mat.table-overrides((
+    header-headline-size:20px,
+    header-headline-weight:bold,
+    row-item-label-text-font:17px
+  ));
+}

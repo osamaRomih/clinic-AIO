@@ -10,6 +10,7 @@ export interface IPrescriptionItem {
 export interface IPrescription {
   id: number;
   patientId: number;
+  patientName:string;
   date: string;    
   age: number;
   diagnosis: string;

@@ -1,4 +1,4 @@
-<mat-card class="example-card" appearance="outlined">
+<div class="p-3"><mat-card class="example-card" appearance="outlined">
   <mat-card-header>
     <mat-card-title>
       Add Prescription
@@ -11,7 +11,7 @@
           <mat-icon aria-hidden="false" class="icon-display" aria-label="Example home icon"
             fontIcon="person"></mat-icon>
 
-          Patient Information
+          <span >Patient Information</span>
         </h3>
       </div>
 
@@ -142,45 +142,46 @@
       </div>
 
     <!-- Medications Table -->
-      <table class="table mt-3" *ngIf="medications.controls.length > 0" >
-        <thead>
-          <tr>
-            <th>Medication Name</th>
-            <th>Dosage</th>
-            <th>Frequency</th>
-            <th>Days</th>
-            <th>Instructions</th>
-            <th class="text-center">Actions</th>
+      <div class=" table-responsive mt-3" *ngIf="medications.controls.length > 0">
+        <table class="table mt-3 table-bordered align-middle"  >
+        <thead class=" thead-dark">
+          <tr >
+            <th >Medication Name</th>
+            <th >Dosage</th>
+            <th >Frequency</th>
+            <th >Days</th>
+            <th >Instructions</th>
+            <th class="text-center ">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let med of medications.controls; let i = index" [formGroup]="med">
-            <td>
-              <mat-form-field appearance="outline">
+          <tr *ngFor="let med of medications.controls; let i = index" [formGroup]="med" >
+            <td >
+              <mat-form-field appearance="outline" class="w-100" >
                 <input matInput formControlName="name" >
               </mat-form-field>
             </td>
-            <td>
-              <mat-form-field appearance="outline">
+            <td >
+              <mat-form-field appearance="outline" class="w-100">
                 <input matInput formControlName="dosage" >
               </mat-form-field>
             </td>
-            <td>
-              <mat-form-field appearance="outline">
+            <td >
+              <mat-form-field appearance="outline" class="w-100">
                 <input matInput formControlName="frequency" >
               </mat-form-field>
             </td>
-            <td>
-              <mat-form-field appearance="outline">
+            <td >
+              <mat-form-field appearance="outline" class="w-100">
                 <input matInput formControlName="days" >
               </mat-form-field>
             </td>
-            <td>
-              <mat-form-field appearance="outline">
+            <td >
+              <mat-form-field appearance="outline" class="w-100">
                 <input matInput formControlName="instructions">
               </mat-form-field>
             </td>
-            <td class="text-center">
+            <td class="text-center ">
               <button mat-icon-button color="warn" (click)="removeMedication(i)">
                 <mat-icon>delete</mat-icon>
               </button>
@@ -188,6 +189,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
       <div class="my-3 d-flex justify-content-end">
         <button mat-flat-button color="primary" [disabled]="prescriptionForm.invalid" type="submit">Submit Prescription</button>
       </div>
@@ -196,4 +198,4 @@
   </mat-card-content>
   <mat-card-footer class="example-card-footer">
   </mat-card-footer>
-</mat-card>
+</mat-card></div>

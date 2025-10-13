@@ -1,0 +1,22 @@
+table{
+  width: 100%;
+}
+
+.mat-mdc-table{
+  overflow-x: auto;
+}
+
+.mat-column-id,.mat-column-patientName,.mat-column-diagnosis,.mat-column-date,.mat-column-nextVisit,.mat-column-age,.mat-column-actions{
+  font-size: 20px;
+  text-align: center;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell{
+  cursor: pointer;
+  background-color: #eee;
+}
+
+.custom-button-heigh{
+  height: 50px;
+  line-height: 60px;
+}

@@ -39,7 +39,7 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy{
     this.prescriptionForm = this.fb.group({
       patientId:[0,[Validators.required]],
       date:['',[Validators.required]],
-      age:[0,[Validators.required]],
+      age:[1,[Validators.required,Validators.minLength(1),Validators.maxLength(100)]],
       diagnosis:['',[Validators.required]],
       nextVisit:['',[Validators.required]],
       notes:[''],

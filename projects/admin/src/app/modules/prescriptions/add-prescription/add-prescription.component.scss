@@ -9,7 +9,15 @@
 .icon-display{
   transform: scale(1.5);
 }
+.responsive-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
 
+.responsive-table-container table {
+  min-width: 800px; /* تمنع تكسير الأعمدة */
+  width: 100%;
+}
 
 // :host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
 //   // transform: translateY(-1.7175em) scale(1) !important
