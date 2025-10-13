@@ -1,17 +1,18 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { Router } from '@angular/router';
 import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { IPrescriptionResponse, PrescriptionService } from 'DAL';
 import { JsonPipe } from '@angular/common';
+import { MatIconModule } from "@angular/material/icon";
 
 
 
 @Component({
   selector: 'app-all-prescription',
   standalone: true,
-  imports: [MatButton,MatTableModule, MatPaginatorModule],
+  imports: [MatButtonModule, MatTableModule, MatPaginatorModule, MatIconModule],
   templateUrl: './all-prescription.component.html',
   styleUrl: './all-prescription.component.scss'
 })
@@ -21,7 +22,7 @@ export class AllPrescriptionComponent implements OnInit {
 
   constructor(private router:Router,private service:PrescriptionService){}
   
-  displayedColumns: string[] = ['id', 'patientName', 'diagnosis', 'date', 'nextVisit', 'age'];
+  displayedColumns: string[] = ['id', 'patientName', 'diagnosis', 'date', 'nextVisit', 'age','actions'];
   dataSource=new MatTableDataSource<IPrescriptionResponse>();
   totalItems!:number;
   pageSize:number = this.DEFAULT_PAGE_SIZE;
@@ -51,5 +52,17 @@ export class AllPrescriptionComponent implements OnInit {
   onPageChange(event:PageEvent){
     this.getAllPrescription(event.pageIndex + 1 , event.pageSize)
 
+  }
+
+  updatePrescription(id:number){
+    this.router.navigate(['/prescriptions/update',id])
+  }
+
+  deletePrescription(id:number){
+    this.service.delete(id).subscribe({
+      next:(res)=>{
+        this.getAllPrescription();
+      }
+    })
   }
 }

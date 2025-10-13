@@ -43,5 +43,3 @@ export {loaderInterceptor} from './interceptors/loader.interceptor'
 
 
 
-
-export {MOCK_PRESCRIPTIONS} from './models/prescription'
