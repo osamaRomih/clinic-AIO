@@ -38,13 +38,6 @@
       }
     </mat-form-field>
     <mat-form-field appearance="outline" class="w-100 mb-3">
-      <mat-label>Password</mat-label>
-      <input formControlName="password" type="password" matInput placeholder="Password">
-      @if(userForm.get('password')?.hasError('required')){
-      <mat-error>Password is required</mat-error>
-      }
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="w-100 mb-3">
       <mat-label>Roles</mat-label>
       <mat-select formControlName="roles" multiple>
         @for (role of roles; track role.id) {
@@ -58,10 +51,5 @@
 
 <mat-dialog-actions class="d-flex justify-content-end">
   <button mat-flat-button color="warn" (click)="closeDiaglog()">Close</button>
-  <!-- @if(data?.timeSlot?.id ==undefined){ -->
-  <button mat-flat-button color="primary" (click)="addUser()" cdkFocusInitial>Create</button>
-  <!-- }@else{
-        <button mat-flat-button color="primary" (click)="updateUser(data?.User?.id!)"
-            cdkFocusInitial>Update</button>
-        } -->
+  <button mat-flat-button color="primary" (click)="updateUser()" cdkFocusInitial>Create</button>
 </mat-dialog-actions>

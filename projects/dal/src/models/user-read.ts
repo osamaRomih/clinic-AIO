@@ -1,7 +1,7 @@
-export interface IUserResponse {
+export interface IUserRead {
   id: string;
   firstName: string;
-  lastName: string;
+  lastName?: string;
   userName: string;
   phoneNumber?: string;
   isLocked:boolean,

@@ -4,8 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { IUserResponse, UserService } from 'DAL';
+import { IUser, IUserRead, UserService } from 'DAL';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { UpdateUserComponent } from '../update-user/update-user.component';
 
 @Component({
   selector: 'app-all-users',
@@ -31,7 +32,7 @@ export class AllUsersComponent {
     'isLocked',
     'actions'
   ];
-  dataSource = new MatTableDataSource<IUserResponse>();
+  dataSource = new MatTableDataSource<IUserRead>();
 
   ngOnInit(): void {
     this.getAllUsers();
@@ -57,27 +58,28 @@ export class AllUsersComponent {
     });
   }
 
-  updateUser(id: number) {
-    this.router.navigate(['/Users/update', id]);
+  updateUser(user:IUserRead) {
+    const dialogRef = this.dialog.open(UpdateUserComponent,{
+      width:'750px',
+      data:user
+    })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result){
+        this.getAllUsers();
+      }
+    });
   }
 
-  deleteUser(id: number) {
-    // this.service.delete(id).subscribe({
-    //   next: (res) => {
-    //     this.getAllPrescription();
-    //   },
-    // });
-  }
-  openDialogDetails(id: number) {
-    // this.service.getById(id).subscribe({
-    //   next: (res) => {
-    //     const dialogRef = this.dialog.open(DetailsPrescriptionComponent, {
-    //       data: res,
-    //       width:'750px'
-    //     });
-
-    //     dialogRef.afterClosed().subscribe((result) => {});
-    //   },
-    // });
+  toggleStatus(id: string) {
+    this.service.toggleStatus(id).subscribe({
+      next: (res) => {
+        const user = this.dataSource.data.find(u=>u.id==id);
+        if(user){
+          user.isDisabled = !user.isDisabled;
+          this.dataSource._updateChangeSubscription();
+        }
+      },
+    });
   }
 }

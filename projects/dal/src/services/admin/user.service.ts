@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IUserResponse } from '../../public-api';
+import { IUserRead } from '../../public-api';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,22 @@ baseAPI = 'https://localhost:7096/api';
 
 
   getAll(){
-    return this.httpClient.get<IUserResponse[]>(`${this.baseAPI}/users`);
+    return this.httpClient.get<IUserRead[]>(`${this.baseAPI}/users`);
+  }
+
+  getById(id:string){
+    return this.httpClient.get<IUserRead>(`${this.baseAPI}/users/${id}`);
   }
 
   add(model:any){
     return this.httpClient.post(`${this.baseAPI}/users`,model);
+  }
+
+  update(id:string,model:any){
+    return this.httpClient.put(`${this.baseAPI}/users/${id}`,model);
+  }
+
+  toggleStatus(id:string){
+    return this.httpClient.put(`${this.baseAPI}/users/${id}/toggle-status`,{});
   }
 }

@@ -30,7 +30,7 @@ export {DaySlotsResponse} from './models/timeslot'
 export {TimeSlotResponse} from './models/timeslot'
 export {IPrescription,IPrescriptionItem} from './models/prescription'
 export {IPrescriptionResponse} from './models/prescription'
-export {IUserResponse} from './models/user-response'
+export {IUserRead} from './models/user-read'
 export {IRoleResponse} from './models/role-response'
 export {Menu} from './models/menu'
 
