@@ -5,7 +5,7 @@
 }
 
 mat-drawer {
-  min-width: 500px;
+  min-width: 300px;
   max-width: 300px;
 }
 
@@ -21,7 +21,11 @@ mat-drawer-container  {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #ecececc2;
+  background: #fff;
+}
+
+:host ::ng-deep .mat-drawer-container {
+  background-color: #fff;
 }
 
 
@@ -30,11 +34,4 @@ mat-drawer-container  {
   align-items: center;
   justify-content: center;
   height: 80vh;
-}
-
-
-.date-hour-content {
-  background: #3f51b538;
-  text-align: center;
-  padding: 10px 0;
 }

@@ -1,5 +1,7 @@
-<div class="ms-5 mt-3 pb-3">
-  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<!-- <div class=" profile-page-container"> -->
+  <mat-card class="ps-5 mt-3 pb-3">
+    <mat-card-content>
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <h4 class="text-muted fw-medium mb-3">Profile picture</h4>
       <div class="d-flex align-content-center gap-5">
@@ -58,4 +60,6 @@
 
     <button type="submit" class="btn btn-primary">Save changes</button>
   </form>
-</div>
+    </mat-card-content>
+  </mat-card>
+<!-- </div> -->

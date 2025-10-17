@@ -59,14 +59,13 @@ export class AllTimeSlotsComponent {
     this.timeSlotService.getAll().subscribe({
       next: (res) => {
         this.timeSlots = res.slots;
-        console.log(res);
       },
     });
   }
 
   getTimeSlotsByDay(day:string){
+    if (!this.timeSlots) return [];
     var result = this.timeSlots.find(x=>x.day==day);
-
     return result ? result.timeSlots : [];
   }
 

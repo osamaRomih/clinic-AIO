@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormField, MatFormFieldModule, MatLabel } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import { AuthService, ProfileService } from 'DAL';
@@ -9,7 +10,7 @@ import { Validators } from 'ngx-editor';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [MatFormFieldModule, MatLabel,ReactiveFormsModule,MatInputModule,MatButtonModule],
+  imports: [MatFormFieldModule, MatLabel,ReactiveFormsModule,MatInputModule,MatButtonModule,MatCardModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })

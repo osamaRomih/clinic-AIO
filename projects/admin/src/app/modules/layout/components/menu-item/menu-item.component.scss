@@ -59,3 +59,25 @@
 :host ::ng-deep .mat-mdc-list{
   padding-top:0px;
 }
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  padding-left: 24px;
+  margin-bottom: 34px;
+}
+
+.sidebar-header .logo {
+  width: 28px;
+  height: 28px;
+}
+
+.sidebar-header .brand {
+  font-size: 30px;
+  font-weight: bold;
+    color:#007DFC;
+  margin: 0;
+  font-family: 'Poppins', sans-serif; /* optional font */
+}

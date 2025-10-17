@@ -25,38 +25,25 @@ export class LayoutComponent {
       title: 'Home',
       icon: 'home',
       link: '/home',
-      color: '#ff7f0e',
+      color: '#007DFC',
     },
     {
       title: 'Availability',
       icon: 'home',
       link: '/availability',
-      color: '#ff7f0e',
+      color: '#007dfc',
     },
     {
       title: 'Prescription',
       icon: 'home',
       link: '/prescription',
-      color: '#ff7f0e',
+      color: '#007dfc',
     },
     {
       title: 'Settings',
       icon: 'bar_chart',
-      color: '#ff7f0e',
-      subMenu: [
-        {
-          title: 'Profile',
-          icon: 'money',
-          link: '/settings/profile',
-          color: '#ff7f0e',
-        },
-        {
-          title: 'Change password',
-          icon: 'people',
-          color: '#ff7f0e',
-          link: '/settings/change-password',
-        },
-      ],
+      color: '#007dfc',
+      link: '/settings'
     },
   ]
 
