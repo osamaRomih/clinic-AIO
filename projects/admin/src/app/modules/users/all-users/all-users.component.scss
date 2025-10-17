@@ -1,0 +1,23 @@
+.active-badge,.inactive-badge,.unlocked-badge,.locked-badge{
+  display: block;
+  padding: 8px 25px;
+  color:#fff;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.active-badge{
+  background-color: #58C174;
+}
+
+.inactive-badge{
+  background-color: #BEBEBE;
+}
+
+.locked-badge{
+  background-color: #dc3545;
+}
+
+.unlocked-badge{
+  background-color: #0d6efd;
+}
