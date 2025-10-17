@@ -1,15 +1,29 @@
 
 
-<div class="d-flex">
+<!-- <div class="d-flex">
     <app-aside></app-aside>
 
-    <div class="flex-grow-1">
-        <app-header></app-header> 
+    <div class="flex-grow-1  bg-light">
+        <app-header (menuToggled)="toggle()"></app-header> 
 
-        <div class="bg-white dark:bg-gray-700">
+        <div class=" dark:bg-gray-700 p-3">
             <router-outlet></router-outlet> 
         </div>
     </div>
     
 
+</div> -->
+
+
+<div>
+    <app-header (menuToggled)="toggle()"></app-header>
+    <mat-drawer-container>
+        <mat-drawer mode="side" [opened]="opened">
+          <app-menu-item [menu]="menu"></app-menu-item>
+        </mat-drawer>
+
+        <mat-drawer-content [class.margin-left]="opened">
+          <router-outlet></router-outlet>
+        </mat-drawer-content>
+      </mat-drawer-container>
 </div>

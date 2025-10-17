@@ -29,6 +29,8 @@ export {TimeSlotResponse} from './models/timeslot'
 export {IPrescription,IPrescriptionItem} from './models/prescription'
 export {IPrescriptionResponse} from './models/prescription'
 
+export {Menu} from './models/menu'
+
 
 export {ILoginRequest} from './models/login-request'
 export {ILoginResponse} from './models/login-response'

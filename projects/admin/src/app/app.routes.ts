@@ -8,7 +8,9 @@ import { authGuard } from './guards/auth.guard';
 import { AllPrescriptionComponent } from './modules/prescriptions/all-prescription/all-prescription.component';
 import { AddPrescriptionComponent } from './modules/prescriptions/add-prescription/add-prescription.component';
 import { UpdatePrescriptionComponent } from './modules/prescriptions/update-prescription/update-prescription.component';
-import { ProfileComponent } from './modules/profile/profile.component';
+import { ProfileComponent } from './modules/settings/profile/profile.component';
+import { ChangePasswordComponent } from './modules/settings/change-password/change-password.component';
+import { SettingsComponent } from './modules/settings/settings.component';
 
 export const routes: Routes = [
   {
@@ -17,11 +19,29 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'profile', component: ProfileComponent },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        children: [
+          {path:'',redirectTo:'profile',pathMatch:'full'},
+          { path: 'profile', component: ProfileComponent},
+          {
+            path: 'change-password',
+            component: ChangePasswordComponent,
+          },
+        ],
+      },
+
       { path: 'availability', component: AllTimeSlotsComponent },
       { path: 'prescription', component: AllPrescriptionComponent },
-      { path: 'prescriptions/add-prescription', component: AddPrescriptionComponent },
-      { path: 'prescriptions/update/:id', component: UpdatePrescriptionComponent },
+      {
+        path: 'prescriptions/add-prescription',
+        component: AddPrescriptionComponent,
+      },
+      {
+        path: 'prescriptions/update/:id',
+        component: UpdatePrescriptionComponent,
+      },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

@@ -11,4 +11,8 @@ export class ProfileService {
   updateProfile(formData:FormData){
     return this.httpClient.put(`${this.baseAPI}/me/info`,formData);
   }
+
+  changePassword(model:any){
+    return this.httpClient.put(`${this.baseAPI}/me/change-password`,model);
+  }
 }
