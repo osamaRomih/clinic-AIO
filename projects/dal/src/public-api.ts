@@ -13,6 +13,7 @@ export {PrescriptionService} from './services/admin/prescription.service'
 export {ProfileService} from './services/admin/profile.service'
 export {UserService} from './services/admin/user.service'
 export {RoleService} from './services/admin/role.service'
+export {AppointmentService} from './services/admin/appointment.service'
 export {SnackbarService} from './services/admin/snackbar.service'
 export {BusyService} from './services/admin/busy.service'
 
@@ -34,6 +35,7 @@ export {IPrescription,IPrescriptionItem} from './models/prescription'
 export {IPrescriptionResponse} from './models/prescription'
 export {IUserRead} from './models/user-read'
 export {IRoleResponse} from './models/role-response'
+export {IAppointmentRead} from './models/appointment-read'
 export {Menu} from './models/menu'
 
 

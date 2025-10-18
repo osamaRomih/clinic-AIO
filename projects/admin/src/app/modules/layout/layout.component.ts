@@ -34,6 +34,12 @@ export class LayoutComponent {
       color: '#007dfc',
     },
     {
+      title: 'Appointments',
+      icon: 'home',
+      link: '/appointments',
+      color: '#007dfc',
+    },
+    {
       title: 'Prescriptions',
       icon: 'home',
       link: '/prescription',

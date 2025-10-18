@@ -12,6 +12,7 @@ import { ProfileComponent } from './modules/settings/profile/profile.component';
 import { ChangePasswordComponent } from './modules/settings/change-password/change-password.component';
 import { SettingsComponent } from './modules/settings/settings.component';
 import { AllUsersComponent } from './modules/users/all-users/all-users.component';
+import { AllAppointmentsComponent } from './modules/appointments/all-appointments/all-appointments.component';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,7 @@ export const routes: Routes = [
 
       { path: 'availability', component: AllTimeSlotsComponent },
       { path: 'prescription', component: AllPrescriptionComponent },
+      { path: 'appointments', component: AllAppointmentsComponent },
       { path: 'users', component: AllUsersComponent },
       {
         path: 'prescriptions/add-prescription',

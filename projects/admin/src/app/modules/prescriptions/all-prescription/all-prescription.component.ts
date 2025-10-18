@@ -1,14 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { Component, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-import {
-  MatPaginator,
-  MatPaginatorModule,
-  PageEvent,
-} from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { IPrescriptionResponse, PrescriptionService } from 'DAL';
-import { JsonPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
@@ -99,7 +94,7 @@ export class AllPrescriptionComponent implements OnInit {
       next: (res) => {
         const dialogRef = this.dialog.open(DetailsPrescriptionComponent, {
           data: res,
-          width:'750px'
+          width: '750px',
         });
 
         dialogRef.afterClosed().subscribe((result) => {});
