@@ -38,6 +38,8 @@ export class DetailsPrescriptionComponent {
     this.notes = this.sanitizer.bypassSecurityTrustHtml(
       this.prescription.notes!
     );
+
+    console.log(this.notes)
   }
 
   closeDialog() {
