@@ -19,14 +19,14 @@ import {
   authInterceptor,
   errorInterceptor,
   InitService,
-  loaderInterceptor,
+  loadingInterceptor,
 } from 'DAL';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
       withFetch(),
-      withInterceptors([authInterceptor, errorInterceptor, loaderInterceptor])
+      withInterceptors([authInterceptor, errorInterceptor, loadingInterceptor])
     ),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),

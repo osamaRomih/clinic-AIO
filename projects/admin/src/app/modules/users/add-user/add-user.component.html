@@ -58,10 +58,5 @@
 
 <mat-dialog-actions class="d-flex justify-content-end">
   <button mat-flat-button color="warn" (click)="closeDiaglog()">Close</button>
-  <!-- @if(data?.timeSlot?.id ==undefined){ -->
   <button mat-flat-button color="primary" (click)="addUser()" cdkFocusInitial>Create</button>
-  <!-- }@else{
-        <button mat-flat-button color="primary" (click)="updateUser(data?.User?.id!)"
-            cdkFocusInitial>Update</button>
-        } -->
 </mat-dialog-actions>

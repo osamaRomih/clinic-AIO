@@ -2,14 +2,15 @@ import { Component, EventEmitter, OnInit, Output, output } from '@angular/core';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from 'DAL';
+import { AuthService, BusyService } from 'DAL';
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBar } from "@angular/material/progress-bar";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatIconModule, MatToolbarModule, MatButtonModule,MatMenuModule],
+  imports: [MatIconModule, MatToolbarModule, MatButtonModule,MatMenuModule,MatProgressBar],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit {
     console.log('Logged out');
   }
 
-  constructor(public authService:AuthService){}
+  constructor(public authService:AuthService,public busyService:BusyService){}
 
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;

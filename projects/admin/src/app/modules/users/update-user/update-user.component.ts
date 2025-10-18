@@ -35,21 +35,19 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule,
   ],
   templateUrl: './update-user.component.html',
-  styleUrl: './update-user.component.scss'
+  styleUrl: './update-user.component.scss',
 })
 export class UpdateUserComponent {
-constructor(
+  constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private roleService: RoleService,
-    private dialog:MatDialogRef<UpdateUserComponent>,
+    private dialog: MatDialogRef<UpdateUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IUserRead
-  ) {
-  }
-
+  ) {}
 
   userForm!: FormGroup;
-  roles:IRoleResponse[] = [];
+  roles: IRoleResponse[] = [];
 
   ngOnInit(): void {
     this.createForm();
@@ -63,13 +61,15 @@ constructor(
       phoneNumber: [this.data.phoneNumber, [Validators.required]],
       userName: [this.data.userName, [Validators.required]],
       email: [this.data.email, [Validators.required, Validators.email]],
-      roles: [this.data.roles || [] , [Validators.required]],
+      roles: [this.data.roles || [], [Validators.required]],
     });
   }
 
-  closeDiaglog() {}
+  closeDiaglog() {
+    this.dialog.close();
+  }
 
-  getAllRoles(){
+  getAllRoles() {
     this.roleService.getAll().subscribe({
       next: (res) => {
         this.roles = res;
@@ -77,8 +77,8 @@ constructor(
     });
   }
   updateUser() {
-    console.log(this.userForm.value)
-    this.userService.update(this.data.id,this.userForm.value).subscribe({
+    console.log(this.userForm.value);
+    this.userService.update(this.data.id, this.userForm.value).subscribe({
       next: (res) => {
         this.dialog.close(true);
       },

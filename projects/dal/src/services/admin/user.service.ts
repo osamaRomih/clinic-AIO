@@ -3,31 +3,34 @@ import { Injectable } from '@angular/core';
 import { IUserRead } from '../../public-api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-baseAPI = 'https://localhost:7096/api';
+  baseAPI = 'https://localhost:7096/api';
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-
-  getAll(){
+  getAll() {
     return this.httpClient.get<IUserRead[]>(`${this.baseAPI}/users`);
   }
 
-  getById(id:string){
+  getById(id: string) {
     return this.httpClient.get<IUserRead>(`${this.baseAPI}/users/${id}`);
   }
 
-  add(model:any){
-    return this.httpClient.post(`${this.baseAPI}/users`,model);
+  add(model: any) {
+    return this.httpClient.post(`${this.baseAPI}/users`, model);
   }
 
-  update(id:string,model:any){
-    return this.httpClient.put(`${this.baseAPI}/users/${id}`,model);
+  update(id: string, model: any) {
+    return this.httpClient.put(`${this.baseAPI}/users/${id}`, model);
   }
 
-  toggleStatus(id:string){
-    return this.httpClient.put(`${this.baseAPI}/users/${id}/toggle-status`,{});
+  toggleStatus(id: string) {
+    return this.httpClient.put(`${this.baseAPI}/users/${id}/toggle-status`, {});
+  }
+
+  unlock(id: string) {
+    return this.httpClient.put(`${this.baseAPI}/users/${id}/unlock`, {});
   }
 }

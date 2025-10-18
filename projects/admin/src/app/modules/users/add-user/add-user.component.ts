@@ -48,8 +48,12 @@ export class AddUserComponent implements OnInit {
   roles:IRoleResponse[] = [];
 
   ngOnInit(): void {
-        this.createForm();
+    this.createForm();
 
+    this.getAllRoles();
+  }
+
+  getAllRoles() {
     this.roleService.getAll().subscribe({
       next: (res) => {
         this.roles = res;
@@ -69,7 +73,9 @@ export class AddUserComponent implements OnInit {
     });
   }
 
-  closeDiaglog() {}
+  closeDiaglog() {
+    this.dialog.close();
+  }
   addUser() {
     console.log(this.userForm.value)
     this.userService.add(this.userForm.value).subscribe({

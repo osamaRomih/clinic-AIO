@@ -40,9 +40,9 @@
         <th mat-header-cell *matHeaderCellDef> Disabled </th>
         <td mat-cell *matCellDef="let element">
           @if(element.isDisabled){
-            <span class="inactive-badge">In Active</span>
+          <span class="inactive-badge">In Active</span>
           }@else {
-            <span class="active-badge">Active</span>
+          <span class="active-badge">Active</span>
           }
         </td>
       </ng-container>
@@ -50,9 +50,9 @@
         <th mat-header-cell *matHeaderCellDef> Locked </th>
         <td mat-cell *matCellDef="let element">
           @if(element.isLocked){
-            <span class="locked-badge">Locked</span>
+          <span class="locked-badge">Locked</span>
           }@else {
-            <span class="unlocked-badge">Un locked</span>
+          <span class="unlocked-badge">Unlocked</span>
           }
         </td>
       </ng-container>
@@ -63,26 +63,28 @@
           </div>
         </th>
         <td mat-cell *matCellDef="let element">
-          <div class="d-flex align-items-center justify-content-center gap-3">
-            <button class="btn btn-danger" (click)="toggleStatus(element.id)">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="toggleStatus(element.id)">
               @if(element.isDisabled){
               <i class="fa-solid fa-lock-open"></i>
+              Activate
               }@else {
               <i class="fa-solid fa-lock"></i>
+              Disable
               }
             </button>
-            <button class="btn btn-primary" (click)="updateUser(element.id)">
-              @if(element.isLocked){
+            <button mat-menu-item [disabled]="!element.isLocked" (click)="unlockUser(element)">
               <i class="fa-solid fa-check"></i>
-              }@else {
-              <i class="fa-solid fa-xmark"></i>
-              }
+              Unlock
             </button>
-            <button class="btn btn-success" (click)="updateUser(element)">
+            <button mat-menu-item (click)="updateUser(element)">
               <mat-icon>edit</mat-icon>
+              Update
             </button>
-            
-          </div>
+          </mat-menu>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

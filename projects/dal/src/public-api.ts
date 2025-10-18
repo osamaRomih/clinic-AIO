@@ -13,6 +13,8 @@ export {PrescriptionService} from './services/admin/prescription.service'
 export {ProfileService} from './services/admin/profile.service'
 export {UserService} from './services/admin/user.service'
 export {RoleService} from './services/admin/role.service'
+export {SnackbarService} from './services/admin/snackbar.service'
+export {BusyService} from './services/admin/busy.service'
 
 
 // patient services
@@ -44,7 +46,7 @@ export {IUser} from './models/user'
 
 export {authInterceptor} from './interceptors/auth.interceptor'
 export {errorInterceptor} from './interceptors/error.interceptor'
-export {loaderInterceptor} from './interceptors/loader.interceptor'
+export {loadingInterceptor} from './interceptors/loading.interceptor'
 
 
 
