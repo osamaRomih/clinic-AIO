@@ -13,6 +13,7 @@ import { ChangePasswordComponent } from './modules/settings/change-password/chan
 import { SettingsComponent } from './modules/settings/settings.component';
 import { AllUsersComponent } from './modules/users/all-users/all-users.component';
 import { AllAppointmentsComponent } from './modules/appointments/all-appointments/all-appointments.component';
+import { CalanderComponent } from './modules/calander/calander.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,7 @@ export const routes: Routes = [
       { path: 'availability', component: AllTimeSlotsComponent },
       { path: 'prescription', component: AllPrescriptionComponent },
       { path: 'appointments', component: AllAppointmentsComponent },
+      { path: 'calander', component: CalanderComponent },
       { path: 'users', component: AllUsersComponent },
       {
         path: 'prescriptions/add-prescription',

@@ -2,25 +2,50 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPagedResponse } from '../../models/IPagedResponse';
 import { IAppointmentRead } from '../../models/appointment-read';
+import { map, Observable } from 'rxjs';
+import { IAppointmentEvent } from '../../models/appointment-event';
+import { EventInput } from '@fullcalendar/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppointmentService {
   baseAPI = 'https://localhost:7096/api';
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-  create(model:any){
-    return this.httpClient.post(`${this.baseAPI}/appointments`,model);
+  create(model: any) {
+    return this.httpClient.post(`${this.baseAPI}/appointments`, model);
   }
 
-  getAll(pageNumber:number,pageSize:number){
+  getAll(pageNumber: number, pageSize: number) {
     var params = new HttpParams();
-    params = params.append('pageNumber',pageNumber);
-    params = params.append('pageSize',pageSize);
+    params = params.append('pageNumber', pageNumber);
+    params = params.append('pageSize', pageSize);
 
-    return this.httpClient.get<IPagedResponse<IAppointmentRead>>(`${this.baseAPI}/appointments`,{params});
+    return this.httpClient.get<IPagedResponse<IAppointmentRead>>(
+      `${this.baseAPI}/appointments`,
+      { params }
+    );
+  }
+
+  getAllInRange(start: string, end: string):Observable<EventInput[]> {
+    return this.httpClient
+      .get<IAppointmentEvent[]>(
+        `${this.baseAPI}/appointments/range?start=${start}&end=${end}`
+      )
+      .pipe(
+        map((items) =>
+          items.map((item) => {
+            return {
+              id: String(item.id),
+              title:`${item.patientName} - ${item.status}`,
+              start: new Date(`${item.date} ${item.time}`).toISOString(),
+              backgroundColor: item.status == 'Booked' ? '#2196f3' : '#f44336',
+            } as EventInput;
+          })
+        )
+      );
   }
 
   // getById(id:number){

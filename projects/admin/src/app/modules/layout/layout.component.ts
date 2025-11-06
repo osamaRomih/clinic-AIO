@@ -57,6 +57,12 @@ export class LayoutComponent {
       color: '#007dfc',
       link: '/settings'
     },
+    {
+      title: 'Calander',
+      icon: 'bar_chart',
+      color: '#007dfc',
+      link: '/calander'
+    },
   ]
 
 }

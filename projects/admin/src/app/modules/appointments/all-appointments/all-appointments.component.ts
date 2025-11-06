@@ -80,7 +80,7 @@ export class AllAppointmentsComponent implements OnInit {
   }
 
   updateAppointment(id: number) {
-    this.router.navigate(['/Appointments/update', id]);
+    // this.router.navigate(['/Appointments/update', id]);
   }
 
   deleteAppointment(id: number) {
