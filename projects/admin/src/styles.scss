@@ -19,9 +19,10 @@
 /* Ensure the mat-form-field takes up the full width of the cell content area */
 :root {
   @include mat.table-overrides((
-    header-headline-size:20px,
-    header-headline-weight:bold,
-    row-item-label-text-font:17px
+    header-headline-size:14px,
+    header-headline-weight:600,
+    row-item-label-text-font:17px,
+    header-headline-color:#1a1b1f
   ));
 }
 
@@ -39,4 +40,59 @@
     container-color: green,
     supporting-text-color: white
   ));
+}
+
+input{
+  outline: none;
+  font-size: 14px !important;
+    text-decoration: none;
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.col-red{
+  color: #f44336 !important
+}
+
+.col-green {
+    color: #4caf50 !important;
+}
+
+.col-blue {
+    color: #2196f3 !important;
+}
+
+span.badge {
+    min-width: auto;
+    float: none;
+    font-size: 13px;
+}
+
+.badge-solid-purple {
+    color: #6f42c1;
+    background-color: #6f42c126;
+    border: none;
+    padding: 5px 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    border-radius: 5px;
+
+}
+
+.badge-solid-green {
+    color: #198754;
+    background-color: #19875426;
+    border: none;
+    padding: 5px 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    border-radius: 5px;
+
 }

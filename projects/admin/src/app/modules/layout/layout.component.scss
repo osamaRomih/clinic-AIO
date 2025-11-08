@@ -14,7 +14,7 @@ mat-drawer {
 }
 
 mat-drawer-container  {
-  min-height: calc( 100vh - 64px );
+  min-height: 100vh;
 }
 
 ::ng-deep .mat-drawer-inner-container {
@@ -25,7 +25,7 @@ mat-drawer-container  {
 }
 
 :host ::ng-deep .mat-drawer-container {
-  background-color: #fff;
+  background-color: #f0f3fb;
 }
 
 

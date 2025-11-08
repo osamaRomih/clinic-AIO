@@ -1,32 +1,92 @@
-.patient-img{
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+.page-wrapper{
+  padding: 25px 25px 0 25px;
+}
+.breadcrumb{
+  font-size: 15px;
+  color:#555;
 }
 
-.time-badge{
-  padding:8px 12px ;
-  background-color: #E8F7FB;
-  color:#26C0E2;
-  font-size: 18px;
-  font-weight: 500;
-  border-radius: 18px;
-  text-align: center;
-  width: fit-content;
-}
-
-.status-badge{
-  color:#fff;
-  padding:7.5px 18px;
-  border-radius: 10px;
-  width: fit-content;
+.breadcrumb .page-title{
   font-size: 20px;
-  text-transform: capitalize;
+  color:#444;
+  margin-bottom: 0px;
 }
 
-.booked-status{
-  background-color: #007DFC;
+.breadcrumb-icon img{
+  width: 18px;
+  height: 18px;
+  color:#2c323f;
 }
-.canceled-status{
-  background-color: #BEBEBE;
+
+.breadcrumb.active{
+  color:#444;
+  font-weight: 400;
+}
+
+.materialTableHeader{
+  align-items: center;
+  border-color: #dae1f3;
+  background-color: #dae1f3;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+  padding:0 5px;
+}
+
+.materialTableHeader .left{
+  flex: 35%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  
+}
+
+.materialTableHeader h2{
+  font-size: 16px;
+  color:#5b626b
+}
+
+.materialTableHeader .input-search-field{
+  font-weight: 500;
+    color: #0000008a;
+    border-radius: 5px;
+    border: 0;
+    height: 45px;
+    padding: 8px 8px 8px 50px;
+    width: 100%;
+    background: #fff;
+}
+
+.search-icon{
+  position: absolute;
+  top:10px;
+  padding-left: 4px;
+  color:#0000008a;
+}
+
+.materialTableHeader .tbl-search-box input.search-field{
+  font-weight: 500;
+    color: #0000008a;
+    border-radius: 5px;
+    border: 0;
+    height: 45px;
+    padding: 8px 8px 8px 50px;
+    width: 100%;
+    background: #fff;
+}
+
+.btn-download{
+  color:#2196f3 !important
+}
+
+.file-download-icon{
+  font-size: 21px !important;
+}
+
+.avatar{
+  border-radius: 50%;
+  margin-right: 10px;
+  width: 40px;
+  height: 40px;
 }
