@@ -96,3 +96,11 @@ span.badge {
     border-radius: 5px;
 
 }
+
+.mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background{
+  background-color: #005cbb !important;
+  border-color:#005cbb !important
+}
+.mat-mdc-checkbox-ripple, .mdc-checkbox__ripple{
+  display: none !important;
+}

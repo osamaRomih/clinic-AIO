@@ -48,6 +48,14 @@ export class AppointmentService {
       );
   }
 
+  deleteMany(ids:number[]){
+    return this.httpClient.request<void>('DELETE',`${this.baseAPI}/appointments`,{body:{ids}})
+  }
+
+  delete(id:number){
+    return this.httpClient.delete<void>(`${this.baseAPI}/appointments/${id}`);
+  }
+
   // getById(id:number){
   //   return this.httpClient.get<IPrescription>(`${this.baseAPI}/prescriptions/${id}`);
   // }

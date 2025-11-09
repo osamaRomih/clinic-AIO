@@ -3,6 +3,9 @@ export interface IAppointmentRead {
   imageUrl: string;
   patientName: string;
   phoneNumber: string;
+  email:string;
+  gender:string;
+  address:string;
   date: string;
   startTime: string;
   endTime: string;
