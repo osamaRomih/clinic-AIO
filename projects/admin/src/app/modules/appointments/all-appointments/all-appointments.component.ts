@@ -112,12 +112,12 @@ export class AllAppointmentsComponent {
       return {
         'Patient Name': item.patientName,
         'Appointment Date': item.date,
-        Time: item.startTime,
-        Email: item.email,
-        Mobile: item.phoneNumber,
-        Gender: item.gender,
-        Status: item.status,
-        Address: item.address,
+        'Time': item.startTime,
+        'Email': item.email,
+        'Mobile': item.phoneNumber,
+        'Gender': item.gender,
+        'Status': item.status,
+        'Address': item.address,
         'Reason For Visit': item.reasonForVisit,
       };
     });

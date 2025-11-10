@@ -1,0 +1,23 @@
+<div class="page-wrapper">
+
+  <div class="breadcrumb">
+    <li>
+      <h4 class="page-title">Appointment Calender</h4>
+    </li>
+    <mat-icon>chevron_right</mat-icon>
+    <li class="breadcrumb-item breadcrumb-icon d-flex align-items-center"><img src="/assets/images/home.svg" /></li>
+    <mat-icon>chevron_right</mat-icon>
+    <li class="breadcrumb-item">Appointment</li>
+    <mat-icon>chevron_right</mat-icon>
+    <li class="breadcrumb-item active">Calender</li>
+  </div>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Doctor Appointment Schedule</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <full-calendar [options]="calendarOptions"></full-calendar>
+    </mat-card-content>
+  </mat-card>
+</div>

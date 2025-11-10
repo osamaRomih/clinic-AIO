@@ -40,6 +40,12 @@ export class LayoutComponent {
       color: '#007dfc',
     },
     {
+      title: 'Appointment Calender',
+      icon: 'schedule',
+      link: '/appointment/appointment-calender',
+      color: '#007dfc',
+    },
+    {
       title: 'Prescriptions',
       icon: 'home',
       link: '/prescription',

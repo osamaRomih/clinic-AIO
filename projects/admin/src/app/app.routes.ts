@@ -14,6 +14,7 @@ import { SettingsComponent } from './modules/settings/settings.component';
 import { AllUsersComponent } from './modules/users/all-users/all-users.component';
 import { AllAppointmentsComponent } from './modules/appointments/all-appointments/all-appointments.component';
 import { CalanderComponent } from './modules/calander/calander.component';
+import { AppointmentCalenderComponent } from './modules/appointments/appointment-calender/appointment-calender.component';
 
 export const routes: Routes = [
   {
@@ -26,18 +27,21 @@ export const routes: Routes = [
         path: 'settings',
         component: SettingsComponent,
         children: [
-          {path:'',redirectTo:'profile',pathMatch:'full'},
-          { path: 'profile', component: ProfileComponent},
+          { path: '', redirectTo: 'profile', pathMatch: 'full' },
+          { path: 'profile', component: ProfileComponent },
           {
             path: 'change-password',
             component: ChangePasswordComponent,
           },
         ],
       },
-
       { path: 'availability', component: AllTimeSlotsComponent },
       { path: 'prescription', component: AllPrescriptionComponent },
       { path: 'appointments', component: AllAppointmentsComponent },
+      {
+        path: 'appointment/appointment-calender',
+        component: AppointmentCalenderComponent,
+      },
       { path: 'calander', component: CalanderComponent },
       { path: 'users', component: AllUsersComponent },
       {

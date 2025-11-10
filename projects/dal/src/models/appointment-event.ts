@@ -4,5 +4,6 @@ export interface IAppointmentEvent{
   time: string;    
   doctorName: string;
   patientName:string;
+  image:string;
   status: string;
 }

@@ -39,9 +39,13 @@ export class AppointmentService {
           items.map((item) => {
             return {
               id: String(item.id),
-              title:`${item.patientName} - ${item.status}`,
+              title:item.patientName,
               start: new Date(`${item.date} ${item.time}`).toISOString(),
               backgroundColor: item.status == 'Booked' ? '#2196f3' : '#f44336',
+              extendedProps:{
+                image:item.image,
+                status:item.status
+              }
             } as EventInput;
           })
         )
