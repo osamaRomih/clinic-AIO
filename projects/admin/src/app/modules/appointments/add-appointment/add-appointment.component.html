@@ -33,12 +33,30 @@
           </div>
           <div class="mb-3 col-md-6 col-lg-4 col-12">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Patient id</mat-label>
-              <input formControlName="patientId" matInput placeholder="Patient id">
-              @if(appointmentForm.get('patientId')?.hasError('required')){
-              <mat-error>Patient id is required</mat-error>
-              }
+              <mat-label>Patient</mat-label>
+              <input matInput placeholder="Search by name" formControlName="patientSearch" [matAutocomplete]="auto" />
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onPatientSelected($event)">
+                <mat-option *ngFor="let p of filteredPatients | async" [value]="p">
+                  <div class="d-flex align-items-center">
+                    <img [src]="'https://localhost:7096/'+p.imageUrl" class="patient-img" />
+                    <div class="ms-2">
+                      <div>{{ p.fullName }}</div>
+                      <div class="fs-6 text-muted">{{p.phoneNumber}}</div>
+                    </div>
+                  </div>
+                </mat-option>
+                <mat-option *ngIf="(filteredPatients | async)?.length === 0" disabled>
+                  No results
+                </mat-option>
+              </mat-autocomplete>
             </mat-form-field>
+
+            <!-- hidden control that holds the id to submit -->
+            <input type="hidden" formControlName="patientId" />
+            <mat-error *ngIf="appointmentForm.get('patientSearch')?.hasError('required')">
+              Patient is required
+            </mat-error>
+
           </div>
           <div class="mb-3 col-md-6 col-lg-4 col-12">
             <mat-form-field appearance="outline" class="w-100">
@@ -88,7 +106,8 @@
         <div class="row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3 text-end">
             <!-- <button mat-raised-button>Reset Form</button> -->
-            <button type="submit" mat-flat-button color="primary" [disabled]="appointmentForm.invalid">Submit Appointment</button>
+            <button type="submit" mat-flat-button color="primary" [disabled]="appointmentForm.invalid">Submit
+              Appointment</button>
           </div>
         </div>
       </form>

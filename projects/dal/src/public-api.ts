@@ -16,6 +16,7 @@ export {RoleService} from './services/admin/role.service'
 export {AppointmentService} from './services/admin/appointment.service'
 export {SnackbarService} from './services/admin/snackbar.service'
 export {BusyService} from './services/admin/busy.service'
+export {PatientService} from './services/admin/patient.service'
 
 
 // patient services
@@ -37,6 +38,7 @@ export {IUserRead} from './models/user-read'
 export {IRoleResponse} from './models/role-response'
 export {IAppointmentRead} from './models/appointment-read'
 export {Menu} from './models/menu'
+export {IActivePatient} from './models/patient'
 
 
 export {ILoginRequest} from './models/login-request'
