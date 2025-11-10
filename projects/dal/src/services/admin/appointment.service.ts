@@ -5,6 +5,7 @@ import { IAppointmentRead } from '../../models/appointment-read';
 import { map, Observable } from 'rxjs';
 import { IAppointmentEvent } from '../../models/appointment-event';
 import { EventInput } from '@fullcalendar/core';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,8 @@ export class AppointmentService {
             return {
               id: String(item.id),
               title:item.patientName,
-              start: new Date(`${item.date} ${item.time}`).toISOString(),
+              start: moment(new Date(`${item.date} ${item.startTime}`), 'YYYY-MM-DD HH:mm').format(),
+              end: moment(new Date(`${item.date} ${item.endTime}`), 'YYYY-MM-DD HH:mm').format(),
               backgroundColor: item.status == 'Booked' ? '#2196f3' : '#f44336',
               extendedProps:{
                 image:item.image,
@@ -59,6 +61,7 @@ export class AppointmentService {
   delete(id:number){
     return this.httpClient.delete<void>(`${this.baseAPI}/appointments/${id}`);
   }
+
 
   // getById(id:number){
   //   return this.httpClient.get<IPrescription>(`${this.baseAPI}/prescriptions/${id}`);

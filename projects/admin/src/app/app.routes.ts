@@ -15,6 +15,7 @@ import { AllUsersComponent } from './modules/users/all-users/all-users.component
 import { AllAppointmentsComponent } from './modules/appointments/all-appointments/all-appointments.component';
 import { CalanderComponent } from './modules/calander/calander.component';
 import { AppointmentCalenderComponent } from './modules/appointments/appointment-calender/appointment-calender.component';
+import { AddAppointmentComponent } from './modules/appointments/add-appointment/add-appointment.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,9 @@ export const routes: Routes = [
       {
         path: 'appointment/appointment-calender',
         component: AppointmentCalenderComponent,
+      },{
+        path:'appointment/bookAppointment',
+        component:AddAppointmentComponent
       },
       { path: 'calander', component: CalanderComponent },
       { path: 'users', component: AllUsersComponent },

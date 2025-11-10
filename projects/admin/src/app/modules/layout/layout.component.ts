@@ -50,6 +50,12 @@ export class LayoutComponent {
           color: '#007dfc',
           link: '/appointments',
         },
+        {
+          title:'Book Appointment',
+          icon:'',
+          color:'#007DFC',
+          link:'/appointment/bookAppointment'
+        }
       ],
     },
     {

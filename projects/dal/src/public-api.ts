@@ -28,7 +28,7 @@ export {BusyService} from './services/admin/busy.service'
 
 // admin interfaces
 export {ITimeSlot} from './models/timeslot'
-export {WeeklyScheduleResponse} from './models/timeslot'
+export {ScheduleResponse} from './models/timeslot'
 export {DaySlotsResponse} from './models/timeslot'
 export {TimeSlotResponse} from './models/timeslot'
 export {IPrescription,IPrescriptionItem} from './models/prescription'

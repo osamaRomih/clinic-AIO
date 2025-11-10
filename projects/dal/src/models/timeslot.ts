@@ -4,7 +4,7 @@ export interface ITimeSlot {
     endTime:string;
 }
 
-export interface WeeklyScheduleResponse {
+export interface ScheduleResponse {
   slots: DaySlotsResponse[];
 }
 
@@ -17,5 +17,5 @@ export interface TimeSlotResponse {
   id: number;
   startTime: string;
   endTime: string;
-  isActive: boolean;
+  isBooked: boolean;
 }
