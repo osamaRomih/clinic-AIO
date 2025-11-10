@@ -60,24 +60,11 @@
   padding-top:0px;
 }
 
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 32px;
-  padding-left: 24px;
-  margin-bottom: 34px;
+
+:host ::ng-deep .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none;
 }
 
-.sidebar-header .logo {
-  width: 28px;
-  height: 28px;
-}
-
-.sidebar-header .brand {
-  font-size: 30px;
-  font-weight: bold;
-    color:#007DFC;
-  margin: 0;
-  font-family: 'Poppins', sans-serif; /* optional font */
+:host ::ng-deep .mat-expansion-panel-body {
+    padding: 0 24px 0;
 }

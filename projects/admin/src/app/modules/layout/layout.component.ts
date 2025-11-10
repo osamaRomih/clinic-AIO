@@ -35,15 +35,22 @@ export class LayoutComponent {
     },
     {
       title: 'Appointments',
-      icon: 'home',
-      link: '/appointments',
-      color: '#007dfc',
-    },
-    {
-      title: 'Appointment Calender',
       icon: 'schedule',
-      link: '/appointment/appointment-calender',
       color: '#007dfc',
+      subMenu: [
+        {
+          title: 'Appointment Calender',
+          icon: '',
+          link: '/appointment/appointment-calender',
+          color: '#007dfc',
+        },
+        {
+          title: 'View Appointment',
+          icon: '',
+          color: '#007dfc',
+          link: '/appointments',
+        },
+      ],
     },
     {
       title: 'Prescriptions',

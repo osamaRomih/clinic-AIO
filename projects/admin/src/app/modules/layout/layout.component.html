@@ -1,6 +1,10 @@
 <div>
     <mat-drawer-container>
         <mat-drawer mode="side" [opened]="opened">
+            <div class="sidebar-header">
+                <img src="assets/images/logo.svg" class="logo" alt="logo" />
+                <h2 class="brand">Clinic</h2>
+            </div>
             <app-menu-item [menu]="menu"></app-menu-item>
         </mat-drawer>
 

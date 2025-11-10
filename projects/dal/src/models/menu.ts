@@ -7,6 +7,7 @@ export interface MenuItem {
   hideFor?: string;
 
   expanded?: boolean;
+  subMenu?:MenuItem[];
 }
 
 export type Menu = MenuItem[];
