@@ -16,6 +16,7 @@ import { AllAppointmentsComponent } from './modules/appointments/all-appointment
 import { CalanderComponent } from './modules/calander/calander.component';
 import { AppointmentCalenderComponent } from './modules/appointments/appointment-calender/appointment-calender.component';
 import { AddAppointmentComponent } from './modules/appointments/add-appointment/add-appointment.component';
+import { ChatComponent } from './modules/chat/chat.component';
 
 export const routes: Routes = [
   {
@@ -46,6 +47,7 @@ export const routes: Routes = [
         path:'appointment/bookAppointment',
         component:AddAppointmentComponent
       },
+      {path:'chat',component:ChatComponent},
       { path: 'calander', component: CalanderComponent },
       { path: 'users', component: AllUsersComponent },
       {

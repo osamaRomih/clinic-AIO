@@ -59,6 +59,12 @@ export class LayoutComponent {
       ],
     },
     {
+      title:'Chat',
+      icon:'chat',
+      color:'#007DFC',
+      link:'/chat'
+    },
+    {
       title: 'Prescriptions',
       icon: 'home',
       link: '/prescription',
