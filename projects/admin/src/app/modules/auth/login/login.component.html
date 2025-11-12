@@ -1,4 +1,4 @@
-<div class="flex md:flex-row flex-col-reverse  bg-[#fafafa]">
+<!-- <div class="flex md:flex-row flex-col-reverse  bg-[#fafafa]">
     <div class="w-full md:w-[450px] bg-white">
         <div class="mt-[130px] flex ml-[9px] justify-center items-center">
             <img src="assets/images/logo.svg" />
@@ -36,6 +36,61 @@
     <div class="flex-1 h-[100vh] flex justify-center items-center">
         <div class="w-[350px] md:w-[450px] xl:w-[650px]">
             <img src="assets/images/Illustration.svg" class="w-full h-full" />
+        </div>
+    </div>
+</div> -->
+
+<!-- login.component.html -->
+<div class="d-flex flex-column-reverse flex-md-row bg-light min-vh-100">
+    <!-- left panel (form) -->
+    <div class="bg-white w-100" style="max-width:450px;">
+        <div class="pt-5" style="margin-top:130px;">
+            <div class="d-flex justify-content-center align-items-center">
+                <img src="assets/images/logo.svg" alt="logo" class="me-2" />
+                <span class="text-primary fw-bold" style="font-size:32px">Clinic</span>
+            </div>
+
+            <div class="text-center fw-semibold" style="font-size:25px; margin-top:23px;">
+                Log in
+            </div>
+
+            <div class="mt-4 px-4">
+                <form [formGroup]="loginForm" (ngSubmit)="login()" class="mx-auto" style="max-width:360px;">
+                    <!-- Email / Username -->
+                    <mat-form-field appearance="fill" class="w-100 mb-3">
+                        <mat-label>Email / Usename</mat-label>
+                        <input matInput placeholder="Enter your email or username" formControlName="emailOrUsername">
+                        @if(loginForm.get('emailOrUsername')?.hasError('required')){
+                        <mat-error>Email or username is required</mat-error>
+                        }
+                    </mat-form-field>
+
+                    <!-- Password -->
+                    <mat-form-field class="w-100 mb-3">
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" />
+                        <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide()">
+                            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        @if(loginForm.get('password')?.hasError('required')){
+                        <mat-error>Password is required</mat-error>
+                        }
+                    </mat-form-field>
+
+                    <!-- Submit -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-3">Log in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- right panel (illustration) -->
+    <div class="flex-fill d-flex justify-content-center align-items-center" style="min-height:100vh;">
+        <div class="w-75 w-md-50" style="max-width:650px;">
+            <img src="assets/images/Illustration.svg" class="img-fluid" alt="illustration" />
         </div>
     </div>
 </div>

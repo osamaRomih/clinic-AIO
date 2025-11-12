@@ -185,6 +185,9 @@ export class AllAppointmentsComponent {
       });
   }
 
+  update(id:number){
+    this.router.navigate(['appointment/updateAppointment', id]);
+  }
 
   delete(id:number){
     this.service.delete(id).subscribe({

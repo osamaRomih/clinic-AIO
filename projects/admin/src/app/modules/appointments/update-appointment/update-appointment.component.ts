@@ -28,6 +28,8 @@ import {
   AppointmentService,
   AuthService,
   IActivePatient,
+  IAppointment,
+  IAppointmentRead,
   PatientService,
   ScheduleResponse,
   SnackbarService,
@@ -42,9 +44,10 @@ import {
 } from '@angular/material/autocomplete';
 import moment from 'moment';
 import { map, Observable, startWith } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
-  selector: 'app-add-appointment',
+  selector: 'app-update-appointment',
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
@@ -64,21 +67,23 @@ import { Router } from '@angular/router';
     AsyncPipe,
     CommonModule,
   ],
-  templateUrl: './add-appointment.component.html',
-  styleUrl: './add-appointment.component.scss',
+  templateUrl: './update-appointment.component.html',
+  styleUrl: './update-appointment.component.scss',
 })
-export class AddAppointmentComponent implements OnInit {
+export class UpdateAppointmentComponent implements OnInit {
   timeSlots: TimeSlotResponse[] = [];
   appointmentForm!: FormGroup;
   patients: IActivePatient[] = [];
   filteredPatients: Observable<IActivePatient[]> | undefined;
-
+  appointment!: IAppointment;
+  appointmentId!: number;
   constructor(
     private timeSlotService: TimeslotService,
     private appointmentService: AppointmentService,
     private patientService: PatientService,
-    private snackBarService:SnackbarService,
-    private router:Router,
+    private snackBarService: SnackbarService,
+    private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder
   ) {}
 
@@ -88,28 +93,61 @@ export class AddAppointmentComponent implements OnInit {
         patient.fullName.toLowerCase().indexOf(fullName.toLowerCase()) === 0
     );
 
-    return arr.length ? arr : [{ fullName: 'No Item found', id: 0,imageUrl:'',phoneNumber:'' }];
+    return arr.length
+      ? arr
+      : [{ fullName: 'No Item found', id: 0, imageUrl: '', phoneNumber: '' }];
   }
   ngOnInit(): void {
-    this.createForm();
+    this.appointmentId = Number(this.route.snapshot.paramMap.get('id'));
+    this.initForm();
+
     this.loadPatients();
+    this.loadAppointment();
+  }
+
+  initForm() {
+    this.appointmentForm = this.fb.group({
+      patientSearch: [''],
+      patientId: [null],
+      timeSlotId: [null],
+      date: [''],
+      reasonForVisit: [''],
+      visitType: [''],
+    });
   }
 
   createForm() {
     this.appointmentForm = this.fb.group({
-      patientSearch: [''],
-      patientId: [null, [Validators.required]],
-      timeSlotId: [null, [Validators.required]],
-      date: ['', [Validators.required]],
-      reasonForVisit: ['', [Validators.required]],
-      visitType: ['', [Validators.required]],
+      patientSearch: [this.appointment.patientName],
+      patientId: [this.appointment.patientId, [Validators.required]],
+      timeSlotId: [this.appointment, [Validators.required]],
+      date: [this.appointment.date, [Validators.required]],
+      reasonForVisit: [this.appointment.reasonForVisit, [Validators.required]],
+      visitType: [this.appointment.visitType, [Validators.required]],
     });
   }
 
+  loadAppointment() {
+    this.appointmentService.getById(this.appointmentId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.appointment = res;
+        // this.getTimeByDate(moment(this.appointment.date).format('YYYY-MM-DD'))
+
+        this.createForm();
+      },
+    });
+  }
+
+  // get time slots when click to day in calender
   getTimeSlots(event: MatDatepickerInputEvent<Date>) {
     if (!event.value) return;
 
     const date = moment(event.value).format('YYYY-MM-DD');
+    this.getTimeByDate(date);
+  }
+
+  getTimeByDate(date:string){
     this.timeSlotService.getAll(date).subscribe({
       next: (res) => {
         this.timeSlots = res.slots.length > 0 ? res.slots[0].timeSlots : [];
@@ -150,17 +188,19 @@ export class AddAppointmentComponent implements OnInit {
       date: moment(date).format('YYYY-MM-DD'),
       doctorId: '57ff9f9a-6b56-4c6b-beeb-62cf2c6fd66e', // TODO:Change it to doctor id
     };
-    this.appointmentService.create(model).subscribe({
+    this.appointmentService.update(this.appointmentId, model).subscribe({
       next: () => {
-        this.snackBarService.success("The appointment added successfully");
-        this.router.navigateByUrl('/appointments')
+        this.snackBarService.success('The appointment added successfully');
+        this.router.navigateByUrl('/appointments');
       },
       error: () => {},
     });
   }
 
   private bindPatientSearch() {
-    this.filteredPatients = this.appointmentForm.get('patientSearch')?.valueChanges.pipe(
+    this.filteredPatients = this.appointmentForm
+      .get('patientSearch')
+      ?.valueChanges.pipe(
         startWith(''),
         map((value) => (value ?? '').toString().toLowerCase().trim()),
         map((term) =>

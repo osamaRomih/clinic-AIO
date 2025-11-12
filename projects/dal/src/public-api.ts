@@ -38,6 +38,7 @@ export {IUserRead} from './models/user-read'
 export {IChatUser} from './models/user'
 export {IRoleResponse} from './models/role-response'
 export {IAppointmentRead} from './models/appointment-read'
+export {IAppointment} from './models/appointment-read'
 export {Menu} from './models/menu'
 export {IActivePatient} from './models/patient'
 

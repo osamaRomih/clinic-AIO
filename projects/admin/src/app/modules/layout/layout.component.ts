@@ -55,6 +55,12 @@ export class LayoutComponent {
           icon:'',
           color:'#007DFC',
           link:'/appointment/bookAppointment'
+        },
+        {
+          title:'Update Appointment',
+          icon:'',
+          color:'#007DFC',
+          link:'/appointment/updateAppointment'
         }
       ],
     },

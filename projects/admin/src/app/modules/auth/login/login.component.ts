@@ -1,18 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'DAL';
+import { AuthService, SnackbarService } from 'DAL';
 import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule,CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
     private fb:FormBuilder,
     private authService:AuthService,
     private router:Router,
-    private toastrService:ToastrService,
+    private snackBarService:SnackbarService,
     private activatedRoute:ActivatedRoute
   ){
     const url = this.activatedRoute.snapshot.queryParamMap.get('returnUrl');
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('refreshToken',res.refreshToken);
         this.authService.getUserInfo().subscribe(res=>{
           this.router.navigateByUrl(this.returnUrl);
-          this.toastrService.success('login successfully')
+          this.snackBarService.success('login successfully')
         });
         
       }

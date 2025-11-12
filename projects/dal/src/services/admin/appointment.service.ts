@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPagedResponse } from '../../models/IPagedResponse';
-import { IAppointmentRead } from '../../models/appointment-read';
+import { IAppointment, IAppointmentRead } from '../../models/appointment-read';
 import { map, Observable } from 'rxjs';
 import { IAppointmentEvent } from '../../models/appointment-event';
 import { EventInput } from '@fullcalendar/core';
@@ -63,13 +63,13 @@ export class AppointmentService {
   }
 
 
-  // getById(id:number){
-  //   return this.httpClient.get<IPrescription>(`${this.baseAPI}/prescriptions/${id}`);
-  // }
+  getById(id:number){
+    return this.httpClient.get<IAppointment>(`${this.baseAPI}/appointments/${id}`);
+  }
 
-  // update(id:number,model:any){
-  //   return this.httpClient.put(`${this.baseAPI}/prescriptions/${id}`,model);
-  // }
+  update(id:number,model:any){
+    return this.httpClient.put(`${this.baseAPI}/appointments/${id}`,model);
+  }
 
   // delete(id:number){
   //   return this.httpClient.delete(`${this.baseAPI}/prescriptions/${id}`);

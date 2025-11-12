@@ -14,3 +14,15 @@ export interface IAppointmentRead {
   visitType: string;
   createdOn: string;
 }
+
+export interface IAppointment{
+  id:number,
+  date: string,
+  status: string,
+  patientId: string,
+  patientName: string,
+  reasonForVisit:string,
+  visitType:string,
+  timeslotId:Int16Array,
+  patientPhoneNumber: string
+}

@@ -3,10 +3,10 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, switchMap, throwError } from 'rxjs';
-import { AuthService } from '../public-api';
+import { AuthService, SnackbarService } from '../public-api';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  const toastr = inject(ToastrService);
+  const snackbarService = inject(SnackbarService);
   const authService = inject(AuthService);
   const router = inject(Router);
 
@@ -20,7 +20,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           for (const key in validationErrors) {
             if (validationErrors[key]) {
               validationErrors[key].forEach((msg: string) => {
-                toastr.error(msg, 'Validation Error');
+                console.log(msg);
+                snackbarService.error(msg || 'Validation Error');
               });
             }
           }
@@ -31,7 +32,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
           return authService.refreshToken().pipe(
             switchMap((res: any) => {
-              toastr.success('Token refreshed');
+              snackbarService.success('Token refreshed');
 
               // Retry original request with new access token
               const newReq = req.clone({
@@ -53,19 +54,23 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
         // Forbidden
         else if (error.status === 403) {
-          toastr.error('You do not have permission to perform this action.', 'Forbidden');
+          snackbarService.error(
+            'You do not have permission to perform this action.'
+          );
         }
         // Not Found
         else if (error.status === 404) {
-          toastr.error('Resource not found', 'Error');
+          snackbarService.error('Resource not found');
         }
         // Internal Server Error
         else if (error.status === 500) {
-          toastr.error('Something went wrong on the server.', 'Server Error');
+          snackbarService.error('Something went wrong on the server.');
         }
         // Default case
         else {
-          toastr.error(error.message || 'An unexpected error occurred.', 'Error');
+          snackbarService.error(
+            error.message || 'An unexpected error occurred.'
+          );
         }
       }
 
