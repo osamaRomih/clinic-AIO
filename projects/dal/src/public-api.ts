@@ -17,7 +17,7 @@ export {AppointmentService} from './services/admin/appointment.service'
 export {SnackbarService} from './services/admin/snackbar.service'
 export {BusyService} from './services/admin/busy.service'
 export {PatientService} from './services/admin/patient.service'
-
+export {ChatService} from './services/admin/chat.service'
 
 // patient services
 
@@ -55,3 +55,5 @@ export {loadingInterceptor} from './interceptors/loading.interceptor'
 
 
 
+// pipes
+export {TimeAgoPipe} from './pipes/time-ago.pipe'

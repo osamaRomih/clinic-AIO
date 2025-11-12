@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { map, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { ILoginRequest, ILoginResponse, IUser } from '../../public-api';
+import { ChatService, ILoginRequest, ILoginResponse, IUser } from '../../public-api';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { ILoginRequest, ILoginResponse, IUser } from '../../public-api';
 export class AuthService {
   user = signal<IUser | null>(null);
   baseAPI = 'https://localhost:7096/api';
-  constructor(private httpClient:HttpClient,private router:Router){
+  constructor(private httpClient:HttpClient,private router:Router,private chatService:ChatService){
   }
 
   login(model:ILoginRequest){
@@ -58,6 +58,7 @@ export class AuthService {
     localStorage.removeItem('refreshToken')
     this.router.navigateByUrl('/auth/login');
     this.user.set(null);
+    this.chatService.closeConnection();
   }
 
   get token(): string | null {

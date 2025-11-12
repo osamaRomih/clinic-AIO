@@ -17,9 +17,8 @@ import { MatProgressBar } from "@angular/material/progress-bar";
 export class HeaderComponent implements OnInit {
   isDarkMode = false;
   @Output() menuToggled = new EventEmitter(false);
-  user: string = 'Enea';
  logout(): void {
-    console.log('Logged out');
+    this.authService.logout();
   }
 
   constructor(public authService:AuthService,public busyService:BusyService){}

@@ -18,138 +18,28 @@
             <input type="text" placeholder="search..." class="form-control" />
           </div>
           <div class="peaple-list d-flex flex-column overflow-auto gap-1">
-            <div class="peaple-item d-flex p-2 gap-2 active">
-              <div class="d-flex flex-column justify-content-start">
-                <img src="assets/images/avatar.png" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">Wiliam simith</div>
-                <div class="d-flex align-items-center status">
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> left 7 mins ago </div>
+            @for (user of chatService.allUsers(); track user.id) {
+              <div class="peaple-item d-flex p-2 gap-2">
+                <div class="d-flex flex-column justify-content-start">
+                  <img [src]="'https://localhost:7096/'+user.imageUrl" class="p-img" />
+                </div>
+                <div class="d-flex flex-column justify-content-start">
+                  <div class="name">{{user.firstName+' '+user.lastName}}</div>
+                  <div class="d-flex align-items-center status">
+                    @if(!user.isOnline){
+                      <mat-icon class="offline">fiber_manual_record</mat-icon>
+                      <div> {{user.lastSeen | timeAgo}}</div>
+                    }@else {
+                      <mat-icon class="online">fiber_manual_record</mat-icon>
+                      <div>Online</div>
+                    }
+                    
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="peaple-item d-flex p-2 gap-2">
-              <div class="d-flex flex-column justify-content-start">
-                <img src="assets/images/avatar.png" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">Wiliam simith</div>
-                <div class="d-flex align-items-center status">
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> left 7 mins ago </div>
-                </div>
-              </div>
-            </div>
-            <div class="peaple-item d-flex p-2 gap-2 ">
-              <div class="d-flex flex-column justify-content-start">
-                <img src="assets/images/avatar.png" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">Wiliam simith</div>
-                <div class="d-flex align-items-center status">
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> left 7 mins ago </div>
-                </div>
-              </div>
-            </div>
-            <div class="peaple-item d-flex p-2 gap-2 ">
-              <div class="d-flex flex-column justify-content-start">
-                <img src="assets/images/avatar.png" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">Wiliam simith</div>
-                <div class="d-flex align-items-center status">
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> left 7 mins ago </div>
-                </div>
-              </div>
-            </div>
-            <div class="peaple-item d-flex p-2 gap-2 ">
-              <div class="d-flex flex-column justify-content-start">
-                <img src="assets/images/avatar.png" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">Wiliam simith</div>
-                <div class="d-flex align-items-center status">
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> left 7 mins ago </div>
-                </div>
-              </div>
-            </div>
-            <div class="peaple-item d-flex p-2 gap-2 ">
-              <div class="d-flex flex-column justify-content-start">
-                <img src="assets/images/avatar.png" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">Wiliam simith</div>
-                <div class="d-flex align-items-center status">
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> left 7 mins ago </div>
-                </div>
-              </div>
-            </div>
-            <div class="peaple-item d-flex p-2 gap-2 ">
-              <div class="d-flex flex-column justify-content-start">
-                <img src="assets/images/avatar.png" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">Wiliam simith</div>
-                <div class="d-flex align-items-center status">
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> left 7 mins ago </div>
-                </div>
-              </div>
-            </div>
-            <div class="peaple-item d-flex p-2 gap-2 ">
-              <div class="d-flex flex-column justify-content-start">
-                <img src="assets/images/avatar.png" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">Wiliam simith</div>
-                <div class="d-flex align-items-center status">
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> left 7 mins ago </div>
-                </div>
-              </div>
-            </div>
-            <div class="peaple-item d-flex p-2 gap-2 ">
-              <div class="d-flex flex-column justify-content-start">
-                <img src="assets/images/avatar.png" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">Wiliam simith</div>
-                <div class="d-flex align-items-center status">
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> left 7 mins ago </div>
-                </div>
-              </div>
-            </div>
-            <div class="peaple-item d-flex p-2 gap-2 ">
-              <div class="d-flex flex-column justify-content-start">
-                <img src="assets/images/avatar.png" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">Wiliam simith</div>
-                <div class="d-flex align-items-center status">
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> left 7 mins ago </div>
-                </div>
-              </div>
-            </div>
-            <div class="peaple-item d-flex p-2 gap-2 ">
-              <div class="d-flex flex-column justify-content-start">
-                <img src="assets/images/avatar.png" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">Wiliam simith</div>
-                <div class="d-flex align-items-center status">
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> left 7 mins ago </div>
-                </div>
-              </div>
-            </div>
+            }
+
+
           </div>
         </div>
       </div>
@@ -158,7 +48,7 @@
       <div class="card">
         <div class="chat-header d-flex gap-2">
           <div class="d-flex flex-column justify-content-start">
-            <img src="assets/images/avatar.png" class="p-img"/>
+            <img src="assets/images/avatar.png" class="p-img" />
           </div>
           <div class="chat-about">
             <div class="chat-with">Wiliam simith</div>

@@ -9,3 +9,13 @@ export interface IUserRead {
   email: string;
   roles: string[];
 }
+
+export interface IUser{
+  id:string;
+  firstName:string;
+  lastName:string;
+  userName:string;
+  imageUrl:string;
+  isOnline:boolean;
+  unReadCount:number;
+}

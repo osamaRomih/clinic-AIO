@@ -4,7 +4,7 @@
   </button>
   <span class="title" routerLink="/">Dashboard</span>
   <span class="spacer"></span>
-  <span class="welcome-text">Hello {{ user }}</span>
+  <span class="welcome-text">Hello {{ this.authService.user()?.firstName }}</span>
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>person_pin</mat-icon>
   </button>
