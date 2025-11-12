@@ -19,6 +19,7 @@ export class InitService {
       next:(user:IUser)=>{
         if(user.id)
           this.chatService.startConnection(token,user.id);
+        console.log(user)
       },
       error:()=>{}
     } as any);

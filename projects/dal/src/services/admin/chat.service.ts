@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { AuthService, IUser } from '../../public-api';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { IMessage } from '../../models/message';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,9 @@ export class ChatService {
   private hubUrl = 'https://localhost:7096/hubs/chat';
   allUsers = signal<IUser[]>([]);
   userId?:string;
+  currentOpenedChat = signal<IUser | null>({} as IUser);
+  chatMessages = signal<IMessage[]>([]);
+  isLoading = signal<boolean>(false);
 
   private hubConnection?: HubConnection;
 
@@ -45,6 +49,10 @@ export class ChatService {
     this.hubConnection.on('UserWentOffline', (user: IUser) => {
       this.updateUserStatus(user.id, false,user.lastSeen);
     });
+
+    this.hubConnection.on('ReceiveMessageList',(messages:IMessage[])=>{
+      this.receiveMessages(messages);
+    })
   }
 
   applyUsers(users: IUser[]) {
@@ -61,6 +69,22 @@ export class ChatService {
         user.id == id ? { ...user, isOnline: status,lastSeen:lastSeen ?? '' } : user
       )
     );
+  }
+
+  loadMessages(pageNumber:number){
+    this.hubConnection?.invoke('LoadMessages',this.currentOpenedChat()?.id,pageNumber)
+    .then()
+    .catch()
+    .finally(()=>{
+      this.isLoading.set(false);
+    })
+  }
+
+  receiveMessages(messages:IMessage[]){
+    this.chatMessages.update(curr => [...messages,...curr]);
+    this.isLoading.update(()=>false);
+    console.log(messages)
+
   }
 
   async closeConnection() {
