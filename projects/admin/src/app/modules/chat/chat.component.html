@@ -10,39 +10,10 @@
     <li class="breadcrumb-item active">Chat</li>
   </div>
 
+  <app-chat-sidebar class="d-block d-md-none mb-3"></app-chat-sidebar>
   <div class="row">
     <div class="col-xs-12 col-md-3">
-      <div class="card">
-        <div class="p-3">
-          <div class="mb-15">
-            <input type="text" placeholder="search..." class="form-control" />
-          </div>
-          <div class="peaple-list d-flex flex-column overflow-auto gap-1">
-            @for (user of chatService.allUsers(); track user.id) {
-            <div class="peaple-item d-flex p-2 gap-2" (click)="openChatWindow(user)">
-              <div class="d-flex flex-column justify-content-start">
-                <img [src]="'https://localhost:7096/'+user.imageUrl" class="p-img" />
-              </div>
-              <div class="d-flex flex-column justify-content-start">
-                <div class="name">{{user.firstName+' '+user.lastName}}</div>
-                <div class="d-flex align-items-center status">
-                  @if(!user.isOnline){
-                  <mat-icon class="offline">fiber_manual_record</mat-icon>
-                  <div> {{user.lastSeen | timeAgo}}</div>
-                  }@else {
-                  <mat-icon class="online">fiber_manual_record</mat-icon>
-                  <div>Online</div>
-                  }
-
-                </div>
-              </div>
-            </div>
-            }
-
-
-          </div>
-        </div>
-      </div>
+      <app-chat-sidebar class="d-none d-md-block "></app-chat-sidebar>
     </div>
     <div class="col-xs-12 col-md-9">
       <app-chat-box></app-chat-box>

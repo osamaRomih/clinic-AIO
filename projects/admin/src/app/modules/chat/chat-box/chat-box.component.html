@@ -1,29 +1,47 @@
+@if(chatService.currentOpenedChat()){
 <div class="card">
   <div class="chat-header d-flex gap-2">
     <div class="d-flex flex-column justify-content-start">
       <img [src]="'https://localhost:7096'+chatService.currentOpenedChat()?.imageUrl " class="p-img" />
     </div>
     <div class="chat-about">
-      <div class="chat-with">{{chatService.currentOpenedChat()?.firstName}}</div>
+      <div class="chat-with">{{chatService.currentOpenedChat()?.firstName + ' ' +
+        chatService.currentOpenedChat()?.lastName}}</div>
       <div class="chat-num-msg">{{chatService.currentOpenedChat()?.unReadCount}} new messages</div>
     </div>
   </div>
   <div class="p-2">
-    <div class="chat-content overflow-y-auto p-3 d-flex flex-column gap-3">
+    <div class="chat-content overflow-y-auto p-3 d-flex flex-column gap-3" #chatBox>
+      <!-- Show spinner while loading -->
+      @if(chatService.chatMessages().length ==0 && chatService.isLoading()){
+      <div class="d-flex justify-content-center">
+        <mat-spinner diameter="20" strokeWidth="3">Loading</mat-spinner>
+      </div>
+      }
+      <!-- this when chat is selected but empty -->
+      @if (!chatService.isLoading() && chatService.chatMessages().length == 0 && chatService.currentOpenedChat()) {
+      <div class="empty-state text-center text-muted py-5">
+        <p>No messages yet 👋</p>
+        <small>Start the conversation by sending a message below.</small>
+      </div>
+      }
 
-      @if(chatService.chatMessages().length > 5){
+      <!-- load more button -->
+      @if(chatService.totalPages() > pageNumber && chatService.chatMessages().length > 5){
       <div class="text-center py-1 w-100">
-        <button class="btn btn-primary">
-          @if(chatService.isLoading()){
+        <button class="btn btn-primary" (click)="loadMoreMessages()">
           <div class="d-flex  align-items-center gap-2">
+            @if(chatService.isLoading()){
             <mat-spinner diameter="20" strokeWidth="3">Loading</mat-spinner>
+            }
+            Load more
           </div>
-          }@else {
-          Load more
-          }
+
         </button>
       </div>
       }
+ 
+      <!-- Load chat messages -->
       @for (item of chatService.chatMessages(); track item.id) {
       @if(item.senderId!=authService.user()?.id){
       <div class="msg-item d-flex align-items-start min-w-64 gap-2">
@@ -55,8 +73,17 @@
 
   <div class="send-msg p-3">
     <div class="d-flex gap-3">
-      <input type="text" class="form-control" placeholder="Write your message..." #msgInput />
-      <button class="btn bg-dark text-white" (click)="sendMessage(msgInput.value)">Send</button>
+      <input type="text" class="form-control" placeholder="Write your message..." [(ngModel)]="message"
+        (keyup)="onTyping()" (keydown.enter)="sendMessage()" />
+      <button class="btn bg-dark text-white" (click)="sendMessage()">Send</button>
     </div>
   </div>
 </div>
+}@else {
+<div class="card d-flex align-items-center justify-content-center" style="min-height: 400px;">
+  <div class="text-center text-muted">
+    <img src="/assets/images/empty-chat.jpg" alt="Select chat" width="120" class="mb-3" />
+    <p class="fw-medium">Select a conversation to start chatting 💬</p>
+  </div>
+</div>
+}
