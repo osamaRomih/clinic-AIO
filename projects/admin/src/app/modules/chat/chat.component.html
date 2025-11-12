@@ -45,65 +45,7 @@
       </div>
     </div>
     <div class="col-xs-12 col-md-9">
-      <div class="card">
-        <div class="chat-header d-flex gap-2">
-          <div class="d-flex flex-column justify-content-start">
-            <img [src]="'https://localhost:7096'+chatService.currentOpenedChat()?.imageUrl " class="p-img" />
-          </div>
-          <div class="chat-about">
-            <div class="chat-with">{{chatService.currentOpenedChat()?.firstName}}</div>
-            <div class="chat-num-msg">{{chatService.currentOpenedChat()?.unReadCount}} new messages</div>
-          </div>
-        </div>
-        <div class="chat-content overflow-y-auto p-3 d-flex flex-column gap-3">
-
-          @if(chatService.chatMessages().length > 5){
-          <div class="text-center py-1 w-100">
-            <button class="btn btn-primary">
-              @if(chatService.isLoading()){
-              <div class="d-flex  align-items-center gap-2">
-                <mat-spinner diameter="20" strokeWidth="3">Loading</mat-spinner>
-              </div>
-              }@else {
-              Load more
-              }
-            </button>
-          </div>
-          }
-          @for (item of chatService.chatMessages(); track item.id) {
-            @if(item.senderId!=authService.user()?.id){
-              <div class="msg-item d-flex align-items-start min-w-64 gap-2">
-                <div class="d-flex flex-column justify-content-start">
-                  <img [src]="'https://localhost:7096/'+chatService.currentOpenedChat()?.imageUrl" [alt]="chatService.currentOpenedChat()?.firstName" class="p-img" />
-                </div>
-                <div class="msg">
-                  <p class="msg-content"> {{item.content}} </p>
-                </div>
-
-              </div>
-            }@else {
-              <div class="msg-item d-flex align-items-start flex-row-reverse w-100 gap-2 min-w-64 ">
-                <div class="d-flex flex-column justify-content-end">
-                  <img [src]="'https://localhost:7096/'+authService.user()?.imageUrl" class="p-img" />
-                </div>
-                <div class="msg bg-dark">
-                  <p class="msg-content text-white"> {{item.content}} </p>
-                </div>
-
-              </div>
-            }
-          }
-
-          
-        </div>
-
-        <div class="send-msg p-3">
-          <div class="d-flex gap-3">
-            <input type="text" class="form-control" placeholder="Write your message..." />
-            <button class="btn bg-dark text-white">Send</button>
-          </div>
-        </div>
-      </div>
+      <app-chat-box></app-chat-box>
     </div>
   </div>
 
