@@ -110,7 +110,7 @@ export class UpdateAppointmentComponent implements OnInit {
       patientSearch: [''],
       patientId: [null],
       timeSlotId: [null],
-      date: [''],
+      date: [null],
       reasonForVisit: [''],
       visitType: [''],
     });
@@ -120,7 +120,7 @@ export class UpdateAppointmentComponent implements OnInit {
     this.appointmentForm = this.fb.group({
       patientSearch: [this.appointment.patientName],
       patientId: [this.appointment.patientId, [Validators.required]],
-      timeSlotId: [this.appointment, [Validators.required]],
+      timeSlotId: [this.appointment.timeSlotId, [Validators.required]],
       date: [this.appointment.date, [Validators.required]],
       reasonForVisit: [this.appointment.reasonForVisit, [Validators.required]],
       visitType: [this.appointment.visitType, [Validators.required]],
@@ -130,11 +130,9 @@ export class UpdateAppointmentComponent implements OnInit {
   loadAppointment() {
     this.appointmentService.getById(this.appointmentId).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.appointment = res;
-        // this.getTimeByDate(moment(this.appointment.date).format('YYYY-MM-DD'))
-
-        this.createForm();
+        const date = moment(this.appointment.date).format("YYYY-MM-DD");
+        this.getTimesByDate(date);
       },
     });
   }
@@ -144,13 +142,15 @@ export class UpdateAppointmentComponent implements OnInit {
     if (!event.value) return;
 
     const date = moment(event.value).format('YYYY-MM-DD');
-    this.getTimeByDate(date);
+    this.getTimesByDate(date);
   }
 
-  getTimeByDate(date:string){
+  getTimesByDate(date:string){
     this.timeSlotService.getAll(date).subscribe({
       next: (res) => {
         this.timeSlots = res.slots.length > 0 ? res.slots[0].timeSlots : [];
+        this.createForm();
+        console.log(this.appointmentForm.value)
       },
       error: (err) => {
         console.log(err);
@@ -183,6 +183,7 @@ export class UpdateAppointmentComponent implements OnInit {
 
   onSubmit() {
     const { patientSearch, date, ...rest } = this.appointmentForm.value;
+    console.log(this.appointmentForm.value)
     const model = {
       ...rest,
       date: moment(date).format('YYYY-MM-DD'),
@@ -201,7 +202,7 @@ export class UpdateAppointmentComponent implements OnInit {
     this.filteredPatients = this.appointmentForm
       .get('patientSearch')
       ?.valueChanges.pipe(
-        startWith(''),
+        startWith(this.appointmentForm.get('patientSearch')!.value ?? ''),
         map((value) => (value ?? '').toString().toLowerCase().trim()),
         map((term) =>
           this.patients.filter((p) => p.fullName.toLowerCase().includes(term))

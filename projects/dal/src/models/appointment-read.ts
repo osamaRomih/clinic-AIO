@@ -23,6 +23,6 @@ export interface IAppointment{
   patientName: string,
   reasonForVisit:string,
   visitType:string,
-  timeslotId:Int16Array,
+  timeSlotId:number,
   patientPhoneNumber: string
 }
