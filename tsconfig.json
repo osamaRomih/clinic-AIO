@@ -10,7 +10,12 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "paths": {
-      "DAL": ["./dist/dal"]
+      "DAL": [
+        "./dist/dal"
+      ],
+      "ui": [
+        "./dist/ui"
+      ]
     },
     "esModuleInterop": true,
     "sourceMap": true,
