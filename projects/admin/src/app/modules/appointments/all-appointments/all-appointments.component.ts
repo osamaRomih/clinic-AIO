@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import {
@@ -47,11 +47,10 @@ import { TableColumn } from '../../../../../../ui/src/lib/interfaces/TableColumn
 })
 export class AllAppointmentsComponent {
 
-  constructor(
-    private router: Router,
-    private service: AppointmentService,
-    private snackBarService:SnackbarService
-  ) {}
+  router = inject(Router);
+  service = inject(AppointmentService);
+  snackBarService = inject(SnackbarService);
+  
 
   appointmentsTableColumns!: TableColumn[];
   totalItems!: number;
