@@ -21,6 +21,7 @@ import {
   InitService,
   loadingInterceptor,
 } from 'DAL';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -41,5 +42,9 @@ export const appConfig: ApplicationConfig = {
       },
       multi: true,
     },
+    {
+      provide:MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {appearance:'outline',subscriptSizing:'dynamic'}
+    }
   ],
 };

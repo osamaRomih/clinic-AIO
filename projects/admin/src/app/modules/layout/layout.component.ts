@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav'
 
 import { MatMenuItem, MatMenuModule } from '@angular/material/menu'
-import { Menu } from 'DAL';
+import { Menu, ResponsiveService } from 'DAL';
 import { MenuItemComponent } from "./components/menu-item/menu-item.component";
 
 @Component({
@@ -15,10 +15,18 @@ import { MenuItemComponent } from "./components/menu-item/menu-item.component";
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
-  opened = true;
-  toggle(){
-    this.opened = !this.opened;
-  }
+
+
+  responsiveService = inject(ResponsiveService);
+
+  componentSelectorOpen = signal(true);
+  componentSelectorMode = computed(()=>{
+    if(this.responsiveService.smallWidth())
+      return 'over';
+
+    return 'side';
+  })
+  
 
   menu:Menu = [
      {

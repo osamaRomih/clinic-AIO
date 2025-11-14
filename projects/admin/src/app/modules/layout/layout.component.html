@@ -1,6 +1,6 @@
 <div>
     <mat-drawer-container>
-        <mat-drawer mode="side" [opened]="opened">
+        <mat-drawer [mode]="componentSelectorMode()" [opened]="componentSelectorOpen()">
             <div class="sidebar-header">
                 <img src="assets/images/logo.svg" class="logo" alt="logo" />
                 <h2 class="brand">Clinic</h2>
@@ -8,8 +8,8 @@
             <app-menu-item [menu]="menu"></app-menu-item>
         </mat-drawer>
 
-        <mat-drawer-content [class.margin-left]="opened">
-            <app-header (menuToggled)="toggle()"></app-header>
+        <mat-drawer-content >
+            <app-header (menuToggled)="componentSelectorOpen.set(!componentSelectorOpen())"></app-header>
 
             <router-outlet></router-outlet>
         </mat-drawer-content>

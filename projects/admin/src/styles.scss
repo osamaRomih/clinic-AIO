@@ -1,4 +1,27 @@
 @use '@angular/material' as mat;
+@include mat.core();
+
+// $theme: mat.define-theme((
+//   color: (
+//     theme-type: light,
+//     primary: mat.$violet-palette,
+//   ),
+// ));
+
+$compact-theme:mat.define-theme((
+  (
+    density:(
+      scale:-3
+    )
+  )
+));
+
+html {
+  // Apply the light theme by default
+  // @include mat.core-theme(m3-theme.$light-theme);
+  // @include mat.button-theme(m3-theme.$light-theme);
+}
+
 .NgxEditor {
     height: 250px !important;
     overflow-y: scroll;
@@ -23,6 +46,12 @@
     row-item-label-text-font:17px,
     header-headline-color:#1a1b1f
   ));
+  @include mat.form-field-density($compact-theme);
+  @include mat.datepicker-density($compact-theme);
+  @include mat.icon-button-density($compact-theme);
+
+
+
 }
 
 .snack-error {
