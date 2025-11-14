@@ -7,10 +7,7 @@ import {
   MatCardSubtitle,
   MatCardContent,
 } from '@angular/material/card';
-import {
-  MatFormFieldControl,
-  MatFormFieldModule,
-} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   MatDatepickerInputEvent,
   MatDatepickerModule,
@@ -26,16 +23,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import {
   AppointmentService,
-  AuthService,
   IActivePatient,
   PatientService,
-  ScheduleResponse,
   SnackbarService,
   TimeSlotResponse,
   TimeslotService,
 } from 'DAL';
 import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MatAutocompleteModule,
   MatAutocompleteSelectedEvent,
@@ -77,8 +72,8 @@ export class AddAppointmentComponent implements OnInit {
     private timeSlotService: TimeslotService,
     private appointmentService: AppointmentService,
     private patientService: PatientService,
-    private snackBarService:SnackbarService,
-    private router:Router,
+    private snackBarService: SnackbarService,
+    private router: Router,
     private fb: FormBuilder
   ) {}
 
@@ -88,7 +83,9 @@ export class AddAppointmentComponent implements OnInit {
         patient.fullName.toLowerCase().indexOf(fullName.toLowerCase()) === 0
     );
 
-    return arr.length ? arr : [{ fullName: 'No Item found', id: 0,imageUrl:'',phoneNumber:'' }];
+    return arr.length
+      ? arr
+      : [{ fullName: 'No Item found', id: 0, imageUrl: '', phoneNumber: '' }];
   }
   ngOnInit(): void {
     this.createForm();
@@ -152,15 +149,17 @@ export class AddAppointmentComponent implements OnInit {
     };
     this.appointmentService.create(model).subscribe({
       next: () => {
-        this.snackBarService.success("The appointment added successfully");
-        this.router.navigateByUrl('/appointments')
+        this.snackBarService.success('The appointment added successfully');
+        this.router.navigateByUrl('/appointments');
       },
       error: () => {},
     });
   }
 
   private bindPatientSearch() {
-    this.filteredPatients = this.appointmentForm.get('patientSearch')?.valueChanges.pipe(
+    this.filteredPatients = this.appointmentForm
+      .get('patientSearch')
+      ?.valueChanges.pipe(
         startWith(''),
         map((value) => (value ?? '').toString().toLowerCase().trim()),
         map((term) =>

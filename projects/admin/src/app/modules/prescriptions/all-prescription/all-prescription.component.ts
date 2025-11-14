@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -11,6 +11,7 @@ import { DetailsPrescriptionComponent } from '../details-prescription/details-pr
 import { MaterialTableComponent } from '../../../../../../ui/src/lib/material-table/material-table.component';
 import { TableColumn } from '../../../../../../ui/src/lib/interfaces/TableColumn';
 import { Sort } from '@angular/material/sort';
+import * as XLSX from 'xlsx';
 
 interface Customer {
   id: number;
@@ -32,41 +33,23 @@ interface Customer {
   styleUrl: './all-prescription.component.scss',
 })
 export class AllPrescriptionComponent implements OnInit {
-  private readonly DEFAULT_PAGE_SIZE = 10;
-  private readonly DEFAULT_PAGE_NUMBER = 1;
 
-  constructor(
-    private router: Router,
-    private service: PrescriptionService,
-    private dialog: MatDialog
-  ) {}
-
-  displayedColumns: string[] = [
-    'id',
-    'patientName',
-    'diagnosis',
-    'date',
-    'nextVisit',
-    'age',
-    'actions',
-  ];
-  dataSource = new MatTableDataSource<IPrescriptionResponse>();
+  router = inject(Router);
+  service = inject(PrescriptionService);
+  dialog = inject(MatDialog);
+  
+  prescriptionsTableColumns!: TableColumn[];
   totalItems!: number;
-  pageSize: number = this.DEFAULT_PAGE_SIZE;
+  pageSize: number = 10;
   pageIndex!: number;
-
   prescriptions!: IPrescription[];
 
   ngOnInit(): void {
     this.getAllPrescription();
-
     this.initColumns();
   }
 
-  getAllPrescription(
-    pageNumber: number = this.DEFAULT_PAGE_NUMBER,
-    pageSize: number = this.DEFAULT_PAGE_SIZE
-  ) {
+  getAllPrescription(pageNumber: number = 1,pageSize: number = 10) {
     this.service.getAll(pageNumber, pageSize).subscribe({
       next: (res) => {
         this.prescriptions = res.items.map((item) => {
@@ -83,7 +66,7 @@ export class AllPrescriptionComponent implements OnInit {
     });
   }
 
-  addPrescription() {
+  onAdd() {
     this.router.navigateByUrl('prescriptions/add-prescription');
   }
 
@@ -115,9 +98,6 @@ export class AllPrescriptionComponent implements OnInit {
       },
     });
   }
-
-  prescriptionsTableColumns!: TableColumn[];
-
 
   initColumns(): void {
     this.prescriptionsTableColumns = [
@@ -180,10 +160,29 @@ export class AllPrescriptionComponent implements OnInit {
     });
   }
 
+  exportAsExcel(){
+    const dataToExport = this.prescriptions.map((item) => {
+      return {
+        'Patient Name': item.patientName,
+        'Appointment Date': item.date,
+        'Age': item.age,
+        'Diagnosis': item.diagnosis,
+        'Next Visit': item.nextVisit,
+      };
+    });
+
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(dataToExport);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Prescriptions');
+
+    XLSX.writeFile(wb, 'Prescriptions.xlsx');
+  }
+
   removeOrder(order: Customer) {
     this.prescriptions = this.prescriptions.filter((item) => item.id !== order.id);
   }
 }
+
 function toComparableValue(val: unknown): string | number {
   if (val == null) return ''; // null/undefined => empty string
   if (typeof val === 'number') return val;

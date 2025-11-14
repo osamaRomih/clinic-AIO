@@ -65,8 +65,7 @@
               <mat-select matNativeControl required formControlName="timeSlotId">
                 <mat-option value="">-- Select time --</mat-option>
                 @for (time of timeSlots; track time.id) {
-                <mat-option [value]="time.id">{{ time.startTime.substring(0,5) }} - {{ time.endTime.substring(0,5)
-                  }}</mat-option>
+                <mat-option [value]="time.id" [disabled]="time.isBooked">{{ time.startTime.substring(0,5) }} - {{ time.endTime.substring(0,5)}}</mat-option>
                 }
               </mat-select>
               @if(appointmentForm.get('timeSlotId')?.hasError('required')){

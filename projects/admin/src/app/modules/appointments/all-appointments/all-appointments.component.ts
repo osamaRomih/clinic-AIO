@@ -2,20 +2,17 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import {
-  MatPaginator,
   MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { AppointmentService, IAppointmentRead, SnackbarService } from 'DAL';
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import {
-  MatFormFieldControl,
   MatFormFieldModule,
 } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -25,6 +22,8 @@ import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 
 import * as XLSX from 'xlsx';
 import { finalize } from 'rxjs';
+import { MaterialTableComponent } from "../../../../../../ui/src/lib/material-table/material-table.component";
+import { TableColumn } from '../../../../../../ui/src/lib/interfaces/TableColumn';
 
 @Component({
   selector: 'app-all-appointments',
@@ -35,62 +34,41 @@ import { finalize } from 'rxjs';
     MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
-    NgClass,
     MatMenuModule,
-    DatePipe,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTooltip,
     MatCheckboxModule,
-    CommonModule
-  ],
+    CommonModule,
+    MaterialTableComponent
+],
   templateUrl: './all-appointments.component.html',
   styleUrl: './all-appointments.component.scss',
 })
 export class AllAppointmentsComponent {
-  displayedColumns: string[] = [
-    'select',
-    'patientName',
-    'appointmentDate',
-    'time',
-    'email',
-    'mobile',
-    'gender',
-    'status',
-    'address',
-    'visitType',
-    'actions',
-  ];
-  dataSource = new MatTableDataSource<IAppointmentRead>();
-  selection = new SelectionModel<IAppointmentRead>(true, []);
-
-  private readonly DEFAULT_PAGE_SIZE = 10;
-  private readonly DEFAULT_PAGE_NUMBER = 1;
 
   constructor(
     private router: Router,
     private service: AppointmentService,
-    private dialog: MatDialog,
     private snackBarService:SnackbarService
   ) {}
 
+  appointmentsTableColumns!: TableColumn[];
   totalItems!: number;
-  pageSize: number = this.DEFAULT_PAGE_SIZE;
+  pageSize: number = 10;
   pageIndex!: number;
+  appointments!: IAppointmentRead[];
+  
 
   ngOnInit(): void {
     this.getAllAppointment();
+     this.initColumns();
   }
 
-  getAllAppointment(
-    pageNumber: number = this.DEFAULT_PAGE_NUMBER,
-    pageSize: number = this.DEFAULT_PAGE_SIZE
-  ) {
+  getAllAppointment(pageNumber: number = 10,pageSize: number = 1) {
     this.service.getAll(pageNumber, pageSize).subscribe({
       next: (res) => {
-        this.dataSource.data = res.items;
-        console.log(res);
+        this.appointments = res.items;
         this.totalItems = res.totalCount;
         this.pageSize = pageSize;
         this.pageIndex = res.pageNumber - 1;
@@ -98,17 +76,9 @@ export class AllAppointmentsComponent {
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
 
   exportAsExcel() {
-    const dataToExport = this.dataSource.data.map((item) => {
+    const dataToExport = this.appointments.map((item) => {
       return {
         'Patient Name': item.patientName,
         'Appointment Date': item.date,
@@ -133,48 +103,30 @@ export class AllAppointmentsComponent {
     this.getAllAppointment(event.pageIndex + 1, event.pageSize);
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.data.forEach((row) => this.selection.select(row));
-  }
-
-  confirmBulkDelete() {
-    const count = this.selection.selected.length;
+  confirmBulkDelete(selectedRows:any[]) {
+    const count = selectedRows.length;
     if (!count) return;
     if (confirm(`Delete ${count} selected appointment(s)?`)) {
-      this.deleteSelected();
+      this.deleteSelected(selectedRows);
     }
   }
 
-  private deleteSelected() {
-    const ids = this.selection.selected
-      .map((x) => (x as any).id)
-      .filter((id): id is number => typeof id === 'number');
+  private deleteSelected(selectedRows:any[]) {
+    const ids =selectedRows.map((x) => x.id);
 
     if (!ids.length) return;
 
-    this.service
-      .deleteMany(ids)
-      .pipe(finalize(() => this.selection.clear()))
+    this.service.deleteMany(ids)
       .subscribe({
         next: () => {
           const deleted = new Set(ids);
-          this.dataSource.data = this.dataSource.data.filter(
-            (r) => !deleted.has((r as any).id)
+          this.appointments = this.appointments.filter(
+            (r) => !deleted.has(r.id)
           );
           this.totalItems = Math.max(0, (this.totalItems ?? 0) - ids.length);
 
           // If page becomes empty after deletion, reload current page
-          if (this.dataSource.data.length === 0) {
+          if (this.appointments.length === 0) {
             this.getAllAppointment(this.pageIndex + 1, this.pageSize);
           }
 
@@ -185,11 +137,15 @@ export class AllAppointmentsComponent {
       });
   }
 
-  update(id:number){
+  onAdd(){
+    this.router.navigate(['appointment/bookAppointment']);
+  }
+
+  onEdit(id:number){
     this.router.navigate(['appointment/updateAppointment', id]);
   }
 
-  delete(id:number){
+  onDelete(id:number){
     this.service.delete(id).subscribe({
       next:()=> {
         this.getAllAppointment();
@@ -198,4 +154,53 @@ export class AllAppointmentsComponent {
       error:()=> this.snackBarService.error('Delete failed')
     })
   }
+
+  initColumns(): void {
+    this.appointmentsTableColumns = [
+      {
+        name: 'Patient Name',
+        dataKey: 'patientName',
+        isSortable: true,
+      },
+      {
+        name: 'AppointmentDate',
+        dataKey: 'date',
+        isSortable: true,
+      },
+      {
+        name: 'Time',
+        dataKey: 'startTime',
+        isSortable: true,
+      },
+      {
+        name: 'Email',
+        dataKey: 'email',
+        isSortable: true,
+      },{
+        name: 'Mobile',
+        dataKey: 'phoneNumber',
+        isSortable: true,
+      },{
+        name: 'Gender',
+        dataKey: 'gender',
+        isSortable: true,
+      },{
+        name: 'Status',
+        dataKey: 'status',
+        isSortable: true,
+      },{
+        name: 'Address',
+        dataKey: 'address',
+        isSortable: true,
+      },{
+        name: 'Visit Type',
+        dataKey: 'visitType',
+        isSortable: true,
+      }
+      
+    ];
+  }
+
+  
+
 }
