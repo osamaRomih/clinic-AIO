@@ -1,4 +1,4 @@
-import { Component, computed, Input, Signal, signal } from '@angular/core';
+import { Component, computed, inject, Input, Signal, signal } from '@angular/core';
 import { MatList, MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
 import { FormsModule } from '@angular/forms';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterModule } from "@angular/router";
 import { MenuItem } from '../MenuItem';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
+import { AuthService } from 'DAL';
 
 
 @Component({
@@ -16,6 +17,9 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
   styleUrl: './custom-sidenav.component.scss'
 })
 export class CustomSidenavComponent {
+
+  authService = inject(AuthService);
+
   menuItems = signal<MenuItem[]>([
   {
     icon: 'home',

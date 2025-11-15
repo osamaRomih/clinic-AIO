@@ -1,12 +1,12 @@
 <div class="sidenav-header">
   <img
-    src="assets/images/profile-image.jpg"
+    [src]="'https://localhost:7096/'+this.authService.user()?.imageUrl"
     [width]="profilePicSize()"
     [height]="profilePicSize()"
   />
   <div class="header-text" [class.hide-header-text]="sidenavCollapsed()">
-    <h2>Your channel</h2>
-    <p>anas awaad</p>
+    <h2>Clinic</h2>
+    <p>{{authService.user()?.firstName + ' ' + authService.user()?.lastName}}</p>
   </div>
 </div>
 <mat-nav-list>

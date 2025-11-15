@@ -64,7 +64,7 @@ export class AllAppointmentsComponent {
      this.initColumns();
   }
 
-  getAllAppointment(pageNumber: number = 10,pageSize: number = 1) {
+  getAllAppointment(pageNumber: number = 1,pageSize: number = 10) {
     this.service.getAll(pageNumber, pageSize).subscribe({
       next: (res) => {
         this.appointments = res.items;
@@ -137,11 +137,11 @@ export class AllAppointmentsComponent {
   }
 
   onAdd(){
-    this.router.navigate(['appointment/bookAppointment']);
+    this.router.navigate(['appointments/add']);
   }
 
   onEdit(id:number){
-    this.router.navigate(['appointment/updateAppointment', id]);
+    this.router.navigate(['appointments/edit', id]);
   }
 
   onDelete(id:number){

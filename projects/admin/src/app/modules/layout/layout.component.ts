@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, computed, inject, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, computed, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenavContainer, MatSidenav, MatSidenavContent } from '@angular/material/sidenav'
 import { MatMenuModule } from '@angular/material/menu'
@@ -26,13 +26,16 @@ export class LayoutComponent {
   
   collapsed = signal(false);
   sidenavWidth = computed(()=>this.collapsed() ? '65px':'250px')
-  componentSelectorOpen = signal(true);
-  componentSelectorMode = computed(()=>{
-    if(this.responsiveService.smallWidth())
-      return 'over';
-
-    return 'side';
-  })
+  
+  constructor() {
+    effect(() => {
+      if (this.responsiveService.smallWidth()) {
+        this.collapsed.set(true);
+      } else {
+        this.collapsed.set(false);
+      }
+    },{allowSignalWrites:true});
+}
 
   
   logout(){

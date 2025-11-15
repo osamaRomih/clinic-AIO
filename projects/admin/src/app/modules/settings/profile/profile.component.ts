@@ -85,7 +85,7 @@ export class ProfileComponent implements OnInit {
 
     this.profileSerive.updateProfile(formData).subscribe({
       next:(res)=>{
-        console.log(res);
+        this.authService.getUserInfo().subscribe();
       }
     })
     

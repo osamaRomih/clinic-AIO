@@ -16,14 +16,14 @@
 </mat-toolbar>
 
 @if (busyService.loading()) {
-  <mat-progress-bar class="fixed-top z-3 top-20" mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar class="fixed-top z-3 top-20" mode="indeterminate"/>
 }
 
 <mat-sidenav-container>
   <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
-    <app-custom-sidenav [collapsed]="collapsed()"></app-custom-sidenav>
+    <app-custom-sidenav [collapsed]="collapsed()" />
   </mat-sidenav>
-  <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+  <mat-sidenav-content [style.margin-left]="sidenavWidth()">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
