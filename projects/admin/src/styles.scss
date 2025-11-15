@@ -8,6 +8,22 @@
 //   ),
 // ));
 
+// 2) pick palettes (use built-in red palette and choose a default hue)
+$primary-palette: mat.m2-define-palette(mat.$m2-red-palette, 600);      // choose hue 60 (valid)
+$accent-palette:  mat.m2-define-palette(mat.$m2-indigo-palette, 400);   // choose hue 40
+
+
+// 3) create the light theme object
+$my-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+  ),
+  typography: mat.m2-define-typography-config()
+));
+
+
+
 $compact-theme:mat.define-theme((
   (
     density:(
@@ -20,6 +36,9 @@ html {
   // Apply the light theme by default
   // @include mat.core-theme(m3-theme.$light-theme);
   // @include mat.button-theme(m3-theme.$light-theme);
+}
+body{
+  --primary-color:#cc0000;
 }
 
 .NgxEditor {
@@ -49,6 +68,7 @@ html {
   @include mat.form-field-density($compact-theme);
   @include mat.datepicker-density($compact-theme);
   @include mat.icon-button-density($compact-theme);
+  @include mat.all-component-themes($my-theme);
 
 
 

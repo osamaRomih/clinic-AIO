@@ -1,17 +1,29 @@
-<div>
-    <mat-drawer-container>
-        <mat-drawer [mode]="componentSelectorMode()" [opened]="componentSelectorOpen()">
-            <div class="sidebar-header">
-                <img src="assets/images/logo.svg" class="logo" alt="logo" />
-                <h2 class="brand">Clinic</h2>
-            </div>
-            <app-menu-item [menu]="menu"></app-menu-item>
-        </mat-drawer>
+<mat-toolbar class="mat-elevation-z3">
+  <button mat-icon-button (click)="collapsed.set(!collapsed())">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="title" routerLink="/">Clinic</span>
+  <span class="spacer"></span>
+  <span class="welcome-text">Welcome {{ this.authService.user()?.firstName + ' '+this.authService.user()?.lastName }}</span>
+  <div [matMenuTriggerFor]="menu" class="ms-2">
+    <img [src]="'https://localhost:7096/'+this.authService.user()?.imageUrl" class="img" />
+  </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="logout()">
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
 
-        <mat-drawer-content >
-            <app-header (menuToggled)="componentSelectorOpen.set(!componentSelectorOpen())"></app-header>
+@if (busyService.loading()) {
+  <mat-progress-bar class="fixed-top z-3 top-20" mode="indeterminate"></mat-progress-bar>
+}
 
-            <router-outlet></router-outlet>
-        </mat-drawer-content>
-    </mat-drawer-container>
-</div>
+<mat-sidenav-container>
+  <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+    <app-custom-sidenav [collapsed]="collapsed()"></app-custom-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

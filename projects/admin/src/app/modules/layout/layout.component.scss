@@ -1,55 +1,52 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+ul li a{
+  color:#000;
+  font-size: 18px;
 }
 
-mat-drawer {
-  min-width: 300px;
-  max-width: 300px;
+ul li a.active{
+  color:blue;
 }
 
-mat-drawer-container  {
-  min-height: 100vh;
+.spacer 
+{
+  flex: 1 1 auto;
 }
 
-::ng-deep .mat-drawer-inner-container {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
+.title {
+  cursor: pointer;
 }
 
-:host ::ng-deep .mat-drawer-container {
-  background-color: #f0f3fb;
+.welcome-text {
+  font-size: smaller;
 }
 
 
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 80vh;
+.mat-toolbar{
+  background-color: #007DFC;
+  color:#fff;
 }
 
-
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 32px;
-  padding-left: 24px;
-  margin-bottom: 34px;
+.img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-.sidebar-header .logo {
-  width: 28px;
-  height: 28px;
+.content{
+  padding: 24px;
 }
 
-.sidebar-header .brand {
-  font-size: 30px;
-  font-weight: bold;
-    color:#007DFC;
-  margin: 0;
-  font-family: 'Poppins', sans-serif; /* optional font */
+mat-toolbar{
+  position: relative;
+  z-index: 5;
+}
+
+mat-sidenav-container{
+  height: calc(100vh - 56px);
+}
+
+mat-sidenav,
+mat-sidenav-content{
+  transition: all 500ms ease-in-out;
 }

@@ -1,0 +1,16 @@
+<div class="sidenav-header">
+  <img
+    src="assets/images/profile-image.jpg"
+    [width]="profilePicSize()"
+    [height]="profilePicSize()"
+  />
+  <div class="header-text" [class.hide-header-text]="sidenavCollapsed()">
+    <h2>Your channel</h2>
+    <p>anas awaad</p>
+  </div>
+</div>
+<mat-nav-list>
+  @for (item of menuItems(); track item.lable) {
+    <app-menu-item [item]="item" [collapsed]="sidenavCollapsed()" />
+  }
+</mat-nav-list>

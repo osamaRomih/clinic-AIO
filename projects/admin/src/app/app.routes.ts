@@ -18,6 +18,7 @@ import { AppointmentCalenderComponent } from './modules/appointments/appointment
 import { AddAppointmentComponent } from './modules/appointments/add-appointment/add-appointment.component';
 import { ChatComponent } from './modules/chat/chat.component';
 import { UpdateAppointmentComponent } from './modules/appointments/update-appointment/update-appointment.component';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -25,51 +26,70 @@ export const routes: Routes = [
     component: LayoutComponent,
     canActivate: [authGuard],
     children: [
-      { path: 'home', component: HomeComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+      // Home / Dashboard
+      { path: 'home', component: HomeComponent, title: 'Home' },
+      { path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
+
+      // Settings
       {
         path: 'settings',
         component: SettingsComponent,
+        title: 'Settings',
         children: [
           { path: '', redirectTo: 'profile', pathMatch: 'full' },
-          { path: 'profile', component: ProfileComponent },
-          {
-            path: 'change-password',
-            component: ChangePasswordComponent,
-          },
-        ],
+          { path: 'profile', component: ProfileComponent, title: 'Profile' },
+          { path: 'change-password', component: ChangePasswordComponent, title: 'Change Password' }
+        ]
       },
-      { path: 'availability', component: AllTimeSlotsComponent },
-      { path: 'prescription', component: AllPrescriptionComponent },
-      { path: 'appointments', component: AllAppointmentsComponent },
+
+      // Availability
+      { path: 'availability', component: AllTimeSlotsComponent, title: 'Availability' },
+
+      // Prescriptions
       {
-        path: 'appointment/appointment-calender',
-        component: AppointmentCalenderComponent,
-      },{
-        path:'appointment/bookAppointment',
-        component:AddAppointmentComponent
-      },{
-        path:'appointment/updateAppointment/:id',
-        component:UpdateAppointmentComponent
+        path: 'prescriptions',
+        title: 'Prescriptions',
+        children: [
+          { path: '', component: AllPrescriptionComponent, title: 'All Prescriptions' },
+          { path: 'add', component: AddPrescriptionComponent, title: 'Add Prescription' },
+          { path: 'edit/:id', component: UpdatePrescriptionComponent, title: 'Edit Prescription' }
+        ]
       },
-      {path:'chat',component:ChatComponent},
-      { path: 'calander', component: CalanderComponent },
-      { path: 'users', component: AllUsersComponent },
+
+      // Appointments
       {
-        path: 'prescriptions/add-prescription',
-        component: AddPrescriptionComponent,
+        path: 'appointments',
+        title: 'Appointments',
+        children: [
+          { path: '', component: AllAppointmentsComponent, title: 'All Appointments' },
+          { path: 'calendar', component: AppointmentCalenderComponent, title: 'Appointment Calendar' },
+          { path: 'add', component: AddAppointmentComponent, title: 'Add Appointment' },
+          { path: 'edit/:id', component: UpdateAppointmentComponent, title: 'Edit Appointment' }
+        ]
       },
-      {
-        path: 'prescriptions/update/:id',
-        component: UpdatePrescriptionComponent,
-      },
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+      // Chat
+      { path: 'chat', component: ChatComponent, title: 'Chat' },
+
+      // Calendar
+      { path: 'calendar', component: CalanderComponent, title: 'Calendar' },
+
+      // Users
+      { path: 'users', component: AllUsersComponent, title: 'Users' },
     ],
   },
+
+  // Auth
   {
     path: 'auth',
+    title: 'Auth',
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-    ],
+      { path: 'login', component: LoginComponent, title: 'Login' },
+      { path: 'register', component: RegisterComponent, title: 'Register' }
+    ]
   },
+
+  { path: '**', redirectTo: 'home' }
 ];

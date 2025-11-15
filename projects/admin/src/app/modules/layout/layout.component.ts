@@ -1,24 +1,31 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './components/header/header.component';
-import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav'
-
-import { MatMenuItem, MatMenuModule } from '@angular/material/menu'
-import { Menu, ResponsiveService } from 'DAL';
-import { MenuItemComponent } from "./components/menu-item/menu-item.component";
+import { MatSidenavContainer, MatSidenav, MatSidenavContent } from '@angular/material/sidenav'
+import { MatMenuModule } from '@angular/material/menu'
+import { AuthService, BusyService, Menu, ResponsiveService } from 'DAL';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { CustomSidenavComponent } from "./components/custom-sidenav/custom-sidenav.component";
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, MatDrawerContainer, MatDrawer, MatMenuModule, MatDrawerContent, MenuItemComponent],
+    imports: [MatIconModule, MatToolbarModule,MatProgressBar, MatButtonModule, MatMenuModule, MatProgressBar, MatSidenavContainer, MatSidenav, MatSidenavContent, RouterOutlet, CustomSidenavComponent],
+
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
 
-
+  authService = inject(AuthService);
   responsiveService = inject(ResponsiveService);
+  busyService = inject(BusyService);
 
+  
+  collapsed = signal(false);
+  sidenavWidth = computed(()=>this.collapsed() ? '65px':'250px')
   componentSelectorOpen = signal(true);
   componentSelectorMode = computed(()=>{
     if(this.responsiveService.smallWidth())
@@ -26,82 +33,11 @@ export class LayoutComponent {
 
     return 'side';
   })
+
   
-
-  menu:Menu = [
-     {
-      title: 'Home',
-      icon: 'home',
-      link: '/home',
-      color: '#007DFC',
-    },
-    {
-      title: 'Availability',
-      icon: 'home',
-      link: '/availability',
-      color: '#007dfc',
-    },
-    {
-      title: 'Appointments',
-      icon: 'schedule',
-      color: '#007dfc',
-      subMenu: [
-        {
-          title: 'Appointment Calender',
-          icon: '',
-          link: '/appointment/appointment-calender',
-          color: '#007dfc',
-        },
-        {
-          title: 'View Appointment',
-          icon: '',
-          color: '#007dfc',
-          link: '/appointments',
-        },
-        {
-          title:'Book Appointment',
-          icon:'',
-          color:'#007DFC',
-          link:'/appointment/bookAppointment'
-        },
-        {
-          title:'Update Appointment',
-          icon:'',
-          color:'#007DFC',
-          link:'/appointment/updateAppointment'
-        }
-      ],
-    },
-    {
-      title:'Chat',
-      icon:'chat',
-      color:'#007DFC',
-      link:'/chat'
-    },
-    {
-      title: 'Prescriptions',
-      icon: 'home',
-      link: '/prescription',
-      color: '#007dfc',
-    },
-    {
-      title: 'Users',
-      icon: 'home',
-      link: '/users',
-      color: '#007dfc',
-    },
-    {
-      title: 'Settings',
-      icon: 'bar_chart',
-      color: '#007dfc',
-      link: '/settings'
-    },
-    {
-      title: 'Calander',
-      icon: 'bar_chart',
-      color: '#007dfc',
-      link: '/calander'
-    },
-  ]
-
+  logout(){
+    this.authService.logout()
+  }
+  
+  
 }
