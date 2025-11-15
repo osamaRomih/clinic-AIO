@@ -19,6 +19,7 @@ export {BusyService} from './services/admin/busy.service'
 export {PatientService} from './services/admin/patient.service'
 export {ChatService} from './services/admin/chat.service'
 export {ResponsiveService} from './services/responsive.service'
+export {ThemeService} from './services/admin/theme.service'
 // patient services
 
 

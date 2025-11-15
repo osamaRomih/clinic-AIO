@@ -16,13 +16,13 @@ mat-form-field {
 
 .mat-mdc-row:hover .mat-mdc-cell{
   cursor: pointer;
-  background-color: #eee;
+  background-color: var(--sys-surface-container-high) !important;
 }
 
 .materialTableHeader{
   align-items: center;
-  border-color: #dae1f3;
-  background-color: #dae1f3;
+  border-color: var(--sys-surface-container-high) !important;
+  background-color: var(--sys-surface-container) !important;
   display: flex;
   flex-wrap: wrap;
   text-align: center;
@@ -40,42 +40,45 @@ mat-form-field {
 
 .materialTableHeader h2{
   font-size: 16px;
-  color:#5b626b
+  color: var(--sys-on-surface-variant) !important;
 }
 
 .materialTableHeader .input-search-field{
   font-weight: 500;
-    color: #0000008a;
-    border-radius: 5px;
-    border: 0;
-    height: 45px;
-    padding: 8px 8px 8px 50px;
-    width: 100%;
-    background: #fff;
+  color: var(--sys-on-surface-variant) !important;
+  border-radius: 5px;
+  border: 0;
+  height: 45px;
+  padding: 8px 8px 8px 50px;
+  width: 100%;
+  background: var(--sys-surface-container-low);
 }
-
-.search-icon{
+.search-icon {
   position: absolute;
-  top:10px;
+  top: 10px;
   padding-left: 4px;
-  color:#0000008a;
+  color: var(--sys-on-surface-variant) !important;
 }
 
-.materialTableHeader .tbl-search-box input.search-field{
+/* same for .search-field inside .tbl-search-box */
+.materialTableHeader .tbl-search-box input.search-field {
   font-weight: 500;
-    color: #0000008a;
-    border-radius: 5px;
-    border: 0;
-    height: 45px;
-    padding: 8px 8px 8px 50px;
-    width: 100%;
-    background: #fff;
+  color: var(--sys-on-surface-variant) !important;
+  border-radius: 5px;
+  border: 0;
+  height: 45px;
+  padding: 8px 8px 8px 50px;
+  width: 100%;
+  background: var(--sys-surface-container-low);
 }
 
-.btn-download{
-  color:#2196f3 !important
+/* download button */
+.btn-download {
+  color: var(--sys-tertiary) !important;   /* tertiary = hyperlink accent */
 }
 
-.file-download-icon{
+/* download icon */
+.file-download-icon {
   font-size: 21px !important;
+  color: var(--sys-tertiary) !important;
 }

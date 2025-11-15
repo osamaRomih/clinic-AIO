@@ -7,7 +7,7 @@
 
 .time-label {
   font-size: 14px;
-  color: #555;
+  color: var(--sys-on-surface-variant);
   font-weight: 500;
   margin-bottom: 4px;
 }
@@ -15,25 +15,39 @@
 .time-input {
   padding: 10px 12px;
   font-size: 15px;
-  color: #333;
-  border: 1px solid #ccc;
+  color: var(--sys-on-surface);
+  border: 1px solid var(--sys-surface-container-high);
   border-radius: 8px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
-  background-color: white;
+  background-color: var(--sys-surface);
 }
 
 .time-input:focus {
-  border-color: #3f51b5;
-  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+  border-color: var(--sys-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--sys-primary) 12%, var(--sys-surface) 88%);
 }
 
 .time-input:hover {
-  border-color: #999;
+  border-color: var(--sys-surface-container-high); 
 }
 
 .time-input:disabled {
-  background-color: #f5f5f5;
-  color: #aaa;
+  background-color: var(--sys-surface-container-low); 
+  color: var(--sys-on-surface-variant);
   cursor: not-allowed;
+}
+
+/* validation text */
+.text-danger {
+  color: var(--sys-error);
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+/* dialog action buttons spacing */
+mat-dialog-actions.d-flex {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }

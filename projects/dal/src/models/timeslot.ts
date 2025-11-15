@@ -8,7 +8,7 @@ export interface ScheduleResponse {
   slots: DaySlotsResponse[];
 }
 
-export interface DaySlotsResponse {
+export interface DaySlotsResponse { 
   day: string;
   timeSlots: TimeSlotResponse[];
 }

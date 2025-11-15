@@ -1,0 +1,142 @@
+/* These tokens are generated using https://themes.angular-material.dev/ */
+/* Preview: https://themes.angular-material.dev/?bold-font-weight=700&brand-font-family=Roboto&medium-font-weight=500&plain-font-family=Roboto&regular-font-weight=400&seed-error=%23ba1a1a&seed-neutral=%2373796e&seed-neutral-variant=%23707a6a&seed-primary=%2364BC51&seed-secondary=%2345673b&seed-tertiary=%23006878 */
+/* Seed Colors: primary: #64BC51, secondary: #45673b, tertiary: #006878, error: #ba1a1a, neutral: #73796e, neutral-variant: #707a6a */
+/* Seed Typography: plain-font-family: Roboto, brand-font-family: Roboto, bold-font-weight: 700, medium-font-weight: 500, regular-font-weight: 400 */
+
+/* Make sure to import fonts in `<head>` of html */
+/*
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto&display=swap');
+</style>
+
+OR
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto&display=swap">
+*/
+
+/* Light Theme */
+.theme-green {
+  --sys-primary: #116e06;
+  --sys-on-primary: #ffffff;
+  --sys-primary-container: #9df985;
+  --sys-on-primary-container: #012200;
+  --sys-inverse-primary: #81db6c;
+  --sys-primary-fixed: #9df985;
+  --sys-primary-fixed-dim: #81db6c;
+  --sys-on-primary-fixed: #012200;
+  --sys-on-primary-fixed-variant: #045300;
+  --sys-secondary: #45673b;
+  --sys-on-secondary: #ffffff;
+  --sys-secondary-container: #c6eeb6;
+  --sys-on-secondary-container: #022101;
+  --sys-secondary-fixed: #c6eeb6;
+  --sys-secondary-fixed-dim: #aad19c;
+  --sys-on-secondary-fixed: #022101;
+  --sys-on-secondary-fixed-variant: #2e4f25;
+  --sys-tertiary: #006878;
+  --sys-on-tertiary: #ffffff;
+  --sys-tertiary-container: #a6eeff;
+  --sys-on-tertiary-container: #001f25;
+  --sys-tertiary-fixed: #a6eeff;
+  --sys-tertiary-fixed-dim: #86d2e4;
+  --sys-on-tertiary-fixed: #001f25;
+  --sys-on-tertiary-fixed-variant: #004e5b;
+  --sys-background: #fcf9f7;
+  --sys-on-background: #1c1c1b;
+  --sys-surface: #fcf9f7;
+  --sys-surface-dim: #dcd9d7;
+  --sys-surface-bright: #fcf9f7;
+  --sys-surface-container-lowest: #ffffff;
+  --sys-surface-container-low: #f6f3f1;
+  --sys-surface-container: #f0edeb;
+  --sys-surface-container-high: #ebe8e5;
+  --sys-surface-container-highest: #e5e2e0;
+  --sys-on-surface: #1c1c1b;
+  --sys-shadow: #000000;
+  --sys-scrim: #000000;
+  --sys-surface-tint: #5a6056;
+  --sys-inverse-surface: #31302f;
+  --sys-inverse-on-surface: #f3f0ee;
+  --sys-outline: #757871;
+  --sys-outline-variant: #c5c7bf;
+  --sys-neutral: #787775;
+  --sys-neutral10: #1c1c1b;
+  --sys-error: #ba1a1a;
+  --sys-error-container: #ffdad6;
+  --sys-on-error: #ffffff;
+  --sys-on-error-container: #410002;
+  --sys-surface-variant: #e1e3db;
+  --sys-on-surface-variant: #444841;
+  --sys-neutral-variant: #757871;
+  --sys-neutral-variant20: #2e312c;
+  --sys-inverse-secondary: #aad19c;
+  --sys-inverse-tertiary: #86d2e4;
+}
+
+/* Dark Theme */
+.theme-green.dark {
+  --sys-primary: #81db6c;
+  --sys-on-primary: #023a00;
+  --sys-primary-container: #045300;
+  --sys-on-primary-container: #9df985;
+  --sys-inverse-primary: #116e06;
+  --sys-primary-fixed: #9df985;
+  --sys-primary-fixed-dim: #81db6c;
+  --sys-on-primary-fixed: #012200;
+  --sys-on-primary-fixed-variant: #045300;
+  --sys-secondary: #aad19c;
+  --sys-on-secondary: #173711;
+  --sys-secondary-container: #2e4f25;
+  --sys-on-secondary-container: #c6eeb6;
+  --sys-secondary-fixed: #c6eeb6;
+  --sys-secondary-fixed-dim: #aad19c;
+  --sys-on-secondary-fixed: #022101;
+  --sys-on-secondary-fixed-variant: #2e4f25;
+  --sys-tertiary: #86d2e4;
+  --sys-on-tertiary: #00363f;
+  --sys-tertiary-container: #004e5b;
+  --sys-on-tertiary-container: #a6eeff;
+  --sys-tertiary-fixed: #a6eeff;
+  --sys-tertiary-fixed-dim: #86d2e4;
+  --sys-on-tertiary-fixed: #001f25;
+  --sys-on-tertiary-fixed-variant: #004e5b;
+  --sys-background: #131312;
+  --sys-on-background: #e5e2e0;
+  --sys-surface: #131312;
+  --sys-surface-dim: #131312;
+  --sys-surface-bright: #3a3938;
+  --sys-surface-container-lowest: #0e0e0d;
+  --sys-surface-container-low: #1c1c1b;
+  --sys-surface-container: #20201f;
+  --sys-surface-container-high: #2a2a29;
+  --sys-surface-container-highest: #353534;
+  --sys-on-surface: #e5e2e0;
+  --sys-shadow: #000000;
+  --sys-scrim: #000000;
+  --sys-surface-tint: #c3c8bc;
+  --sys-inverse-surface: #e5e2e0;
+  --sys-inverse-on-surface: #31302f;
+  --sys-outline: #8f928b;
+  --sys-outline-variant: #444841;
+  --sys-neutral: #787775;
+  --sys-neutral10: #1c1c1b;
+  --sys-error: #ffb4ab;
+  --sys-error-container: #93000a;
+  --sys-on-error: #690005;
+  --sys-on-error-container: #ffdad6;
+  --sys-surface-variant: #444841;
+  --sys-on-surface-variant: #c5c7bf;
+  --sys-neutral-variant: #757871;
+  --sys-neutral-variant20: #2e312c;
+  --sys-inverse-secondary: #45673b;
+  --sys-inverse-tertiary: #006878;
+}
+
+/* Typography */
+.theme-green  {
+  --sys-brand-font-family: Roboto;
+  --sys-plain-font-family: Roboto;
+  --sys-bold-font-weight: 700;
+  --sys-medium-font-weight: 500;
+  --sys-regular-font-weight: 400;
+}

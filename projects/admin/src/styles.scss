@@ -1,28 +1,20 @@
+/* import the generated token files (scoped as .theme-*) */
+// @import 'styles/themes/theme-green.css';
+// @import 'styles/themes/theme-blue.css';
+
 @use '@angular/material' as mat;
+
+
 @include mat.core();
 
-// $theme: mat.define-theme((
-//   color: (
-//     theme-type: light,
-//     primary: mat.$violet-palette,
-//   ),
-// ));
-
-// 2) pick palettes (use built-in red palette and choose a default hue)
-$primary-palette: mat.m2-define-palette(mat.$m2-red-palette, 600);      // choose hue 60 (valid)
-$accent-palette:  mat.m2-define-palette(mat.$m2-indigo-palette, 400);   // choose hue 40
-
-
-// 3) create the light theme object
-$my-theme: mat.m2-define-light-theme((
+$system-theme: mat.define-theme((
   color: (
-    primary: $primary-palette,
-    accent: $accent-palette,
+    use-system-variables: true
   ),
-  typography: mat.m2-define-typography-config()
+  typography: (
+    use-system-variables: true
+  )
 ));
-
-
 
 $compact-theme:mat.define-theme((
   (
@@ -32,13 +24,23 @@ $compact-theme:mat.define-theme((
   )
 ));
 
-html {
-  // Apply the light theme by default
-  // @include mat.core-theme(m3-theme.$light-theme);
-  // @include mat.button-theme(m3-theme.$light-theme);
+.theme-green {
+  @include mat.system-level-colors($system-theme);
+  @include mat.system-level-typography($system-theme);
+  @include mat.all-component-themes($system-theme);
 }
-body{
-  --primary-color:#cc0000;
+
+.theme-blue {
+  @include mat.system-level-colors($system-theme);
+  @include mat.system-level-typography($system-theme);
+  @include mat.all-component-themes($system-theme);
+}
+
+.theme-green.dark,
+.theme-blue.dark {
+  @include mat.system-level-colors($system-theme);
+  @include mat.system-level-typography($system-theme);
+  @include mat.all-component-themes($system-theme);
 }
 
 .NgxEditor {
@@ -49,15 +51,6 @@ body{
   .NgxEditor__Content {
     min-height: 300px !important;
   }
-
-// .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,  
-//  .mat-form-field-appearance-outline.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label { 
-//         transform: translateY(-1.7175em) scale(1) !important;
-//     }
-// .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
-//     --mat-mdc-form-field-floating-label-scale: 1;
-//     }
-/* Ensure the mat-form-field takes up the full width of the cell content area */
 :root {
   @include mat.table-overrides((
     header-headline-size:14px,
@@ -68,25 +61,23 @@ body{
   @include mat.form-field-density($compact-theme);
   @include mat.datepicker-density($compact-theme);
   @include mat.icon-button-density($compact-theme);
-  @include mat.all-component-themes($my-theme);
-
-
+  // @include mat.all-component-themes(theme.$light-theme);
 
 }
 
 .snack-error {
   @include mat.snack-bar-overrides((
-    button-color: white,
-    container-color: red,
-    supporting-text-color: white
+    button-color: var(--sys-on-error),
+    container-color: var(--sys-error),
+    supporting-text-color: var(--sys-on-error)
   ));
 }
 
 .snack-success {
   @include mat.snack-bar-overrides((
-    button-color: white,
-    container-color: green,
-    supporting-text-color: white
+    button-color: var(--sys-on-primary),
+    container-color: var(--sys-primary),
+    supporting-text-color: var(--sys-on-primary)
   ));
 }
 
@@ -110,15 +101,15 @@ button, input, select, a {
     text-decoration: none !important;
 }
 .col-red{
-  color: #f44336 !important
+  color: var(--sys-error) !important
 }
 
 .col-green {
-    color: #4caf50 !important;
+    color: var(--sys-primary) !important;
 }
 
 .col-blue {
-    color: #2196f3 !important;
+    color: var(--sys-tertiary) !important;
 }
 
 span.badge {
@@ -128,8 +119,8 @@ span.badge {
 }
 
 .badge-solid-purple {
-    color: #6f42c1;
-    background-color: #6f42c126;
+    color: var(--sys-on-surface);
+    background-color: color-mix(in srgb, var(--sys-surface) 85%, var(--sys-primary) 15%);
     border: none;
     padding: 5px 12px;
     font-weight: 500;
@@ -139,8 +130,8 @@ span.badge {
 }
 
 .badge-solid-green {
-    color: #198754;
-    background-color: #19875426;
+    color:var(--sys-on-primary);
+    background-color: var(--sys-primary-container);
     border: none;
     padding: 5px 12px;
     font-weight: 500;
@@ -150,9 +141,10 @@ span.badge {
 }
 
 .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background{
-  background-color: #005cbb !important;
-  border-color:#005cbb !important
+  background-color: var(--sys-primary) !important;
+  border-color: var(--sys-primary) !important;
 }
+
 .mat-mdc-checkbox-ripple, .mdc-checkbox__ripple{
   display: none !important;
 }
@@ -163,23 +155,23 @@ span.badge {
 
 .breadcrumb{
   font-size: 15px;
-  color:#555;
+  color: var(--sys-on-surface-variant);
 }
 
 .breadcrumb .page-title{
   font-size: 20px;
-  color:#444;
+  color: var(--sys-on-surface);
   margin-bottom: 0px;
 }
 
 .breadcrumb-icon img{
   width: 18px;
   height: 18px;
-  color:#2c323f;
+  color: var(--sys-on-surface);
 }
 
 .breadcrumb.active{
-  color:#444;
+  color: var(--sys-on-surface);
   font-weight: 400;
 }
 
@@ -194,61 +186,68 @@ span.badge {
     padding: 10px 15px !important;
     line-height: 30px;
     border-bottom: 1px solid;
-    border-color: #523f690f;
+  border-color: var(--sys-surface-container-highest);
 }
 
 .mat-mdc-card-header .mat-mdc-card-title {
   font-family: "Cairo", sans-serif;
-    margin: 0;
-    font-size: 17px;
-    line-height: 28px;
-    padding-right: 10px;
-    font-weight: 500;
+  margin: 0;
+  font-size: 17px;
+  line-height: 28px;
+  padding-right: 10px;
+  font-weight: 500;
+  color: var(--sys-on-surface);
 }
 
-.fc .fc-button-primary:disabled {
-    color: #fff !important;
-    background-color: #6777ef !important;
-    border-color: #6777ef !important;
-}
-
+/* FullCalendar buttons and states */
+/* default */
 .fc .fc-button-primary {
-    background-color: #fff !important;
-    border: 1px solid #eee !important;
-    color: #7e869d !important;
-    border-radius: 5px !important;
-    margin-right: 8px !important;
+  background-color: var(--sys-surface) !important;
+  border: 1px solid var(--sys-surface-container-high) !important;
+  color: var(--sys-on-surface-variant) !important;
+  border-radius: 5px !important;
+  margin-right: 8px !important;
 }
-.fc .fc-button-primary:not(:disabled):active {
-    color: #fff !important;
-    background-color: #6777ef !important;
-    border-color: #6777ef !important;
+
+/* active / pressed */
+.fc .fc-button-primary:not(:disabled):active,
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  color: var(--sys-on-primary) !important;
+  background-color: var(--sys-primary) !important;
+  border-color: var(--sys-primary) !important;
 }
+
+/* disabled style */
+.fc .fc-button-primary:disabled {
+  color: var(--sys-on-primary) !important;
+  background-color: var(--sys-surface-container) !important;
+  border-color: var(--sys-surface-container) !important;
+}
+
 .fc .fc-button-primary:focus {
   box-shadow: none !important;
 }
-.fc .fc-button-primary:not(:disabled).fc-button-active {
-    color: #fff !important;
-    background-color: #6777ef !important;
-    border-color: #6777ef !important;
-}
 
 .fc .fc-col-header-cell-cushion {
-    display: inline-block;
-    color:#666;
+  display: inline-block;
+  color: var(--sys-on-surface-variant);
 }
-.fc-view>table th {
-    border-color: #ddd;
-    font-weight: 500;
+
+.fc-view > table th {
+  border-color: var(--sys-surface-container-high) !important;
+  font-weight: 500;
+  color: var(--sys-on-surface);
 }
-.fc .fc-daygrid-day-top{
+
+.fc .fc-daygrid-day-top {
   justify-content: center;
 }
 
-.p-img{
-  width:35px;
+/* profile image */
+.p-img {
+  width: 35px;
   height: 35px;
   border-radius: 50%;
-  border:1px solid #fff;
+  border: 1px solid var(--sys-surface) !important;
   box-shadow: 0 5px 25px #0003;
 }

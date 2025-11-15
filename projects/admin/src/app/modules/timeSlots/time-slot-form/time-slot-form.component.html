@@ -1,35 +1,50 @@
 <h2 mat-dialog-title>Doctor Schedule</h2>
 
 <mat-dialog-content>
-    <form [formGroup]="timeSlotForm">
-        <div class="time-picker-container w-100">
-            <div class="mb-3 d-flex flex-column">
-                <label for="startTime" class="time-label">Start Time</label>
-                <input type="time" id="startTime" formControlName="startTime" class="time-input w-100" />
-                @if(timeSlotForm.get('startTime')?.hasError('required') && timeSlotForm.get('startTime')?.touched){
-                <span class="text-danger">Start time is required</span>
-                }
-            </div>
+  <form [formGroup]="timeSlotForm" class="w-100">
+    <div class="time-picker-container w-100">
 
-            <div class="mb-3 d-flex flex-column">
-                <label for="endTime" class="time-label">End Time</label>
-                <input type="time" id="endTime" formControlName="endTime" class="time-input" />
-                @if(timeSlotForm.get('endTime')?.hasError('required') && timeSlotForm.get('endTime')?.touched){
-                <span class="text-danger">End time is required</span>
-                }
-            </div>
-        </div>
+      <div class="mb-3 d-flex flex-column">
+        <label for="startTime" class="time-label">Start Time</label>
+        <input
+          type="time"
+          id="startTime"
+          formControlName="startTime"
+          class="time-input w-100"
+        />
 
-    </form>
+        <ng-container *ngIf="timeSlotForm.get('startTime')?.touched && timeSlotForm.get('startTime')?.hasError('required')">
+          <span class="text-danger">Start time is required</span>
+        </ng-container>
+      </div>
+
+      <div class="mb-3 d-flex flex-column">
+        <label for="endTime" class="time-label">End Time</label>
+        <input
+          type="time"
+          id="endTime"
+          formControlName="endTime"
+          class="time-input w-100"
+        />
+
+        <ng-container *ngIf="timeSlotForm.get('endTime')?.touched && timeSlotForm.get('endTime')?.hasError('required')">
+          <span class="text-danger">End time is required</span>
+        </ng-container>
+      </div>
+
+    </div>
+  </form>
 </mat-dialog-content>
 
-
 <mat-dialog-actions class="d-flex justify-content-end">
-        <button mat-flat-button color="warn" (click)="closeDiaglog()">Close</button>
-        @if(data?.timeSlot?.id ==undefined){
-        <button mat-flat-button color="primary" (click)="addTimeSlot()" cdkFocusInitial>Create</button>
-        }@else{
-        <button mat-flat-button color="primary" (click)="updateTimeSlot(data?.timeSlot?.id!)"
-            cdkFocusInitial>Update</button>
-        }
+  <button mat-flat-button color="warn" (click)="closeDiaglog()">Close</button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="data?.timeSlot?.id == undefined ? addTimeSlot() : updateTimeSlot(data?.timeSlot?.id!)"
+    [disabled]="timeSlotForm.invalid"
+    cdkFocusInitial>
+    {{ data?.timeSlot?.id == undefined ? 'Create' : 'Update' }}
+  </button>
 </mat-dialog-actions>

@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, computed, effect, inject, 
 import { RouterOutlet } from '@angular/router';
 import { MatSidenavContainer, MatSidenav, MatSidenavContent } from '@angular/material/sidenav'
 import { MatMenuModule } from '@angular/material/menu'
-import { AuthService, BusyService, Menu, ResponsiveService } from 'DAL';
+import { AuthService, BusyService, Menu, ResponsiveService, ThemeService } from 'DAL';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +22,7 @@ export class LayoutComponent {
   authService = inject(AuthService);
   responsiveService = inject(ResponsiveService);
   busyService = inject(BusyService);
+  themeService = inject(ThemeService);
 
   
   collapsed = signal(false);
@@ -40,6 +41,17 @@ export class LayoutComponent {
   
   logout(){
     this.authService.logout()
+  }
+
+  setTheme(key: string) {
+    // keep current dark state
+    const dark = this.themeService.getCurrent().dark;
+    this.themeService.apply(key, dark);
+  }
+
+  toggleDark() {
+    const cur = this.themeService.getCurrent();
+    this.themeService.apply(cur.theme, !cur.dark);
   }
   
   

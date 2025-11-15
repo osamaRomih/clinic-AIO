@@ -1,0 +1,53 @@
+.time-slots-table {
+  width: 100%;
+
+  thead th {
+    padding: 8px 12px;
+    color: var(--sys-on-surface-variant);
+    font-weight: 600;
+  }
+
+  tbody td {
+    padding: 10px 12px !important;
+  }
+
+  /* hover for non-booked rows */
+  .mat-mdc-row:hover & > tr:not(.booked) .mat-mdc-cell,
+  tbody tr:not(.booked):hover {
+    background-color: var(--sys-surface-container-high); /* subtle hover */
+  }
+
+  /* booked row style (muted + pointer none) */
+  tr.booked {
+    background: color-mix(in srgb, var(--sys-surface) 85%, black 2%); /* slightly shaded */
+    color: var(--sys-on-surface-variant);
+    opacity: 0.85;
+  }
+
+  tr.booked td {
+    pointer-events: none; /* prevent clicks inside cells if you want */
+  }
+
+  /* style for the action buttons area */
+  .d-flex {
+    display: flex;
+    align-items: center;
+  }
+
+  button[mat-raised-button][disabled],
+  button[mat-flat-button][disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* spacing for icons inside buttons */
+  button mat-icon {
+    margin-right: 6px;
+  }
+}
+
+/* small responsive tweaks */
+@media (max-width: 768px) {
+  mat-form-field { width: 100%; } 
+  .time-slots-table thead { display: none; } /* optional mobile behavior */
+}
