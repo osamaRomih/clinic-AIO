@@ -1,0 +1,76 @@
+<div class="d-flex flex-column-reverse flex-md-row bg-light min-vh-100">
+  <div class="bg-white w-100" style="max-width:450px;">
+    <div class="pt-5" style="margin-top:130px;">
+      <div class="d-flex justify-content-center align-items-center">
+        <img src="assets/images/logo.svg" alt="logo" class="me-2" />
+        <span class="text-primary fw-bold" style="font-size:32px">Clinic</span>
+      </div>
+
+      <div class="text-center fw-semibold" style="font-size:25px; margin-top:23px;">
+        Register in
+      </div>
+
+      <div class="mt-4 px-4">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mx-auto" style="max-width:360px;">
+          <div class="row">
+            <div class="col-12 col-md-6 mb-3">
+              <mat-form-field class="w-100">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="Enter your first name" formControlName="firstName">
+                <mat-error libFieldError>First name is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6 mb-3">
+              <mat-form-field class="w-100">
+                <mat-label>Last Name</mat-label>
+                <input matInput placeholder="Enter your last name" formControlName="lastName">
+                <mat-error libFieldError>Last name is required</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <mat-form-field class="w-100 mb-3">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter your email address" formControlName="email">
+            <mat-error libFieldError>Email is required</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100 mb-3">
+            <mat-label>User name</mat-label>
+            <input matInput placeholder="Enter your user name address" formControlName="userName">
+            <mat-error libFieldError>User name is required</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100 mb-3">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" />
+            <button mat-icon-button matSuffix (click)="toggleHide($event)" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide()">
+              <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error libFieldError>Password is required</mat-error>
+          </mat-form-field>
+          
+          <mat-form-field class="w-100 mb-3">
+            <mat-label>Confirm password</mat-label>
+            <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" />
+            <button mat-icon-button matSuffix (click)="toggleHide($event)" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide()">
+              <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            @if(form.get('repeatPassword')?.invalid){
+              <mat-error>Password and repeat password not matches</mat-error>
+            }
+          </mat-form-field>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg rounded-3">Log in</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-fill d-flex justify-content-center align-items-center" style="min-height:100vh;">
+    <div class="w-75 w-md-50" style="max-width:650px;">
+      <img src="assets/images/Illustration.svg" class="img-fluid" alt="illustration" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<mat-toolbar class="mat-elevation-z3">
+  <button mat-icon-button (click)="toggleCollapsed()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="title" routerLink="/">Clinic</span>
+  <span class="spacer"></span>
+  <span class="welcome-text">Welcome {{ this.authService.user()?.firstName + ' '+this.authService.user()?.lastName}}</span>
+  <div [matMenuTriggerFor]="menu" class="ms-2">
+    <img [src]="'https://localhost:7096/'+this.authService.user()?.imageUrl" class="img" />
+  </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="logout()">
+      <span>Logout</span>
+    </button>
+    <button mat-button (click)="setTheme('green')">Green</button>
+    <button mat-button (click)="setTheme('blue')">Blue</button>
+    <button mat-button (click)="toggleDark()">Toggle Dark</button>
+
+  </mat-menu>
+</mat-toolbar>
+@if (busyService.loading()) {
+  <mat-progress-bar class="fixed-top z-3 top-20" mode="indeterminate" />
+}

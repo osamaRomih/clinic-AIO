@@ -14,7 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  @Input() loading = false;
   @Output() submit = new EventEmitter<ILoginCreds>();
 
   hide = signal(true);

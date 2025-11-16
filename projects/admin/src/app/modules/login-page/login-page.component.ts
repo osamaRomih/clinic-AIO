@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AuthService, ILoginCreds, SnackbarService } from 'DAL';
-import { LoginComponent } from "../../../../../../dal/src/public-api";
+import { AuthService, ILoginCreds, LoginComponent, SnackbarService } from 'DAL';
 import { Router } from '@angular/router';
 
 

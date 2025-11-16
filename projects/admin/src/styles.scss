@@ -1,11 +1,6 @@
-/* import the generated token files (scoped as .theme-*) */
-// @import 'styles/themes/theme-green.css';
-// @import 'styles/themes/theme-blue.css';
-
 @use '@angular/material' as mat;
 @use '../../dal/src/lib/styles/theme' as dalAuth;
 
-// Define theme before using it anywhere
 $system-theme: mat.define-theme((
   color: (
     use-system-variables: true
@@ -15,10 +10,8 @@ $system-theme: mat.define-theme((
   )
 ));
 
-// Material core styles
 @include mat.core();
 
-// Pass the app theme to DAL styles so DAL elements get themed
 @include dalAuth.dal-auth-theme($system-theme);
 
 $compact-theme:mat.define-theme((

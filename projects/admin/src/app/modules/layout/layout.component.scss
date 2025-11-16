@@ -1,34 +1,5 @@
-.spacer 
-{
-  flex: 1 1 auto;
-}
-
-.title {
-  cursor: pointer;
-}
-
-.welcome-text {
-  font-size: smaller;
-}
 
 
-.mat-toolbar{
-  background-color: var(--sys-primary);
-  color:var(--sys-on-primary);
-}
-
-.img{
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-
-mat-toolbar{
-  position: relative;
-  z-index: 5;
-}
 
 mat-sidenav-container{
   height: calc(100vh - 64px);

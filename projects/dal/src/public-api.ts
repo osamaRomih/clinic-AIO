@@ -43,6 +43,7 @@ export {IRoleResponse} from './models/role-response'
 export {IAppointmentRead} from './models/appointment-read'
 export {IAppointment} from './models/appointment-read'
 export {Menu} from './models/menu'
+export {MenuItem} from './models/menu-item'
 export {IActivePatient} from './models/patient'
 export {ILoginCreds} from './models/login-request'
 
@@ -69,3 +70,5 @@ export { LoginComponent as DalLoginComponent } from './components/login/login.co
 
 // components
 export {LoginComponent} from './components/login/login.component'
+export {HeaderComponent} from './components/header/header.component'
+export {MenuItemComponent} from './components/menu-item/menu-item.component'

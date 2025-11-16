@@ -2,8 +2,6 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './modules/layout/layout.component';
 import { HomeComponent } from './modules/home/home.component';
 import { AllTimeSlotsComponent } from './modules/timeSlots/all-time-slots/all-time-slots.component';
-import { LoginPageComponent } from './modules/auth/login/login-page.component';
-import { RegisterComponent } from './modules/auth/register/register.component';
 import { authGuard } from './guards/auth.guard';
 import { AllPrescriptionComponent } from './modules/prescriptions/all-prescription/all-prescription.component';
 import { AddPrescriptionComponent } from './modules/prescriptions/add-prescription/add-prescription.component';
@@ -19,6 +17,7 @@ import { AddAppointmentComponent } from './modules/appointments/add-appointment/
 import { ChatComponent } from './modules/chat/chat.component';
 import { UpdateAppointmentComponent } from './modules/appointments/update-appointment/update-appointment.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { LoginPageComponent } from './modules/login-page/login-page.component';
 
 export const routes: Routes = [
   {
@@ -29,65 +28,64 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
 
       // Home / Dashboard
-      { path: 'home', component: HomeComponent, title: 'Home' },
-      { path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
+      { path: 'home', component: HomeComponent,},
+      { path: 'dashboard', component: DashboardComponent },
 
       // Settings
       {
         path: 'settings',
         component: SettingsComponent,
-        title: 'Settings',
+    
         children: [
           { path: '', redirectTo: 'profile', pathMatch: 'full' },
-          { path: 'profile', component: ProfileComponent, title: 'Profile' },
-          { path: 'change-password', component: ChangePasswordComponent, title: 'Change Password' }
+          { path: 'profile', component: ProfileComponent },
+          { path: 'change-password', component: ChangePasswordComponent}
         ]
       },
 
       // Availability
-      { path: 'availability', component: AllTimeSlotsComponent, title: 'Availability' },
+      { path: 'availability', component: AllTimeSlotsComponent },
 
       // Prescriptions
       {
         path: 'prescriptions',
-        title: 'Prescriptions',
+    
         children: [
-          { path: '', component: AllPrescriptionComponent, title: 'All Prescriptions' },
-          { path: 'add', component: AddPrescriptionComponent, title: 'Add Prescription' },
-          { path: 'edit/:id', component: UpdatePrescriptionComponent, title: 'Edit Prescription' }
+          { path: '', component: AllPrescriptionComponent},
+          { path: 'add', component: AddPrescriptionComponent },
+          { path: 'edit/:id', component: UpdatePrescriptionComponent }
         ]
       },
 
       // Appointments
       {
         path: 'appointments',
-        title: 'Appointments',
+    
         children: [
-          { path: '', component: AllAppointmentsComponent, title: 'All Appointments' },
-          { path: 'calendar', component: AppointmentCalenderComponent, title: 'Appointment Calendar' },
-          { path: 'add', component: AddAppointmentComponent, title: 'Add Appointment' },
-          { path: 'edit/:id', component: UpdateAppointmentComponent, title: 'Edit Appointment' }
+          { path: '', component: AllAppointmentsComponent },
+          { path: 'calendar', component: AppointmentCalenderComponent },
+          { path: 'add', component: AddAppointmentComponent },
+          { path: 'edit/:id', component: UpdateAppointmentComponent }
         ]
       },
 
       // Chat
-      { path: 'chat', component: ChatComponent, title: 'Chat' },
+      { path: 'chat', component: ChatComponent },
 
       // Calendar
-      { path: 'calendar', component: CalanderComponent, title: 'Calendar' },
+      { path: 'calendar', component: CalanderComponent },
 
       // Users
-      { path: 'users', component: AllUsersComponent, title: 'Users' },
+      { path: 'users', component: AllUsersComponent },
     ],
   },
 
   // Auth
   {
     path: 'auth',
-    title: 'Auth',
+
     children: [
-      { path: 'login', component: LoginPageComponent, title: 'Login' },
-      { path: 'register', component: RegisterComponent, title: 'Register' }
+      { path: 'login', component: LoginPageComponent },
     ]
   },
 

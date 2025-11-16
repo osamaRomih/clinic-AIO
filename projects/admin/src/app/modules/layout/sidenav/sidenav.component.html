@@ -11,6 +11,6 @@
 </div>
 <mat-nav-list>
   @for (item of menuItems(); track item.lable) {
-    <app-menu-item [item]="item" [collapsed]="sidenavCollapsed()" />
+    <lib-menu-item [item]="item" [collapsed]="sidenavCollapsed()" />
   }
 </mat-nav-list>
