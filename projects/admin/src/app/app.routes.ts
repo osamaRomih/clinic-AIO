@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './modules/layout/layout.component';
 import { HomeComponent } from './modules/home/home.component';
 import { AllTimeSlotsComponent } from './modules/timeSlots/all-time-slots/all-time-slots.component';
-import { LoginComponent } from './modules/auth/login/login.component';
+import { LoginPageComponent } from './modules/auth/login/login-page.component';
 import { RegisterComponent } from './modules/auth/register/register.component';
 import { authGuard } from './guards/auth.guard';
 import { AllPrescriptionComponent } from './modules/prescriptions/all-prescription/all-prescription.component';
@@ -86,7 +86,7 @@ export const routes: Routes = [
     path: 'auth',
     title: 'Auth',
     children: [
-      { path: 'login', component: LoginComponent, title: 'Login' },
+      { path: 'login', component: LoginPageComponent, title: 'Login' },
       { path: 'register', component: RegisterComponent, title: 'Register' }
     ]
   },

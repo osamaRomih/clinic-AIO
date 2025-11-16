@@ -22,6 +22,7 @@ import {
   loadingInterceptor,
 } from 'DAL';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { ThemeService } from 'DAL';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,6 +35,16 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideToastr(),
     importProvidersFrom(NgxSpinnerModule.forRoot({ type: 'square-jelly-box' })),
+    // Ensure theme is applied even on routes outside layout (e.g., login)
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => {
+        // injecting ThemeService triggers its constructor to apply saved theme
+        inject(ThemeService);
+        return () => Promise.resolve();
+      },
+      multi: true,
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: () => {

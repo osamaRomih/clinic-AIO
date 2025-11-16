@@ -2,6 +2,8 @@
  * Public API Surface of dal
  */
 
+import { ex } from '@fullcalendar/core/internal-common';
+
 export * from './lib/dal.service';
 export * from './lib/dal.component';
 
@@ -42,6 +44,7 @@ export {IAppointmentRead} from './models/appointment-read'
 export {IAppointment} from './models/appointment-read'
 export {Menu} from './models/menu'
 export {IActivePatient} from './models/patient'
+export {ILoginCreds} from './models/login-request'
 
 
 export {ILoginRequest} from './models/login-request'
@@ -60,3 +63,9 @@ export {loadingInterceptor} from './interceptors/loading.interceptor'
 
 // pipes
 export {TimeAgoPipe} from './pipes/time-ago.pipe'
+
+// Components
+export { LoginComponent as DalLoginComponent } from './components/login/login.component'
+
+// components
+export {LoginComponent} from './components/login/login.component'
