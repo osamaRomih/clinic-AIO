@@ -3,6 +3,7 @@ import { LoginPageComponent } from './modules/login-page/login-page.component';
 import { LayoutComponent } from './modules/layout/layout.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { authGuard } from 'DAL';
+import { AllAppointmentsComponent } from './modules/appointments/all-appointments/all-appointments.component';
 
 export const routes: Routes =  [
   {
@@ -41,17 +42,17 @@ export const routes: Routes =  [
   //       ]
   //     },
 
-  //     // Appointments
-  //     {
-  //       path: 'appointments',
+      // Appointments
+      {
+        path: 'appointments',
     
-  //       children: [
-  //         { path: '', component: AllAppointmentsComponent },
-  //         { path: 'calendar', component: AppointmentCalenderComponent },
-  //         { path: 'add', component: AddAppointmentComponent },
-  //         { path: 'edit/:id', component: UpdateAppointmentComponent }
-  //       ]
-  //     },
+        children: [
+          { path: '', component: AllAppointmentsComponent },
+          // { path: 'calendar', component: AppointmentCalenderComponent },
+          // { path: 'add', component: AddAppointmentComponent },
+          // { path: 'edit/:id', component: UpdateAppointmentComponent }
+        ]
+      },
 
   //     // Chat
   //     { path: 'chat', component: ChatComponent },

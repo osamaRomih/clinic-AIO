@@ -69,6 +69,10 @@
             <ng-container>
               <span [ngClass]="getStatusClass(element.status)">{{ element.status }}</span>
             </ng-container>
+            }@else if (tableColumn.dataKey=='startTime') {
+            <ng-container>
+              <span>{{ element.startTime | timeShort }}</span>
+            </ng-container>
             }@else {
             <ng-container>
               {{ element[tableColumn.dataKey] }}

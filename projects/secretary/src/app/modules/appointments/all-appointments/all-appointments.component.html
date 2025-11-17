@@ -1,0 +1,33 @@
+<div class="page-wrapper">
+
+  <div class="breadcrumb">
+    <li>
+      <h4 class="page-title">View Appointment</h4>
+    </li>
+    <mat-icon>chevron_right</mat-icon>
+    <li class="breadcrumb-item breadcrumb-icon d-flex align-items-center"><img src="/assets/images/home.svg" /></li>
+    <mat-icon>chevron_right</mat-icon>
+    <li class="breadcrumb-item">Appointment</li>
+    <mat-icon>chevron_right</mat-icon>
+    <li class="breadcrumb-item active">View</li>
+  </div>
+
+
+    <div class="card-body">
+      <lib-material-table 
+      [title]="'Appointments'"
+      [tableData]="appointments" 
+      [tableColumns]="appointmentsTableColumns"
+      [isFilterable]="true"
+      [isSortable]="false"
+      [isPageable]="true"
+      (add)="onAdd()"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      (exportExcel)="exportAsExcel()"
+      [enableSelection]="true"
+      (bulkDelete)="confirmBulkDelete($event)"
+      ></lib-material-table>
+  </div>
+
+</div>

@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCard, MatCardHeader, MatCardTitle, MatCardContent } from "@angular/material/card";
+import {
+  MatCard,
+  MatCardHeader,
+  MatCardTitle,
+  MatCardContent,
+} from '@angular/material/card';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions } from '@fullcalendar/core';
@@ -8,17 +13,25 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { AppointmentService } from 'DAL';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import moment from 'moment';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-calender',
   standalone: true,
-  imports: [MatIconModule, MatCard, MatCardHeader, MatCardTitle, MatCardContent, FullCalendarModule],
+  imports: [
+    MatIconModule,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardContent,
+    FullCalendarModule,
+  ],
   templateUrl: './appointment-calender.component.html',
-  styleUrl: './appointment-calender.component.scss'
+  styleUrl: './appointment-calender.component.scss',
 })
 export class AppointmentCalenderComponent implements OnInit {
-  constructor(private service: AppointmentService) {}
+  private appointmentService = inject(AppointmentService);
+  private router = inject(Router);
 
   ngOnInit(): void {}
 
@@ -27,43 +40,47 @@ export class AppointmentCalenderComponent implements OnInit {
     success,
     failure
   ) => {
-    this.service
+    this.appointmentService
       .getAllInRange(info.startStr.split('T')[0], info.endStr.split('T')[0])
       .subscribe({
-        next: (items) => {success(items)
-          console.log(items)
+        next: (items) => {
+          success(items);
+          console.log(items);
         },
-        error: (err) => failure(err), 
+        error: (err) => failure(err),
       });
   };
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
-    plugins: [dayGridPlugin, interactionPlugin,timeGridPlugin],
+    plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
     headerToolbar: {
       start: 'prev,next today',
       center: 'title',
-      end: 'dayGridMonth,timeGridWeek,timeGridDay'
+      end: 'dayGridMonth,timeGridWeek,timeGridDay',
     },
-    dateClick: (arg) => this.handleDateClick(arg),
     events: this.fetchAllEvents,
     eventContent: (arg) => {
-      const {title} = arg.event; 
+      const { title } = arg.event;
       const status = arg.event.extendedProps['status'];
       const imageUrl = arg.event.extendedProps['image'];
 
-      const statusClass = status ? `status-${status.toLowerCase()}` : 'status-default';
+      const statusClass = status
+        ? `status-${status.toLowerCase()}`
+        : 'status-default';
 
       return {
         html: `<div class="event-item ${statusClass}">
-                <img src="${'http://localhost:5069/'+imageUrl}" class="fc-event-avatar"/>
+                <img src="${
+                  'http://localhost:5069/' + imageUrl
+                }" class="fc-event-avatar"/>
                 <span class="fc-event-title-custom">${title}</span>
                </div>`,
       };
     },
+    eventClick: (arg:any) => {
+    this.router.navigate(['/appointments/edit', arg.event.id]);
+  },
   };
 
-  handleDateClick(arg:any){
-
-  }
 }

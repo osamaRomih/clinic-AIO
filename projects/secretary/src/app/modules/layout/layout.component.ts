@@ -56,6 +56,28 @@ export class LayoutComponent {
       lable: 'Dashboard',
       route: '/dashboard',
     },
+    {
+      icon: 'event',
+      lable: 'Appointments',
+      route: '/appointments',
+      subItems: [
+        {
+          icon: 'list',
+          lable: 'View All',
+          route: '/appointments',
+        },
+        {
+          icon: 'calendar_today',
+          lable: 'Calendar',
+          route: '/appointments/calendar',
+        },
+        {
+          icon: 'add',
+          lable: 'Add Appointment',
+          route: '/appointments/add',
+        },
+      ],
+    },
 
   ]);
 }

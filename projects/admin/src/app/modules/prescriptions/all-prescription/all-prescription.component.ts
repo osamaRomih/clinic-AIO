@@ -3,13 +3,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { IPrescription, IPrescriptionResponse, PrescriptionService } from 'DAL';
+import { IPrescription, IPrescriptionResponse, MaterialTableComponent, PrescriptionService, TableColumn } from 'DAL';
 import { MatIconModule } from '@angular/material/icon';
 import moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailsPrescriptionComponent } from '../details-prescription/details-prescription.component';
-import { MaterialTableComponent } from '../../../../../../ui/src/lib/material-table/material-table.component';
-import { TableColumn } from '../../../../../../ui/src/lib/interfaces/TableColumn';
 import { Sort } from '@angular/material/sort';
 import * as XLSX from 'xlsx';
 

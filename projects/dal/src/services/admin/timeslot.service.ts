@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { ITimeSlot, ScheduleResponse } from '../../models/timeslot';
+import { inject, Injectable, signal } from '@angular/core';
+import { DaySlotsResponse, ITimeSlot, ScheduleResponse } from '../../models/timeslot';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,9 @@ import { ITimeSlot, ScheduleResponse } from '../../models/timeslot';
 export class TimeslotService {
 
   baseAPI = 'http://localhost:5069/api';
-  constructor(private httpClient:HttpClient){
-  }
+  private httpClient = inject(HttpClient);
+
+  timeSlots = signal<DaySlotsResponse[]>([]);
 
   addTimeSlot(model:ITimeSlot,day:string){
     return this.httpClient.post(`${this.baseAPI}/days/${day}/timeslots`,model);
@@ -24,7 +26,12 @@ export class TimeslotService {
     if(date!=undefined)
       params = params.append('date',date);
     
-    return this.httpClient.get<ScheduleResponse>(`${this.baseAPI}/timeslots`,{params});
+    return this.httpClient.get<ScheduleResponse>(`${this.baseAPI}/timeslots`,{params}).pipe(
+      tap(response=>{
+          this.timeSlots.set(response.slots);
+        return response;
+      })
+    );
   }
 
   deleteTimeSlot(id:number){

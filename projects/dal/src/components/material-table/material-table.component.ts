@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { TableColumn } from '../../models/table-column';
+import { TimeShortPipe } from '../../public-api';
 
 @Component({
   selector: 'lib-material-table',
@@ -25,7 +26,8 @@ import { TableColumn } from '../../models/table-column';
     MatIconModule,
     MatButtonModule,
     MatTabsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    TimeShortPipe
   ],
   templateUrl: './material-table.component.html',
   styleUrl: './material-table.component.scss'

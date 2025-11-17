@@ -27,12 +27,13 @@ import { MatSelectModule } from '@angular/material/select';
 import {
   AppointmentService,
   AuthService,
-  IActivePatient,
   IAppointment,
   IAppointmentRead,
+  IPatient,
   PatientService,
   ScheduleResponse,
   SnackbarService,
+  TimeShortPipe,
   TimeSlotResponse,
   TimeslotService,
 } from 'DAL';
@@ -64,7 +65,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatSelectModule,
     MatButtonModule,
     MatAutocompleteModule,
-    AsyncPipe,
+    TimeShortPipe,
     CommonModule,
   ],
   templateUrl: './update-appointment.component.html',
@@ -73,8 +74,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UpdateAppointmentComponent implements OnInit {
   timeSlots: TimeSlotResponse[] = [];
   appointmentForm!: FormGroup;
-  patients: IActivePatient[] = [];
-  filteredPatients: Observable<IActivePatient[]> | undefined;
+  patients: IPatient[] = [];
   appointment!: IAppointment;
   appointmentId!: number;
   constructor(
@@ -87,27 +87,18 @@ export class UpdateAppointmentComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
-  filterPatients(fullName: string): IActivePatient[] {
-    let arr = this.patients.filter(
-      (patient) =>
-        patient.fullName.toLowerCase().indexOf(fullName.toLowerCase()) === 0
-    );
-
-    return arr.length
-      ? arr
-      : [{ fullName: 'No Item found', id: 0, imageUrl: '', phoneNumber: '' }];
-  }
   ngOnInit(): void {
     this.appointmentId = Number(this.route.snapshot.paramMap.get('id'));
     this.initForm();
 
     this.loadPatients();
+    this.loadTimeSlots();
     this.loadAppointment();
+
   }
 
   initForm() {
     this.appointmentForm = this.fb.group({
-      patientSearch: [''],
       patientId: [null],
       timeSlotId: [null],
       date: [null],
@@ -118,7 +109,6 @@ export class UpdateAppointmentComponent implements OnInit {
 
   createForm() {
     this.appointmentForm = this.fb.group({
-      patientSearch: [this.appointment.patientName],
       patientId: [this.appointment.patientId, [Validators.required]],
       timeSlotId: [this.appointment.timeSlotId, [Validators.required]],
       date: [this.appointment.date, [Validators.required]],
@@ -131,38 +121,35 @@ export class UpdateAppointmentComponent implements OnInit {
     this.appointmentService.getById(this.appointmentId).subscribe({
       next: (res: any) => {
         this.appointment = res;
-        const date = moment(this.appointment.date).format("YYYY-MM-DD");
-        this.getTimesByDate(date);
-      },
-    });
-  }
-
-  // get time slots when click to day in calender
-  getTimeSlots(event: MatDatepickerInputEvent<Date>) {
-    if (!event.value) return;
-
-    const date = moment(event.value).format('YYYY-MM-DD');
-    this.getTimesByDate(date);
-  }
-
-  getTimesByDate(date:string){
-    this.timeSlotService.getAll(date).subscribe({
-      next: (res) => {
-        this.timeSlots = res.slots.length > 0 ? res.slots[0].timeSlots : [];
+        this.getTimeSlotsByDate(this.appointment.date);
         this.createForm();
         console.log(this.appointmentForm.value)
       },
       error: (err) => {
         console.log(err);
-      },
+      }
     });
+  }
+
+  getTimeSlotsByDate(date: string) {
+    const day = moment(date).format('dddd');
+    this.timeSlots = this.timeSlotService.timeSlots().find((slots) => slots.day === day)?.timeSlots || [];
+  }
+
+  loadTimeSlots() {
+    this.timeSlotService.getAll().subscribe();
+  }
+
+  filterTimeSlotsByDate(event: MatDatepickerInputEvent<Date>) {
+    if (!event.value) return;
+    this.getTimeSlotsByDate(moment(event.value).format('YYYY-MM-DD'));
   }
 
   loadPatients() {
     this.patientService.getAllActive().subscribe({
       next: (res) => {
+        console.log(res)
         this.patients = res;
-        this.bindPatientSearch();
       },
       error: (err) => {
         console.log(err);
@@ -170,19 +157,8 @@ export class UpdateAppointmentComponent implements OnInit {
     });
   }
 
-  onPatientSelected(e: MatAutocompleteSelectedEvent) {
-    const p = e.option.value as IActivePatient;
-    this.appointmentForm.patchValue(
-      {
-        patientSearch: p.fullName,
-        patientId: p.id,
-      },
-      { emitEvent: false }
-    );
-  }
-
   onSubmit() {
-    const { patientSearch, date, ...rest } = this.appointmentForm.value;
+    const { date, ...rest } = this.appointmentForm.value;
     console.log(this.appointmentForm.value)
     const model = {
       ...rest,
@@ -195,27 +171,6 @@ export class UpdateAppointmentComponent implements OnInit {
         this.router.navigateByUrl('/appointments');
       },
       error: () => {},
-    });
-  }
-
-  private bindPatientSearch() {
-    this.filteredPatients = this.appointmentForm
-      .get('patientSearch')
-      ?.valueChanges.pipe(
-        startWith(this.appointmentForm.get('patientSearch')!.value ?? ''),
-        map((value) => (value ?? '').toString().toLowerCase().trim()),
-        map((term) =>
-          this.patients.filter((p) => p.fullName.toLowerCase().includes(term))
-        )
-      );
-
-    // if user edits text manually after selection, clear patientId to avoid stale ids
-    this.appointmentForm.get('patientSearch')!.valueChanges.subscribe((val) => {
-      const current = this.appointmentForm.get('patientId')!.value;
-      if (typeof val === 'string')
-        this.appointmentForm
-          .get('patientId')!
-          .setValue(null, { emitEvent: false });
     });
   }
 }

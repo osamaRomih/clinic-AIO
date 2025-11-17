@@ -44,7 +44,7 @@ export {IAppointmentRead} from './models/appointment-read'
 export {IAppointment} from './models/appointment-read'
 export {Menu} from './models/menu'
 export {MenuItem} from './models/menu-item'
-export {IActivePatient} from './models/patient'
+export {IPatient} from './models/patient'
 export {ILoginCreds} from './models/login-request'
 export {TableColumn} from './models/table-column'
 
@@ -64,6 +64,7 @@ export {loadingInterceptor} from './interceptors/loading.interceptor'
 
 // pipes
 export {TimeAgoPipe} from './pipes/time-ago.pipe'
+export {TimeShortPipe} from './pipes/time-short.pipe'
 
 // Components
 export { LoginComponent as DalLoginComponent } from './components/login/login.component'
