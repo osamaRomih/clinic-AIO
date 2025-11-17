@@ -2,16 +2,15 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChil
 import { MatPaginator, PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { TableColumn } from '../interfaces/TableColumn';
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
-import { DataPropertyGetterPipe } from "../data-property-getter-pipe/data-property-getter.pipe";
 import { CommonModule } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { TableColumn } from '../../models/table-column';
 
 @Component({
   selector: 'lib-material-table',
@@ -26,11 +25,10 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
     MatIconModule,
     MatButtonModule,
     MatTabsModule,
-    DataPropertyGetterPipe,
     MatCheckboxModule
   ],
   templateUrl: './material-table.component.html',
-  styleUrl: './material-table.component.css'
+  styleUrl: './material-table.component.scss'
 })
 export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges {
   public tableDataSource = new MatTableDataSource<any>([]);
@@ -182,5 +180,16 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges 
   }
   getValue(obj:any,path:string){
     return obj[path];
+  }
+
+  getStatusClass(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'booked':
+        return 'status-booked';
+      case 'cancelled':
+        return 'status-cancelled';
+      default:
+        return '';
+    }
   }
 }

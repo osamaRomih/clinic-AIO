@@ -1,12 +1,4 @@
 <ng-container>
-
-  <!-- Filter -->
-  <!-- <ng-container *ngIf="isFilterable">
-    <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="filter">
-    </mat-form-field>
-  </ng-container> -->
   <div class="materialTableHeader">
     <div class="left">
       <ul class="d-flex mb-0 list-unstyled ">
@@ -65,18 +57,24 @@
           </ng-template>
 
           <td mat-cell *matCellDef="let element">
-            <!-- If this is the patient column, show photo + name -->
-            <ng-container *ngIf="tableColumn.dataKey === 'patientName'; else defaultCell">
+            @if(tableColumn.dataKey === 'patientName'){
+            <ng-container>
               <div style="display:flex; align-items:center; gap:8px;">
                 <img [src]="'http://localhost:5069'+element.imageUrl || 'assets/images/avatar.png'"
                   style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
                 <span>{{ element.patientName }}</span>
               </div>
             </ng-container>
-            <!-- Default for every other column -->
-            <ng-template #defaultCell>
-              {{ element | dataPropertyGetter: tableColumn.dataKey }}
-            </ng-template>
+            }@else if (tableColumn.dataKey=='status') {
+            <ng-container>
+              <span [ngClass]="getStatusClass(element.status)">{{ element.status }}</span>
+            </ng-container>
+            }@else {
+            <ng-container>
+              {{ element[tableColumn.dataKey] }}
+            </ng-container>
+            }
+
           </td>
         </ng-container>
 

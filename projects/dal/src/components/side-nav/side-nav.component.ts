@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, Input, signal } from '@angular/core';
+import { Component, computed, inject, Input, signal } from '@angular/core';
 import { AuthService, MenuItem, MenuItemComponent } from '../../public-api';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';

@@ -46,7 +46,7 @@ export {Menu} from './models/menu'
 export {MenuItem} from './models/menu-item'
 export {IActivePatient} from './models/patient'
 export {ILoginCreds} from './models/login-request'
-
+export {TableColumn} from './models/table-column'
 
 export {ILoginRequest} from './models/login-request'
 export {ILoginResponse} from './models/login-response'
@@ -73,6 +73,7 @@ export {LoginComponent} from './components/login/login.component'
 export {HeaderComponent} from './components/header/header.component'
 export {MenuItemComponent} from './components/menu-item/menu-item.component'
 export {SideNavComponent} from './components/side-nav/side-nav.component'
+export {MaterialTableComponent} from './components/material-table/material-table.component'
 
 // directives
 export {FieldErrorDirective} from './directives/field-error.directive'

@@ -12,9 +12,6 @@
     "paths": {
       "DAL": [
         "./dist/dal"
-      ],
-      "ui": [
-        "./dist/ui"
       ]
     },
     "esModuleInterop": true,

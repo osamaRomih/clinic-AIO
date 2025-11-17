@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './modules/layout/layout.component';
-import { HomeComponent } from './modules/home/home.component';
 import { AllTimeSlotsComponent } from './modules/timeSlots/all-time-slots/all-time-slots.component';
 import { AllPrescriptionComponent } from './modules/prescriptions/all-prescription/all-prescription.component';
 import { AddPrescriptionComponent } from './modules/prescriptions/add-prescription/add-prescription.component';

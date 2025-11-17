@@ -1,9 +1,0 @@
-<mat-form-field appearance="outline" class="w-100">
-  <mat-label>{{label}}</mat-label>
-  <input matInput [type]="type" [value]="value" (input)="handleInput($event)" (blur)="onTouched()" [disabled]="disabled"
-    [placeholder]="placeholder || label" />
-    <mat-error *ngIf="control?.invalid && (control?.touched || control?.dirty)">
-      {{ getFirstErrorMessage() }}
-    </mat-error>
-
-</mat-form-field>
