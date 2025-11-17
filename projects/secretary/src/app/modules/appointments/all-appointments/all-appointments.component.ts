@@ -2,8 +2,16 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
-import { AppointmentService, IAppointmentRead, MaterialTableComponent, SnackbarService, TableColumn } from 'DAL';
+import {
+  AppointmentService,
+  IAppointmentRead,
+  MaterialTableComponent,
+  SnackbarService,
+  TableColumn,
+} from 'DAL';
 import * as XLSX from 'xlsx';
+import { AppointmentDetailsComponent } from '../appointment-details/appointment-details.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-all-appointments',
@@ -16,6 +24,7 @@ export class AllAppointmentsComponent {
   router = inject(Router);
   service = inject(AppointmentService);
   snackBarService = inject(SnackbarService);
+  dialog = inject(MatDialog);
 
   appointmentsTableColumns!: TableColumn[];
   totalItems!: number;
@@ -63,6 +72,20 @@ export class AllAppointmentsComponent {
 
   onPageChange(event: PageEvent) {
     this.getAllAppointment(event.pageIndex + 1, event.pageSize);
+  }
+
+  openDialogDetails(id: number) {
+    console.log(id)
+    this.service.getById(id).subscribe({
+      next: (res) => {
+        const dialogRef = this.dialog.open(AppointmentDetailsComponent, {
+          data: res,
+          width: '750px',
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {});
+      },
+    });
   }
 
   confirmBulkDelete(selectedRows: any[]) {

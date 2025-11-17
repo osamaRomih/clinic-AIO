@@ -65,7 +65,7 @@ export {loadingInterceptor} from './interceptors/loading.interceptor'
 // pipes
 export {TimeAgoPipe} from './pipes/time-ago.pipe'
 export {TimeShortPipe} from './pipes/time-short.pipe'
-
+export {DatePipe} from './pipes/date.pipe'
 // Components
 export { LoginComponent as DalLoginComponent } from './components/login/login.component'
 

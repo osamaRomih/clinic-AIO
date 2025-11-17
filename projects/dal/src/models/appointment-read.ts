@@ -16,13 +16,15 @@ export interface IAppointmentRead {
 }
 
 export interface IAppointment{
-  id:number,
-  date: string,
-  status: string,
-  patientId: string,
-  patientName: string,
-  reasonForVisit:string,
-  visitType:string,
-  timeSlotId:number,
-  patientPhoneNumber: string
+  id:number;
+  date: string;
+  status: string;
+  patientId: string;
+  patientName: string;
+  reasonForVisit:string;
+  visitType:string;
+  timeSlotId:number;
+  startTime:string;
+  endTime:string;
+  patientPhoneNumber: string;
 }

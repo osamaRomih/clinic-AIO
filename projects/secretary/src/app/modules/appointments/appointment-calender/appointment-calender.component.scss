@@ -1,0 +1,38 @@
+:host ::ng-deep .event-item{
+  border-radius: 10px;
+  background-color: #2196f3;
+  position: relative;
+  margin-left: 5px;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+:host ::ng-deep .fc-event-avatar{
+  position: relative;
+  left:-4px;
+  top:0px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+
+:host ::ng-deep .fc-event-title-custom{
+  color:#fff;
+  margin-left: -2px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+:host ::ng-deep .event-item.status-booked {
+  background-color: #4CAF50;;
+}
+
+:host ::ng-deep .event-item.status-cancelled {
+  background-color: #f44336;
+}
+
+:host ::ng-deep .event-item.status-completed {
+  background-color: #9E9E9E;
+  opacity: 0.8;
+}

@@ -1,0 +1,86 @@
+.appt-card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.appt-card-header {
+  padding: 16px;
+}
+
+.appt-date {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.appt-time {
+  font-size: 0.95rem;
+}
+
+.status-chip {
+  font-weight: 600;
+  text-transform: capitalize;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.status-chip.booked {
+  background: #E8F5E9;
+  color: #2E7D32;
+  border: 1px solid rgba(46, 125, 50, 0.12);
+}
+
+.status-chip.confirmed {
+  background: #E3F2FD;
+  color: #1565C0;
+  border: 1px solid rgba(21, 101, 192, 0.12);
+}
+
+.status-chip.cancelled {
+  background: #FFEBEE;
+  color: #C62828;
+  border: 1px solid rgba(198, 40, 40, 0.12);
+}
+
+.status-chip.completed {
+  background: #F5F5F5;
+  color: #616161;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.section-title {
+  color: #1565C0;
+  font-size: 0.78rem;
+  letter-spacing: 0.6px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.muted-label {
+  color: #6c757d;
+  display: block;
+  font-size: 0.78rem;
+}
+
+
+.reason-box {
+  border-left: 4px solid #90CAF9;
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.reason-text {
+  color: #374151;
+  margin-top: 6px;
+}
+
+.meta-text {
+  color: #6b7280;
+  font-size: 0.82rem;
+}
+
+@media (max-width:520px) {
+  .appt-card {
+    width: 100%;
+  }
+}

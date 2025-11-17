@@ -4,6 +4,9 @@ import { LayoutComponent } from './modules/layout/layout.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { authGuard } from 'DAL';
 import { AllAppointmentsComponent } from './modules/appointments/all-appointments/all-appointments.component';
+import { AppointmentCalenderComponent } from './modules/appointments/appointment-calender/appointment-calender.component';
+import { AddAppointmentComponent } from './modules/appointments/add-appointment/add-appointment.component';
+import { UpdateAppointmentComponent } from './modules/appointments/update-appointment/update-appointment.component';
 
 export const routes: Routes =  [
   {
@@ -48,9 +51,9 @@ export const routes: Routes =  [
     
         children: [
           { path: '', component: AllAppointmentsComponent },
-          // { path: 'calendar', component: AppointmentCalenderComponent },
-          // { path: 'add', component: AddAppointmentComponent },
-          // { path: 'edit/:id', component: UpdateAppointmentComponent }
+          { path: 'calendar', component: AppointmentCalenderComponent },
+          { path: 'add', component: AddAppointmentComponent },
+          { path: 'edit/:id', component: UpdateAppointmentComponent }
         ]
       },
 

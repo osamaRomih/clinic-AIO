@@ -1,0 +1,67 @@
+<mat-card class="appt-card shadow-sm">
+  <mat-card-header>
+    <div class="d-flex justify-content-between w-100 align-items-center">
+      <div class="d-flex align-items-center gap-2">
+        <mat-icon>calendar_today</mat-icon>
+        <span class="header-text">Appointment Details</span>
+      </div>
+      <button mat-icon-button (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+    </div>
+    
+  </mat-card-header>
+  <div class="d-flex justify-content-between align-items-start appt-card-header">
+    <div>
+      <div class="appt-date">{{ appointment.date | date:'dddd, MMM d, yyyy'}}</div>
+      <div class="appt-time text-muted">{{ appointment.startTime | timeShort }} - {{ appointment.endTime | timeShort }}
+      </div>
+    </div>
+
+    <div class="text-end">
+      <!-- <mat-chip class="status-chip" [ngClass]="statusClass(appointment.status)"> -->
+      {{ appointment.status }}
+      <!-- </mat-chip> -->
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="p-3">
+    <h6 class="text-primary fs-4">Patient Information</h6>
+    <div class="d-flex flex-column gap-2">
+      <div class="d-flex justify-content-between">
+      <small class="text-muted fs-5">Name:</small>
+      <strong class="fs-6">{{ appointment.patientName }}</strong>
+    </div>
+    <div class="d-flex justify-content-between">
+      <small class="text-muted fs-5">Phone:</small>
+      <div class="fs-6">{{ appointment.patientPhoneNumber || 'No phone number' }}</div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <small class="text-muted fs-5">Patient ID:</small>
+      <div class="fs-6">{{ appointment.patientId }}</div>
+    </div>
+    </div>
+
+    <mat-divider class="my-2"></mat-divider>
+
+    <h6 class="text-primary fs-5">Visit Details</h6>
+    <div class="d-flex justify-content-between">
+      <small class="text-muted fs-5">Visit Type:</small>
+      <div class="fs-6">{{ appointment.visitType || '—' }}</div>
+    </div>
+
+    <div class="reason-box mt-2 mb-3">
+      <small class="text-muted fs-5">Reason for Visit:</small>
+      <div class="reason-text">{{ appointment.reasonForVisit || '—' }}</div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <small class="meta-text">Appt ID: {{ appointment.id }} | Slot ID: {{ appointment.timeSlotId ?? '—' }}</small>
+    </div>
+  </div>
+</mat-card>

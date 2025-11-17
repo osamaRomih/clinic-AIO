@@ -4,6 +4,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { AppointmentService, IAppointmentRead, MaterialTableComponent, SnackbarService, TableColumn } from 'DAL';
 import * as XLSX from 'xlsx';
+import { AppointmentDetailsComponent } from '../appointment-details/appointment-details.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-all-appointments',
@@ -16,6 +18,7 @@ export class AllAppointmentsComponent {
   router = inject(Router);
   service = inject(AppointmentService);
   snackBarService = inject(SnackbarService);
+  dialog = inject(MatDialog);
 
   appointmentsTableColumns!: TableColumn[];
   totalItems!: number;
@@ -112,6 +115,19 @@ export class AllAppointmentsComponent {
       error: () => this.snackBarService.error('Delete failed'),
     });
   }
+
+  openDialogDetails(id: number) {
+      this.service.getById(id).subscribe({
+        next: (res) => {
+          const dialogRef = this.dialog.open(AppointmentDetailsComponent, {
+            data: res,
+            width: '750px',
+          });
+  
+          dialogRef.afterClosed().subscribe((result) => {});
+        },
+      });
+    }
 
   initColumns(): void {
     this.appointmentsTableColumns = [
