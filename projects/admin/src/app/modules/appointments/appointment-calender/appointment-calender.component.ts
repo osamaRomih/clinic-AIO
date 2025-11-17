@@ -56,7 +56,7 @@ export class AppointmentCalenderComponent implements OnInit {
 
       return {
         html: `<div class="event-item ${statusClass}">
-                <img src="${'https://localhost:7096/'+imageUrl}" class="fc-event-avatar"/>
+                <img src="${'http://localhost:5069/'+imageUrl}" class="fc-event-avatar"/>
                 <span class="fc-event-title-custom">${title}</span>
                </div>`,
       };

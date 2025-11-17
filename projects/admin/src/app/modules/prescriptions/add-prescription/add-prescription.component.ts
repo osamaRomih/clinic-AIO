@@ -10,7 +10,6 @@ import {
   FormArray,
   FormBuilder,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
@@ -20,10 +19,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { PrescriptionService } from 'DAL';
+import { FieldErrorDirective, PrescriptionService } from 'DAL';
 import moment from 'moment';
-import { CustomInputComponent } from '../../../../../../ui/src/lib/text-input/custom-input.component';
-import { FieldErrorDirective } from '../../../shared/directives/field-error.directive';
 @Component({
   selector: 'app-add-prescription',
   standalone: true,
@@ -43,7 +40,7 @@ import { FieldErrorDirective } from '../../../shared/directives/field-error.dire
     MatFormFieldModule,
     MatLabel,
     MatButton,
-    FieldErrorDirective
+    FieldErrorDirective,
   ],
   templateUrl: './add-prescription.component.html',
   styleUrl: './add-prescription.component.scss',
@@ -66,7 +63,9 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy {
   private minArrayLength(min: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control || !(control instanceof FormArray)) return null;
-      return control.length >= min ? null : { minArrayLength: { required: min, actual: control.length } };
+      return control.length >= min
+        ? null
+        : { minArrayLength: { required: min, actual: control.length } };
     };
   }
 
@@ -74,8 +73,18 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy {
     this.prescriptionForm = this.fb.group({
       patientId: [null, [Validators.required, Validators.min(1)]],
       date: [null, [Validators.required]],
-      age: [null, [Validators.required, Validators.min(0), Validators.max(120)]],
-      diagnosis: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(1000)]],
+      age: [
+        null,
+        [Validators.required, Validators.min(0), Validators.max(120)],
+      ],
+      diagnosis: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(1000),
+        ],
+      ],
       nextVisit: [null, [Validators.required]],
       notes: ['', [Validators.maxLength(2000)]],
       medications: this.fb.array([], [this.minArrayLength(1)]),
@@ -86,9 +95,26 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy {
     // Correct validator arrays for each control
     this.medicationForm = this.fb.group({
       id: [0],
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(200)]],
-      dosage: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
-      frequency: [1, [Validators.required, Validators.min(1), Validators.max(100)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(200),
+        ],
+      ],
+      dosage: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(200),
+        ],
+      ],
+      frequency: [
+        1,
+        [Validators.required, Validators.min(1), Validators.max(100)],
+      ],
       days: [1, [Validators.required, Validators.min(1), Validators.max(365)]],
       instructions: ['', [Validators.maxLength(1000)]],
     });
@@ -132,9 +158,10 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy {
   }
 }
 
-
 // simple positive integer validator
-const positiveInteger: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+const positiveInteger: ValidatorFn = (
+  control: AbstractControl
+): ValidationErrors | null => {
   if (control.value == null || control.value === '') return null;
   const v = Number(control.value);
   if (!Number.isInteger(v) || v <= 0) return { positiveInteger: true };
@@ -152,7 +179,9 @@ const positiveInteger: ValidatorFn = (control: AbstractControl): ValidationError
 // }
 
 // no future dates (date <= today)
-const noFutureDate: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+const noFutureDate: ValidatorFn = (
+  control: AbstractControl
+): ValidationErrors | null => {
   if (!control.value) return null;
   const d = moment(control.value);
   if (!d.isValid()) return { invalidDate: true };
@@ -161,7 +190,9 @@ const noFutureDate: ValidatorFn = (control: AbstractControl): ValidationErrors |
 };
 
 // cross-field: nextVisit must be same or after date
-const nextVisitAfterOrEqualDate: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+const nextVisitAfterOrEqualDate: ValidatorFn = (
+  group: AbstractControl
+): ValidationErrors | null => {
   const dateCtrl = group.get('date');
   const nextVisitCtrl = group.get('nextVisit');
   if (!dateCtrl || !nextVisitCtrl) return null;
@@ -178,9 +209,13 @@ const nextVisitAfterOrEqualDate: ValidatorFn = (group: AbstractControl): Validat
 };
 
 // ensure medication names are unique inside the FormArray
-const uniqueMedicationNames: ValidatorFn = (ctrl: AbstractControl): ValidationErrors | null => {
+const uniqueMedicationNames: ValidatorFn = (
+  ctrl: AbstractControl
+): ValidationErrors | null => {
   const arr = ctrl as FormArray;
-  const names = arr.controls.map(c => (c.get('name')?.value ?? '').toString().trim().toLowerCase()).filter(x => x);
+  const names = arr.controls
+    .map((c) => (c.get('name')?.value ?? '').toString().trim().toLowerCase())
+    .filter((x) => x);
   const duplicates = names.filter((n, i) => names.indexOf(n) !== i);
   if (duplicates.length > 0) return { duplicateMedicationNames: true };
   return null;
@@ -191,7 +226,8 @@ function minArrayLength(min: number): ValidatorFn {
   return (ctrl: AbstractControl): ValidationErrors | null => {
     const arr = ctrl as FormArray;
     if (!arr || !Array.isArray(arr.controls)) return null;
-    if (arr.length < min) return { minArrayLength: { required: min, actual: arr.length } };
+    if (arr.length < min)
+      return { minArrayLength: { required: min, actual: arr.length } };
     return null;
   };
 }

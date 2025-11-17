@@ -2,7 +2,7 @@
 <div class="card">
   <div class="chat-header d-flex gap-2">
     <div class="d-flex flex-column justify-content-start">
-      <img [src]="'https://localhost:7096'+chatService.currentOpenedChat()?.imageUrl " class="p-img" />
+      <img [src]="'http://localhost:5069'+chatService.currentOpenedChat()?.imageUrl " class="p-img" />
     </div>
     <div class="chat-about">
       <div class="chat-with">{{chatService.currentOpenedChat()?.firstName + ' ' +
@@ -46,7 +46,7 @@
       @if(item.senderId!=authService.user()?.id){
       <div class="msg-item d-flex align-items-start min-w-64 gap-2">
         <div class="d-flex flex-column justify-content-start">
-          <img [src]="'https://localhost:7096/'+chatService.currentOpenedChat()?.imageUrl"
+          <img [src]="'http://localhost:5069/'+chatService.currentOpenedChat()?.imageUrl"
             [alt]="chatService.currentOpenedChat()?.firstName" class="p-img" />
         </div>
         <div class="msg">
@@ -57,7 +57,7 @@
       }@else {
       <div class="msg-item d-flex align-items-start flex-row-reverse w-100 gap-2 min-w-64 ">
         <div class="d-flex flex-column justify-content-end">
-          <img [src]="'https://localhost:7096/'+authService.user()?.imageUrl" class="p-img" />
+          <img [src]="'http://localhost:5069/'+authService.user()?.imageUrl" class="p-img" />
         </div>
         <div class="msg bg-dark">
           <p class="msg-content text-white"> {{item.content}} </p>

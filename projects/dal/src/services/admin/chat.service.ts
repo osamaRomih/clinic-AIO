@@ -7,7 +7,7 @@ import { IChatUser } from '../../models/user';
   providedIn: 'root',
 })
 export class ChatService {
-  private hubUrl = 'https://localhost:7096/hubs/chat';
+  private hubUrl = 'http://localhost:5069/hubs/chat';
   allUsers = signal<IChatUser[]>([]);
   userId?: string;
   currentOpenedChat = signal<IChatUser | null>(null);
@@ -114,7 +114,7 @@ export class ChatService {
 
         new Notification('Active Now',{
           body:user.firstName + ' ' + user.lastName + "is online now",
-          icon:'https://localhost:7096'+user.imageUrl
+          icon:'http://localhost:5069'+user.imageUrl
         })
       }
     })

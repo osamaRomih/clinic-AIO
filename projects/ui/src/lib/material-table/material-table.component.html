@@ -68,7 +68,7 @@
             <!-- If this is the patient column, show photo + name -->
             <ng-container *ngIf="tableColumn.dataKey === 'patientName'; else defaultCell">
               <div style="display:flex; align-items:center; gap:8px;">
-                <img [src]="'https://localhost:7096'+element.imageUrl || 'assets/images/avatar.png'"
+                <img [src]="'http://localhost:5069'+element.imageUrl || 'assets/images/avatar.png'"
                   style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
                 <span>{{ element.patientName }}</span>
               </div>

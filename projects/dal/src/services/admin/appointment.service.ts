@@ -11,7 +11,7 @@ import moment from 'moment';
   providedIn: 'root',
 })
 export class AppointmentService {
-  baseAPI = 'https://localhost:7096/api';
+  baseAPI = 'http://localhost:5069/api';
 
   constructor(private httpClient: HttpClient) {}
 

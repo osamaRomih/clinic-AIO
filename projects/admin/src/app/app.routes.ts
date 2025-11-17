@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './modules/layout/layout.component';
 import { HomeComponent } from './modules/home/home.component';
 import { AllTimeSlotsComponent } from './modules/timeSlots/all-time-slots/all-time-slots.component';
-import { authGuard } from './guards/auth.guard';
 import { AllPrescriptionComponent } from './modules/prescriptions/all-prescription/all-prescription.component';
 import { AddPrescriptionComponent } from './modules/prescriptions/add-prescription/add-prescription.component';
 import { UpdatePrescriptionComponent } from './modules/prescriptions/update-prescription/update-prescription.component';
@@ -18,6 +17,7 @@ import { ChatComponent } from './modules/chat/chat.component';
 import { UpdateAppointmentComponent } from './modules/appointments/update-appointment/update-appointment.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { LoginPageComponent } from './modules/login-page/login-page.component';
+import { authGuard } from 'DAL';
 
 export const routes: Routes = [
   {
@@ -25,10 +25,8 @@ export const routes: Routes = [
     component: LayoutComponent,
     canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 
-      // Home / Dashboard
-      { path: 'home', component: HomeComponent,},
       { path: 'dashboard', component: DashboardComponent },
 
       // Settings

@@ -1,6 +1,6 @@
 <div class="sidenav-header">
   <img
-    [src]="'https://localhost:7096/'+this.authService.user()?.imageUrl"
+    [src]="'http://localhost:5069/'+this.authService.user()?.imageUrl"
     [width]="profilePicSize()"
     [height]="profilePicSize()"
   />
@@ -10,7 +10,7 @@
   </div>
 </div>
 <mat-nav-list>
-  @for (item of menuItems(); track item.lable) {
+  @for (item of menuItems; track item.lable) {
     <lib-menu-item [item]="item" [collapsed]="sidenavCollapsed()" />
   }
 </mat-nav-list>

@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
 
     const user = this.authService.user();
     if(user?.imageUrl){
-      this.imageSrc = `https://localhost:7096/${user.imageUrl}`;
+      this.imageSrc = `http://localhost:5069/${user.imageUrl}`;
     }else{
       this.imageSrc = this.defaultAvatar;
     }

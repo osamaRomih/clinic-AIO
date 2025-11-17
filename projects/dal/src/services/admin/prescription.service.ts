@@ -8,7 +8,7 @@ import { IPrescription } from '../../models/prescription'
   providedIn: 'root'
 })
 export class PrescriptionService {
-  baseAPI = 'https://localhost:7096/api';
+  baseAPI = 'http://localhost:5069/api';
 
   constructor(private httpClient:HttpClient) { }
 

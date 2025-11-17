@@ -6,7 +6,7 @@
   <span class="spacer"></span>
   <span class="welcome-text">Welcome {{ this.authService.user()?.firstName + ' '+this.authService.user()?.lastName}}</span>
   <div [matMenuTriggerFor]="menu" class="ms-2">
-    <img [src]="'https://localhost:7096/'+this.authService.user()?.imageUrl" class="img" />
+    <img [src]="'http://localhost:5069/'+this.authService.user()?.imageUrl" class="img" />
   </div>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="logout()">

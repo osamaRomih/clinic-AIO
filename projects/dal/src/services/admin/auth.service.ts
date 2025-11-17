@@ -9,7 +9,7 @@ import { ChatService, ILoginRequest, ILoginResponse, IUser } from '../../public-
 })
 export class AuthService {
   user = signal<IUser | null>(null);
-  baseAPI = 'https://localhost:7096/api';
+  baseAPI = 'http://localhost:5069/api';
   constructor(private httpClient:HttpClient,private router:Router,private chatService:ChatService){
   }
 

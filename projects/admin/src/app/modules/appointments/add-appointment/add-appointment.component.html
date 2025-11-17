@@ -38,7 +38,7 @@
               <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onPatientSelected($event)">
                 <mat-option *ngFor="let p of filteredPatients | async" [value]="p">
                   <div class="d-flex align-items-center">
-                    <img [src]="'https://localhost:7096/'+p.imageUrl" class="patient-img" />
+                    <img [src]="'http://localhost:5069/'+p.imageUrl" class="patient-img" />
                     <div class="ms-2">
                       <div>{{ p.fullName }}</div>
                       <div class="fs-6 text-muted">{{p.phoneNumber}}</div>

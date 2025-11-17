@@ -25,7 +25,7 @@ export class LoginPageComponent {
 
         this.authService.getUserInfo().subscribe();
         this.snackBarService.success('login successfully');
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
       }
     })
   }

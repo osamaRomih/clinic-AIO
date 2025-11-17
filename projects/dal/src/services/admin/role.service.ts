@@ -7,7 +7,7 @@ import { map, of } from 'rxjs';
   providedIn: 'root',
 })
 export class RoleService {
-  baseAPI = 'https://localhost:7096/api';
+  baseAPI = 'http://localhost:5069/api';
   private rolesCache:IRoleResponse[] | null = null;
   constructor(private httpClient: HttpClient) {}
 

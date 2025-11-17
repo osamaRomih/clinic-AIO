@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ProfileService {
-  baseAPI = 'https://localhost:7096/api';
+  baseAPI = 'http://localhost:5069/api';
   constructor(private httpClient:HttpClient) { }
 
   updateProfile(formData:FormData){

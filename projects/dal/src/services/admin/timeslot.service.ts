@@ -7,7 +7,7 @@ import { ITimeSlot, ScheduleResponse } from '../../models/timeslot';
 })
 export class TimeslotService {
 
-  baseAPI = 'https://localhost:7096/api';
+  baseAPI = 'http://localhost:5069/api';
   constructor(private httpClient:HttpClient){
   }
 

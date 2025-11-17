@@ -72,3 +72,10 @@ export { LoginComponent as DalLoginComponent } from './components/login/login.co
 export {LoginComponent} from './components/login/login.component'
 export {HeaderComponent} from './components/header/header.component'
 export {MenuItemComponent} from './components/menu-item/menu-item.component'
+export {SideNavComponent} from './components/side-nav/side-nav.component'
+
+// directives
+export {FieldErrorDirective} from './directives/field-error.directive'
+
+// guards
+export {authGuard} from './guards/auth.guard'

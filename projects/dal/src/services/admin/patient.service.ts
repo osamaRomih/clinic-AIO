@@ -6,7 +6,7 @@ import { IActivePatient } from '../../models/patient';
   providedIn: 'root'
 })
 export class PatientService {
-  baseAPI = 'https://localhost:7096/api';
+  baseAPI = 'http://localhost:5069/api';
 
   constructor(private httpClient:HttpClient) { }
 
