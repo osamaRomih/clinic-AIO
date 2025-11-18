@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { IPatient, IPrescription, IPrescriptionResponse, MaterialTableComponent, PatientService, PrescriptionService, TableColumn } from 'DAL';
+import { IPatientRead, IPrescription, IPrescriptionResponse, MaterialTableComponent, PatientService, PrescriptionService, TableColumn } from 'DAL';
 import { MatIconModule } from '@angular/material/icon';
 import moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';

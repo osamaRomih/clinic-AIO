@@ -53,6 +53,7 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,
   @Input() totalItems = 0;
   @Input() showEditDelete = true;
   @Input() isServerSidePagination = false;
+  @Input() isServerSideSortable = false;
 
   // outputs
   @Output() page = new EventEmitter<{ pageIndex: number; pageSize: number }>();
@@ -110,7 +111,9 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,
     // wire paginator / sort if available
     if (!this.isServerSidePagination && this.matPaginator)
        this.tableDataSource.paginator = this.matPaginator;
-    if (this.matSort) this.tableDataSource.sort = this.matSort;
+
+    if(!this.isServerSideSortable && this.matSort)
+      this.tableDataSource.sort = this.matSort;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -151,17 +154,19 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,
   setTableDataSource(data: any) {
     this.tableDataSource.data = data ?? [];
     if (!this.isServerSidePagination && this.matPaginator) this.tableDataSource.paginator = this.matPaginator;
-    if (this.matSort) this.tableDataSource.sort = this.matSort;
+    if (!this.isServerSideSortable && this.matSort) this.tableDataSource.sort = this.matSort;
   }
 
   applyFilter(event: Event) {
-    // emit search after debounce
     this.searchSubject.next((event.target as HTMLInputElement).value);
   }
 
   sortTable(sortParameters: Sort) {
-    // map header active to dataKey before emitting (guarding undefined)
     const col = this.tableColumns.find(column => column.name === sortParameters.active);
+
+    if (this.isServerSideSortable === false && this.matSort) {
+      this.tableDataSource.sort = this.matSort;
+    }
     if (col) {
       const mapped: Sort = { ...sortParameters, active: col.dataKey };
       this.sort.emit(mapped);

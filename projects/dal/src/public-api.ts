@@ -45,7 +45,7 @@ export {IAppointmentRead} from './models/appointment-read'
 export {IAppointment} from './models/appointment-read'
 export {Menu} from './models/menu'
 export {MenuItem} from './models/menu-item'
-export {IPatient} from './models/patient'
+export * from './models/patient'
 export {ILoginCreds} from './models/login-request'
 export {TableColumn} from './models/table-column'
 

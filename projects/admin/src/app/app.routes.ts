@@ -16,6 +16,7 @@ import { UpdateAppointmentComponent } from './modules/appointments/update-appoin
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { LoginPageComponent } from './modules/login-page/login-page.component';
 import { authGuard } from 'DAL';
+import { AllPatientsComponent } from './modules/patients/all-patients/all-patients.component';
 
 export const routes: Routes = [
   {
@@ -60,6 +61,15 @@ export const routes: Routes = [
         children: [
           { path: '', component: AllAppointmentsComponent },
           { path: 'calendar', component: AppointmentCalenderComponent },
+          { path: 'add', component: AddAppointmentComponent },
+          { path: 'edit/:id', component: UpdateAppointmentComponent }
+        ]
+      },
+      {
+        path: 'patients',
+    
+        children: [
+          { path: '', component: AllPatientsComponent },
           { path: 'add', component: AddAppointmentComponent },
           { path: 'edit/:id', component: UpdateAppointmentComponent }
         ]

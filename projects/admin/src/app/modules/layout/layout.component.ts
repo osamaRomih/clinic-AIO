@@ -134,5 +134,18 @@ export class LayoutComponent {
         },
       ],
     },
+    {
+      icon: 'patient',
+      lable: 'Patients',
+      route: '/patients',
+      subItems: [
+        {
+          icon: 'person',
+          lable: 'View All',
+          route: '/patients',
+        }
+      ],
+    },
+    
   ]);
 }

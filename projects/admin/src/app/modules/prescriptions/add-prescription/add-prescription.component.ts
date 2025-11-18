@@ -10,7 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { FieldErrorDirective, IPatient, PatientService, PrescriptionService, SnackbarService } from 'DAL';
+import { FieldErrorDirective, IPatientRead, PatientService, PrescriptionService, SnackbarService } from 'DAL';
 import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
@@ -51,7 +51,7 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy {
 
   prescriptionForm!: FormGroup;
   medicationForm!: FormGroup;
-  patients: IPatient[] = [];
+  patients: IPatientRead[] = [];
 
   ngOnInit(): void {
     this.editor = new Editor();
