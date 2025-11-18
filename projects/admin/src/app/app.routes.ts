@@ -17,6 +17,8 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { LoginPageComponent } from './modules/login-page/login-page.component';
 import { authGuard } from 'DAL';
 import { AllPatientsComponent } from './modules/patients/all-patients/all-patients.component';
+import { AddPatientComponent } from './modules/patients/add-patient/add-patient.component';
+import { UpdatePatientComponent } from './modules/patients/update-patient/update-patient.component';
 
 export const routes: Routes = [
   {
@@ -67,11 +69,10 @@ export const routes: Routes = [
       },
       {
         path: 'patients',
-    
         children: [
           { path: '', component: AllPatientsComponent },
-          { path: 'add', component: AddAppointmentComponent },
-          { path: 'edit/:id', component: UpdateAppointmentComponent }
+          { path: 'add', component: AddPatientComponent },
+          { path: 'edit/:id', component: UpdatePatientComponent }
         ]
       },
 

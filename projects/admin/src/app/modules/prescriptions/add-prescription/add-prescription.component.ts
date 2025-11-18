@@ -109,7 +109,6 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy {
     const formattedValue = {
       ...formValue,
       date: moment(formValue.date).format('YYYY-MM-DD'),
-      nextVisit: moment(formValue.nextVisit).format('YYYY-MM-DD'),
     };
     this.prescriptionService.create(formattedValue).subscribe({
       next: (res) => {

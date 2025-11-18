@@ -64,6 +64,14 @@
                 <span>{{ element.patientName }}</span>
               </div>
             </ng-container>
+            }@if(tableColumn.dataKey === 'firstName'){
+            <ng-container>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <img [src]="element.imageUrl || 'assets/images/avatar.png'"
+                  style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
+                <span>{{ element.firstName }} {{element.lastName}}</span>
+              </div>
+            </ng-container>
             }@else if (tableColumn.dataKey=='status') {
             <ng-container>
               <span [ngClass]="getStatusClass(element.status)">{{ element.status }}</span>

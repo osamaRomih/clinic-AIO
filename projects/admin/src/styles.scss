@@ -298,3 +298,15 @@ span.badge {
   height: 40px;
   border-radius: 50%;
 }
+
+.section-heading{
+  color: var(--sys-primary);
+
+}
+
+.section-heading .section-title {
+  font-size: 20px;
+  font-weight: 500;
+  gap: 8px;
+  margin-bottom: 0;
+}

@@ -3,7 +3,7 @@ import { MatFormField } from '@angular/material/form-field';
 
 @Directive({
   selector: '[libFieldError]',
-  standalone: true
+  standalone: true,
 })
 export class FieldErrorDirective implements AfterViewInit {
   formField = inject(MatFormField);
@@ -13,9 +13,7 @@ export class FieldErrorDirective implements AfterViewInit {
     const control = this.formField._formFieldControl.ngControl?.control;
 
     if (!control) {
-      throw new Error(
-        'FieldErrorDirective must be used within a mat form field with a form control attached'
-      );
+      throw new Error('FieldErrorDirective must be used within a mat form field with a form control attached');
     }
 
     control.events.subscribe(() => {
@@ -23,7 +21,7 @@ export class FieldErrorDirective implements AfterViewInit {
       if (showErrors) {
         const firstError = Object.keys(control.errors)[0];
         const firstErrorValue = control.errors[firstError];
-        const errorMessage = this.getErrorMessage(firstError,firstErrorValue);
+        const errorMessage = this.getErrorMessage(firstError, firstErrorValue);
         this.errorElement.nativeElement.textContent = errorMessage;
       } else {
         this.errorElement.nativeElement.textContent = '';
@@ -31,20 +29,19 @@ export class FieldErrorDirective implements AfterViewInit {
     });
   }
 
-  getErrorMessage(error: string,errorValue:any): string {
-    const errorMessages: { [key: string]: string | ((errorValue:any)=> string) } = {
+  getErrorMessage(error: string, errorValue: any): string {
+    const errorMessages: { [key: string]: string | ((errorValue: any) => string) } = {
       required: 'this field is required',
       email: 'Please enter a valid email address',
-      minLength: (errorValue) => `Must be at least ${errorValue.requiredLength} characters`,
-      maxLength: (errorValue) => `Must be less than ${errorValue.requiredLength} characters`,
+      minlength: (errorValue) => `Must be at least ${errorValue.requiredLength} characters`,
+      maxlength: (errorValue) => `Must be less than ${errorValue.requiredLength} characters`,
       min: (errorValue) => `Must be at least ${errorValue.min}`,
-      max:(errorValue)=> `Must be less than ${errorValue.max}`
+      max: (errorValue) => `Must be less than ${errorValue.max}`,
     };
 
     const errorMessage = errorMessages[error];
 
-    if(typeof errorMessage ==='function')
-      return errorMessage(errorValue)
+    if (typeof errorMessage === 'function') return errorMessage(errorValue);
 
     return errorMessage || '';
   }

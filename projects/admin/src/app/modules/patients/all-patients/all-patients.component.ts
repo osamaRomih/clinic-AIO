@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { IPatientRead, MaterialTableComponent, PatientService, SnackbarService, TableColumn } from 'DAL';
+import { DialogService, IPatientRead, MaterialTableComponent, PatientService, SnackbarService, TableColumn } from 'DAL';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -15,15 +15,15 @@ import * as XLSX from 'xlsx';
   styleUrl: './all-patients.component.scss',
 })
 export class AllPatientsComponent {
-  router = inject(Router);
-  patientService = inject(PatientService);
-  snackBarService = inject(SnackbarService);
-  dialog = inject(MatDialog);
+  private router = inject(Router);
+  private patientService = inject(PatientService);
+  private snackBarService = inject(SnackbarService);
+  private confirmationDialog = inject(DialogService);
 
   patientsTableColumns!: TableColumn[];
   totalItems!: number;
   pageSize: number = 10;
-  pageIndex: number = 0;
+  pageNumber: number = 1;
   patients!: IPatientRead[];
   searchBy?: string;
   sortBy?: string;
@@ -35,17 +35,17 @@ export class AllPatientsComponent {
   }
 
   getAllPatients() {
-    this.patientService.getAll(this.pageIndex+1, this.pageSize, this.searchBy, this.sortBy, this.sortDirection).subscribe({
+    this.patientService.getAll(this.pageNumber, this.pageSize, this.searchBy, this.sortBy, this.sortDirection).subscribe({
       next: (res) => {
         this.patients = res.items;
         this.totalItems = res.totalCount;
-        this.pageIndex = res.pageNumber - 1;
+        this.pageNumber = res.pageNumber;
       },
     });
   }
 
   onSearch(value:string){
-    this.pageIndex = 0;
+    this.pageNumber = 1;
     this.searchBy = value;
     this.getAllPatients();
   }
@@ -59,48 +59,49 @@ export class AllPatientsComponent {
   }
 
   onPageChange(event: any) {
-    this.pageIndex = event.pageIndex;
+    this.pageNumber = event.pageIndex + 1;
     this.pageSize = event.pageSize;
     this.getAllPatients();
   }
 
   onSort(event:Sort){
-    this.pageIndex = 0;
     this.sortBy = event.active;
     this.sortDirection = event.direction;
-    console.log(this.pageIndex)
+    this.pageNumber = 1;
 
     this.getAllPatients();
   }
 
   confirmBulkDelete(selectedRows: any[]) {
-    // const count = selectedRows.length;
-    // if (!count) return;
-    // if (confirm(`Delete ${count} selected appointment(s)?`)) {
-    //   this.deleteSelected(selectedRows);
-    // }
+    const count = selectedRows.length;
+    if (!count) return;
+    this.confirmationDialog.confirmDialog('Delete Confirmation', `Are you sure you want to delete ${count} selected patient(s)?`).subscribe((result)=>{
+      if(result)
+        this.deleteSelected(selectedRows);
+    });
   }
 
   private deleteSelected(selectedRows: any[]) {
-    // const ids = selectedRows.map((x) => x.id);
+    const ids = selectedRows.map((x) => x.id);
 
-    // if (!ids.length) return;
+    if (!ids.length) return;
 
-    // this.service.deleteMany(ids).subscribe({
-    //   next: () => {
-    //     const deleted = new Set(ids);
-    //     this.appointments = this.appointments.filter((r) => !deleted.has(r.id));
-    //     this.totalItems = Math.max(0, (this.totalItems ?? 0) - ids.length);
+    this.patientService.deleteMany(ids).subscribe({
+      next: () => {
+        const deleted = new Set(ids);
+        this.patients = this.patients.filter((r) => !deleted.has(r.id));
+        this.totalItems = Math.max(0, (this.totalItems ?? 0) - ids.length);
 
-    //     // If page becomes empty after deletion, reload current page
-    //     if (this.appointments.length === 0) {
-    //       this.getAllAppointment(this.pageIndex + 1, this.pageSize);
-    //     }
+        // If page becomes empty after deletion, reload current page
+        if (this.patients.length === 0) {
+          this.pageNumber++;
+          this.getAllPatients();
+        }
 
-    //     this.snackBarService.success('Deleted successfully');
-    //   },
-    //   error: () => this.snackBarService.error('Delete failed'),
-    // });
+        this.snackBarService.success('Deleted successfully');
+      },
+      error: () => this.snackBarService.error('Delete failed'),
+    });
   }
 
   onAdd() {
@@ -136,7 +137,7 @@ export class AllPatientsComponent {
   initColumns(): void {
     this.patientsTableColumns = [
       {
-        name: 'First Name',
+        name: 'Name',
         dataKey: 'firstName',
         isSortable: true,
       },

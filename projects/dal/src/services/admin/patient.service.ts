@@ -37,10 +37,15 @@ export class PatientService {
   }
 
   update(id:string, formData:FormData){
-    return this.httpClient.put<IPatientRead>(`${this.baseAPI}/patients/${id}`, formData);
+    return this.httpClient.put(`${this.baseAPI}/patients/${id}`, formData);
   }
 
   delete(id: string) {
     return this.httpClient.delete<void>(`${this.baseAPI}/patients/${id}`);
   }
+
+  deleteMany(ids:number[]){
+    return this.httpClient.request<void>('DELETE',`${this.baseAPI}/patients`,{body:{ids}})
+  }
+
 }
