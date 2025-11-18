@@ -15,7 +15,7 @@ import { ChatComponent } from './modules/chat/chat.component';
 import { UpdateAppointmentComponent } from './modules/appointments/update-appointment/update-appointment.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { LoginPageComponent } from './modules/login-page/login-page.component';
-import { authGuard } from 'DAL';
+import { authGuard, NotFoundComponent, ServerErrorComponent } from 'DAL';
 import { AllPatientsComponent } from './modules/patients/all-patients/all-patients.component';
 import { AddPatientComponent } from './modules/patients/add-patient/add-patient.component';
 import { UpdatePatientComponent } from './modules/patients/update-patient/update-patient.component';
@@ -91,6 +91,6 @@ export const routes: Routes = [
       { path: 'login', component: LoginPageComponent },
     ]
   },
-
-  { path: '**', redirectTo: 'home' }
+  { path: 'server-error', component: ServerErrorComponent },
+  { path: '**', component:NotFoundComponent }
 ];

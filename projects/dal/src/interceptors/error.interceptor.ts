@@ -13,68 +13,52 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   let ctr = 0;
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error) {
-        if (error.status === 400 && error.error?.errors) {
-          const validationErrors = error.error.errors;
-
-          for (const key in validationErrors) {
-            if (validationErrors[key]) {
-              validationErrors[key].forEach((msg: string) => {
-                console.log(msg);
-                snackbarService.error(msg || 'Validation Error');
-              });
-            }
-          }
-        }
-        // Unauthorized
-        else if (error.status === 401 && ctr != 1) {
-          ctr++;
-
-          return authService.refreshToken().pipe(
-            switchMap((res: any) => {
-              snackbarService.success('Token refreshed');
-
-              // Retry original request with new access token
-              const newReq = req.clone({
-                setHeaders: { Authorization: `Bearer ${res.token}` },
-              });
-
-              // reset counter
-              ctr = 0;
-              return next(newReq);
-            }),
-            catchError((err) => {
-              authService.revokeRefreshToken().subscribe(() => {
-                router.navigateByUrl('/auth/login');
-              });
-              return throwError(() => err);
-            })
-          );
-        }
-
-        // Forbidden
-        else if (error.status === 403) {
-          snackbarService.error(
-            'You do not have permission to perform this action.'
-          );
-        }
-        // Not Found
-        else if (error.status === 404) {
-          snackbarService.error('Resource not found');
-        }
-        // Internal Server Error
-        else if (error.status === 500) {
-          snackbarService.error('Something went wrong on the server.');
-        }
-        // Default case
-        else {
-          snackbarService.error(
-            error.message || 'An unexpected error occurred.'
-          );
-        }
+      if (error.status === 0) {
+        snackbarService.error('Network error: unable to reach server');
+        return throwError(() => error);
       }
 
+      switch (error.status) {
+        case 400: {
+          const validationErrors = error.error?.errors;
+
+          if (validationErrors) {
+            let modelStateErrors:string[] = [];
+
+            for (const key in validationErrors) {
+              if (validationErrors[key]) {
+                validationErrors[key].forEach((msg: string) => {
+                  modelStateErrors.push(msg);
+                  snackbarService.error(msg || 'Validation Error');
+                });
+              }
+            }
+
+            throw modelStateErrors;
+          } else {
+            const msg = error.error?.title || error.error?.message || 'Bad Request';
+            snackbarService.error(msg);
+          }
+
+          break;
+        }
+        case 401:
+          snackbarService.error('Unauthorized');
+          break;
+        case 404:
+          router.navigateByUrl('/not-found');
+          break;
+        case 500: {
+          const navigationExtras = { state: { error: error.error } };
+          router.navigateByUrl('/server-error', navigationExtras);
+          break;
+        }
+        default:
+          snackbarService.error('Unexpected error');
+      }
+
+
       return throwError(() => error);
-    })
+    }),
   );
 };
