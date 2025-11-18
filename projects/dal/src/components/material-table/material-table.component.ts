@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { MatPaginator, PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -12,6 +12,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { TableColumn } from '../../models/table-column';
 import { TimeShortPipe } from '../../public-api';
+import { debounceTime, distinct, distinctUntilChanged, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'lib-material-table',
@@ -32,7 +33,7 @@ import { TimeShortPipe } from '../../public-api';
   templateUrl: './material-table.component.html',
   styleUrl: './material-table.component.scss'
 })
-export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges {
+export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,OnDestroy {
   public tableDataSource = new MatTableDataSource<any>([]);
   private _displayedColumns: string[] = [];
 
@@ -48,9 +49,10 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges 
   @Input() enableSelection = false;
   @Input() tableColumns: TableColumn[] = [];
   @Input() paginationSizes: number[] = [5, 10, 15];
-  @Input() defaultPageSize = this.paginationSizes[1];
+  @Input() pageSize = this.paginationSizes[1];
   @Input() totalItems = 0;
   @Input() showEditDelete = true;
+  @Input() isServerSidePagination = false;
 
   // outputs
   @Output() page = new EventEmitter<{ pageIndex: number; pageSize: number }>();
@@ -58,9 +60,13 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges 
   @Output() add = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
+  @Output() search = new EventEmitter<any>();
   @Output() bulkDelete = new EventEmitter<any>();
   @Output() exportExcel = new EventEmitter<any>();
   @Output() openDialogDetails = new EventEmitter<any>();
+
+  private searchSubject = new Subject<string>();
+  private searchSubscription :Subscription | undefined;
 
   // backing field for tableData
   private _tableData: any[] = [];
@@ -76,8 +82,24 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges 
   // multi-select
   selection = new SelectionModel<any>(true, []);
 
-  constructor() {}
+  constructor() {
+    this.initSearch();
+  }
 
+  private initSearch() {
+    this.searchSubscription = this.searchSubject.pipe(
+      debounceTime(500),// Wait 500ms after the last keystroke
+      distinctUntilChanged()// Only emit if the value is different from previous
+    ).subscribe(searchValue=>{
+      if(this.isServerSidePagination){
+        this.search.emit(searchValue);
+        if(this.matPaginator)
+          this.matPaginator.firstPage();
+      }else{
+        this.tableDataSource.filter = searchValue.trim().toLowerCase();
+      }
+    })
+  }
   ngOnInit(): void {
     // initial build 
     this.buildDisplayedColumns();
@@ -86,7 +108,8 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges 
 
   ngAfterViewInit(): void {
     // wire paginator / sort if available
-    if (this.matPaginator) this.tableDataSource.paginator = this.matPaginator;
+    if (!this.isServerSidePagination && this.matPaginator)
+       this.tableDataSource.paginator = this.matPaginator;
     if (this.matSort) this.tableDataSource.sort = this.matSort;
   }
 
@@ -127,14 +150,13 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges 
   // pagination
   setTableDataSource(data: any) {
     this.tableDataSource.data = data ?? [];
-    if (this.matPaginator) this.tableDataSource.paginator = this.matPaginator;
+    if (!this.isServerSidePagination && this.matPaginator) this.tableDataSource.paginator = this.matPaginator;
     if (this.matSort) this.tableDataSource.sort = this.matSort;
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    // if server-side filtering, you may want to emit and not set datasource.filter
-    this.tableDataSource.filter = filterValue.trim().toLowerCase();
+    // emit search after debounce
+    this.searchSubject.next((event.target as HTMLInputElement).value);
   }
 
   sortTable(sortParameters: Sort) {
@@ -194,5 +216,10 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges 
       default:
         return '';
     }
+  }
+
+  // Clean up memory to prevent leaks
+  ngOnDestroy(): void {
+    this.searchSubscription?.unsubscribe();
   }
 }

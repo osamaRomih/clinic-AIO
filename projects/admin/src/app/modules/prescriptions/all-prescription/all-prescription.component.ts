@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DetailsPrescriptionComponent } from '../details-prescription/details-prescription.component';
 import { Sort } from '@angular/material/sort';
 import * as XLSX from 'xlsx';
+import { A11yModule } from "@angular/cdk/a11y";
 
 interface Customer {
   id: number;
@@ -19,7 +20,7 @@ interface Customer {
 @Component({
   selector: 'app-all-prescription',
   standalone: true,
-  imports: [MatButtonModule, MatTableModule, MatPaginatorModule, MatIconModule, MatButtonModule, MaterialTableComponent],
+  imports: [MatButtonModule, MatTableModule, MatPaginatorModule, MatIconModule, MatButtonModule, MaterialTableComponent, A11yModule],
   templateUrl: './all-prescription.component.html',
   styleUrl: './all-prescription.component.scss',
 })
@@ -39,8 +40,8 @@ export class AllPrescriptionComponent implements OnInit {
     this.initColumns();
   }
 
-  getAllPrescription(pageNumber: number = 1, pageSize: number = 10) {
-    this.prescriptionService.getAll(pageNumber, pageSize).subscribe({
+  getAllPrescription(pageNumber: number = 1, pageSize: number = 10, searchValue?: string) {
+    this.prescriptionService.getAll(pageNumber, pageSize, searchValue).subscribe({
       next: (res) => {
         this.prescriptions = res.items.map((item) => {
           return {
@@ -59,7 +60,7 @@ export class AllPrescriptionComponent implements OnInit {
     this.router.navigateByUrl('prescriptions/add');
   }
 
-  onPageChange(event: PageEvent) {
+  onPageChange(event: any) {
     this.getAllPrescription(event.pageIndex + 1, event.pageSize);
   }
 
@@ -73,6 +74,10 @@ export class AllPrescriptionComponent implements OnInit {
         this.getAllPrescription();
       },
     });
+  }
+
+  onSearch(query: string) {
+    this.getAllPrescription( 1, this.pageSize, query);
   }
 
   openDialogDetails(id: number) {

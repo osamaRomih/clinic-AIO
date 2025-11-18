@@ -16,10 +16,14 @@ export class PrescriptionService {
     return this.httpClient.post(`${this.baseAPI}/prescriptions`,model);
   }
 
-  getAll(pageNumber:number,pageSize:number){
+  getAll(pageNumber:number,pageSize:number,searchValue?:string){
     var params = new HttpParams();
     params = params.append('pageNumber',pageNumber);
     params = params.append('pageSize',pageSize);
+
+    if(searchValue)
+      params = params.append('searchValue',searchValue.trim());
+    
 
     return this.httpClient.get<IPagedResponse<IPrescriptionResponse>>(`${this.baseAPI}/prescriptions`,{params});
   }

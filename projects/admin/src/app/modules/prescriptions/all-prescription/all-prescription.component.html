@@ -23,6 +23,11 @@
       (add)="onAdd()"
       (edit)="onEdit($event)"
       (delete)="onDelete($event)"
+      [totalItems]="totalItems"
+      [pageSize]="pageSize"
+      [isServerSidePagination]="true"
+      (search)="onSearch($event)"
+      (page)="onPageChange($event)"
       
       (openDialogDetails)="openDialogDetails($event)"
       (exportExcel)="exportAsExcel()"

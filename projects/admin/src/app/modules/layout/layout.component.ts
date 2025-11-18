@@ -104,13 +104,6 @@ export class LayoutComponent {
       lable: 'Availability',
       route: '/availability',
     },
-
-    {
-      icon: 'calendar_month',
-      lable: 'Calendar',
-      route: '/calendar',
-    },
-
     {
       icon: 'group',
       lable: 'Users',

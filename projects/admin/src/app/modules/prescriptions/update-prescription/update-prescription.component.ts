@@ -10,9 +10,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { CommonModule, FormatWidth } from '@angular/common';
-import { IPrescription, PrescriptionService, SnackbarService } from 'DAL';
+import { IPatient, IPrescription, PatientService, PrescriptionService, SnackbarService } from 'DAL';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
+import { MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-update-prescription',
   standalone: true,
@@ -32,6 +33,7 @@ import moment from 'moment';
     MatFormFieldModule,
     MatLabel,
     MatButton,
+    MatSelectModule
   ],
   templateUrl: './update-prescription.component.html',
   styleUrl: './update-prescription.component.scss',
@@ -43,13 +45,15 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
   private snackbarService = inject(SnackbarService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private service = inject(PrescriptionService)
+  private prescriptionService = inject(PrescriptionService)
+  private patientService = inject(PatientService);
   private fb = inject(FormBuilder);
   
   prescriptionForm!: FormGroup;
   medicationForm!: FormGroup;
   id!: number;
   prescription!: IPrescription;
+  patients: IPatient[] = [];
 
   ngOnInit(): void {
     this.editor = new Editor();
@@ -57,7 +61,7 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
 
     this.initForm();
     this.initMedicationForm();
-
+    this.loadPatients();
     this.loadPrescription();
   }
 
@@ -95,6 +99,17 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
     });
   }
 
+  loadPatients() {
+    this.patientService.getAllActive().subscribe({
+      next: (res) => {
+        this.patients = res;
+      },
+      error: (err) => {
+        console.error('Error loading patients', err);
+      },
+    });
+  }
+
   populateMedications() {
     const medicationArray = this.prescriptionForm.get('items') as FormArray;
     medicationArray.clear();
@@ -116,7 +131,7 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
   }
 
   loadPrescription() {
-    this.service.getById(this.id).subscribe({
+    this.prescriptionService.getById(this.id).subscribe({
       next: (res: any) => {
         console.log(res);
         this.prescription = res;
@@ -157,7 +172,7 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
       nextVisit: moment(formValue.nextVisit).format('YYYY-MM-DD'),
     };
 
-    this.service.update(this.id, formattedValue).subscribe({
+    this.prescriptionService.update(this.id, formattedValue).subscribe({
       next: (res) => {
         this.snackbarService.success('Prescription added successfully');
         this.router.navigate(['/prescriptions']);

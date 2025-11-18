@@ -9,7 +9,6 @@ import { ChangePasswordComponent } from './modules/settings/change-password/chan
 import { SettingsComponent } from './modules/settings/settings.component';
 import { AllUsersComponent } from './modules/users/all-users/all-users.component';
 import { AllAppointmentsComponent } from './modules/appointments/all-appointments/all-appointments.component';
-import { CalanderComponent } from './modules/calander/calander.component';
 import { AppointmentCalenderComponent } from './modules/appointments/appointment-calender/appointment-calender.component';
 import { AddAppointmentComponent } from './modules/appointments/add-appointment/add-appointment.component';
 import { ChatComponent } from './modules/chat/chat.component';
@@ -68,10 +67,6 @@ export const routes: Routes = [
 
       // Chat
       { path: 'chat', component: ChatComponent },
-
-      // Calendar
-      { path: 'calendar', component: CalanderComponent },
-
       // Users
       { path: 'users', component: AllUsersComponent },
     ],

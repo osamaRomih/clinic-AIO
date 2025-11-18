@@ -125,7 +125,7 @@
   </div>
 
   <!-- Pagination -->
-  <mat-paginator *ngIf="isPageable" [pageSizeOptions]="paginationSizes" [pageSize]="defaultPageSize"
-    [length]="totalItems" (page)="onPage($event)" showFirstLastButtons>
+  <mat-paginator *ngIf="isPageable" [pageSizeOptions]="paginationSizes" [pageSize]="pageSize"
+    [length]="isServerSidePagination ? totalItems : (tableDataSource.data.length)" (page)="onPage($event)" showFirstLastButtons>
   </mat-paginator>
 </ng-container>
