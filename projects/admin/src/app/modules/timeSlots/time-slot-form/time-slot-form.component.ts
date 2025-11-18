@@ -1,6 +1,4 @@
 import { Component, Inject, inject, OnInit } from '@angular/core';
-// import {MatTimepickerModule} from '@angular/material/timepicker';
-import { MatIcon } from '@angular/material/icon';
 import { MatError, MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -21,7 +19,7 @@ import {
 } from '@angular/forms';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { ITimeSlot, TimeslotService } from 'DAL';
+import { ITimeSlot, SnackbarService, TimeslotService } from 'DAL';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { CommonModule, JsonPipe } from '@angular/common';
 
@@ -46,14 +44,14 @@ import { CommonModule, JsonPipe } from '@angular/common';
 })
 export class TimeSlotFormComponent implements OnInit {
   timeSlotForm!: FormGroup;
-  constructor(
-    private dialogRef: MatDialogRef<TimeSlotFormComponent>,
-    private fb: FormBuilder,
-    private timeSlotService: TimeslotService,
-    private toastr: ToastrService,
-    @Inject(MAT_DIALOG_DATA) public data?: { day: string; timeSlot?: ITimeSlot }
-  ) {}
 
+  private dialogRef = inject(MatDialogRef<TimeSlotFormComponent>);
+  private fb = inject(FormBuilder);
+  private timeSlotService = inject(TimeslotService);
+  private snackBarService = inject(SnackbarService);
+  data = inject<{ day: string; timeSlot?: ITimeSlot }>(MAT_DIALOG_DATA);
+
+  
   ngOnInit(): void {
     this.createForm();
   }
@@ -78,7 +76,7 @@ export class TimeSlotFormComponent implements OnInit {
 
     this.timeSlotService.addTimeSlot(model, this.data?.day!).subscribe({
       next: (res) => {
-        this.toastr.success('Time is created successfully!');
+        this.snackBarService.success('Time is created successfully!');
         this.dialogRef.close(true);
       },
     });
@@ -94,7 +92,7 @@ export class TimeSlotFormComponent implements OnInit {
     console.log(model);
     this.timeSlotService.updateTimeSlot(id, model).subscribe({
       next: (res) => {
-        this.toastr.success('Time is updated successfully!');
+        this.snackBarService.success('Time is updated successfully!');
         this.dialogRef.close(true);
       },
     });

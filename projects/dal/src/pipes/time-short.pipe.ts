@@ -8,8 +8,6 @@ import moment from 'moment';
 export class TimeShortPipe implements PipeTransform {
 
   transform(value: string, ...args: unknown[]): string {
-    console.log('value',value);
-
     if(!value)
       return '';
     return moment(value, 'HH:mm:ss').format('hh:mm A');

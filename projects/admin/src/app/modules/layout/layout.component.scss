@@ -9,3 +9,8 @@ mat-sidenav,
 mat-sidenav-content{
   transition: all 500ms ease-in-out;
 }
+
+mat-sidenav{
+  border-right: 1px solid var(--sys-surface-container-high);
+  border-radius: 0;
+}

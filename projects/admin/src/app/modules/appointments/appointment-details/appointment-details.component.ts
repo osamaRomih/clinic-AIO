@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -14,17 +14,10 @@ import { DatePipe, IAppointment, TimeShortPipe } from 'DAL';
   styleUrl: './appointment-details.component.scss'
 })
 export class AppointmentDetailsComponent {
-  appointment!: IAppointment;
-  
-    constructor(
-      @Inject(MAT_DIALOG_DATA) public data: IAppointment,
-      private dialog: MatDialogRef<AppointmentDetailsComponent>,
-    ) {
-      this.appointment = data;
-  
-    }
-  
-    closeDialog() {
-      this.dialog.close();
-    }
+  protected appointment:IAppointment = inject(MAT_DIALOG_DATA);
+  private dialog = inject(MatDialogRef<AppointmentDetailsComponent>);
+
+  closeDialog() {
+    this.dialog.close();
+  }
 }

@@ -22,10 +22,12 @@
         matTooltipPosition="below" class="btn-delete me-2" (click)="confirmBulkDelete()">
         <mat-icon color="warn">delete</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="Xlsx Dlownload" matTooltipPosition="below" class="btn-download"
-        (click)="exportAsExcel()">
-        <mat-icon class="file-download-icon">file_download</mat-icon>
-      </button>
+      @if(isExportable){
+        <button mat-icon-button matTooltip="Xlsx Dlownload" matTooltipPosition="below" class="btn-download"
+          (click)="exportAsExcel()">
+          <mat-icon class="file-download-icon">file_download</mat-icon>
+        </button>
+      }
     </div>
   </div>
 
@@ -72,6 +74,22 @@
             }@else if (tableColumn.dataKey=='startTime') {
             <ng-container>
               <span>{{ element.startTime | timeShort }}</span>
+            </ng-container>
+            }@else if (tableColumn.dataKey=='endTime') {
+            <ng-container>
+              <span>{{ element.endTime | timeShort }}</span>
+            </ng-container>
+            }@else if(tableColumn.dataKey=='isBooked'){
+            <ng-container>
+              <div [ngClass]="element.isBooked ? 'badge rounded-pill bg-danger text-white p-2' : 'badge rounded-pill bg-success text-white p-2'">
+              {{ element.isBooked ? 'Booked' : 'Active' }}
+              </div>
+            </ng-container>
+            }@else if(tableColumn.dataKey=='isDeleted'){
+            <ng-container>
+              <div [ngClass]="element.isDeleted ? 'badge rounded-pill bg-danger text-white p-2' : 'badge rounded-pill bg-success text-white p-2'">
+              {{ element.isDeleted ? 'Deleted' : 'Active' }}
+              </div>
             </ng-container>
             }@else {
             <ng-container>

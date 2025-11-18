@@ -22,6 +22,7 @@ export {PatientService} from './services/admin/patient.service'
 export {ChatService} from './services/admin/chat.service'
 export {ResponsiveService} from './services/responsive.service'
 export {ThemeService} from './services/admin/theme.service'
+export {DialogService} from './services/dialog.service'
 // patient services
 
 
@@ -51,6 +52,7 @@ export {TableColumn} from './models/table-column'
 export {ILoginRequest} from './models/login-request'
 export {ILoginResponse} from './models/login-response'
 export {IUser} from './models/user'
+export {ConfirmDialogData} from './models/confirmation-dialog-data'
 
 
 // interceptors

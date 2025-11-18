@@ -44,7 +44,8 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges 
   @Input() isPageable = false;
   @Input() isSortable = false;
   @Input() isFilterable = false;
-  @Input() enableSelection = true;
+  @Input() isExportable = false;
+  @Input() enableSelection = false;
   @Input() tableColumns: TableColumn[] = [];
   @Input() paginationSizes: number[] = [5, 10, 15];
   @Input() defaultPageSize = this.paginationSizes[1];

@@ -1,22 +1,22 @@
 <div class="page-wrapper">
-
   <div class="breadcrumb">
     <li>
       <h4 class="page-title">View Appointment</h4>
     </li>
     <mat-icon>chevron_right</mat-icon>
-    <li class="breadcrumb-item breadcrumb-icon d-flex align-items-center"><img src="/assets/images/home.svg" /></li>
+    <li class="breadcrumb-item breadcrumb-icon d-flex align-items-center">
+      <img src="/assets/images/home.svg" />
+    </li>
     <mat-icon>chevron_right</mat-icon>
     <li class="breadcrumb-item">Appointment</li>
     <mat-icon>chevron_right</mat-icon>
     <li class="breadcrumb-item active">View</li>
   </div>
 
-
-    <div class="card-body">
-      <lib-material-table 
+  <div class="card-body">
+    <lib-material-table
       [title]="'Appointments'"
-      [tableData]="appointments" 
+      [tableData]="appointments"
       [tableColumns]="appointmentsTableColumns"
       [isFilterable]="true"
       [isSortable]="false"
@@ -28,7 +28,6 @@
       [enableSelection]="true"
       (bulkDelete)="confirmBulkDelete($event)"
       (openDialogDetails)="openDialogDetails($event)"
-      ></lib-material-table>
+    ></lib-material-table>
   </div>
-
 </div>
