@@ -2,9 +2,6 @@
   <div class="materialTableHeader">
     <div class="left">
       <ul class="d-flex mb-0 list-unstyled ">
-        <li class="ms-3 d-flex align-items-center">
-          <h2>{{title}}</h2>
-        </li>
         <li class="tbl-search-box ms-2 position-relative">
           <label for="search-input">
             <mat-icon class="search-icon">search</mat-icon>
@@ -74,6 +71,10 @@
             }@else if (tableColumn.dataKey=='startTime') {
             <ng-container>
               <span>{{ element.startTime | timeShort }}</span>
+            </ng-container>
+            }@else if (tableColumn.dataKey=='bookedAt') {
+            <ng-container>
+              <span>{{ element.bookedAt | date:'short' }}</span>
             </ng-container>
             }@else if (tableColumn.dataKey=='endTime') {
             <ng-container>

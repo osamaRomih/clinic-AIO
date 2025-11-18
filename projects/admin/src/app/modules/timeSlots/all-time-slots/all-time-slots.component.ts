@@ -1,11 +1,9 @@
-import { Component, computed, inject, Inject, signal } from '@angular/core';
-
+import { Component, inject, signal } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
 import {
   DialogService,
   MaterialTableComponent,
@@ -15,7 +13,6 @@ import {
   TimeslotService,
 } from 'DAL';
 import { MatCardModule } from '@angular/material/card';
-import { single } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TimeSlotFormComponent } from '../time-slot-form/time-slot-form.component';
 
@@ -28,7 +25,6 @@ import { TimeSlotFormComponent } from '../time-slot-form/time-slot-form.componen
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatTooltipModule,
     MatCardModule,
     MaterialTableComponent,
   ],
@@ -107,6 +103,7 @@ export class AllTimeSlotsComponent {
     });
   }
 
+
   onDelete(id: number) {
     // optimistic: confirm on UI level if needed
     this.confirmationService
@@ -159,6 +156,11 @@ export class AllTimeSlotsComponent {
         dataKey: 'isDeleted',
         isSortable: true,
       },
+      {
+        name: 'Booked At',
+        dataKey: 'bookedAt',
+        isSortable: true,
+      }
     ];
   }
 }

@@ -3,15 +3,9 @@
     animationDuration="0"
     (selectedIndexChange)="onTabChange($event)"
   >
-    <mat-tab *ngFor="let day of daysOfWeek" [label]="day">
-      <div class="px-4">
-        <div class="flex justify-end items-center py-5">
-          <button mat-flat-button color="primary" (click)="onAdd()">
-            <mat-icon>add</mat-icon>
-            Add Time
-          </button>
-        </div>
-
+    @for (day of daysOfWeek; track day) {
+    <mat-tab [label]="day" class="">
+      <div class="my-4">
         <lib-material-table
           [title]="'Times'"
           [tableData]="timeSlotService.timeSlotsByDay()[day]"
@@ -22,8 +16,10 @@
           (add)="onAdd()"
           (edit)="onEdit($event)"
           (delete)="onDelete($event)"
+          (openDialogDetails)="onEdit($event)"
         ></lib-material-table>
       </div>
     </mat-tab>
+    }
   </mat-tab-group>
 </div>
