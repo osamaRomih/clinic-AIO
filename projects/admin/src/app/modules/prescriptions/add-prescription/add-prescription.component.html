@@ -14,179 +14,186 @@
 
 
   <mat-card class="example-card" appearance="outlined">
-  
-  <mat-card-content>
-    <form [formGroup]="prescriptionForm" (ngSubmit)="onSubmit()">
-      <div class="section-heading mt-3">
-        <h3 class="section-title d-flex align-content-center">
+
+    <mat-card-content>
+      <form [formGroup]="prescriptionForm" (ngSubmit)="onSubmit()">
+        <div class="section-heading mt-3 d-flex align-items-center gap-2 mb-3">
           <mat-icon aria-hidden="false" class="icon-display" aria-label="Example home icon"
-            fontIcon="person"></mat-icon>
-
-          <span >Patient Information</span>
-        </h3>
-      </div>
-
-      <div class="row">
-        <div class=" col-md-6 col-lg-4 col-12">
-          <mat-form-field class="w-100">
-            <mat-label>Choose a date</mat-label>
-            <input matInput formControlName="date" [matDatepicker]="picker">
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error libFieldError></mat-error>
-          </mat-form-field>
+              fontIcon="person"></mat-icon>
+          <h3 class="section-title d-flex align-content-center">
+            <span>Patient Information</span>
+          </h3>
         </div>
-        <div class="mb-3 col-md-6 col-lg-4 col-12">
-          <mat-form-field  class="w-100">
-            <mat-label>Patient id</mat-label>
-            <input formControlName="patientId" matInput placeholder="Patient id">
-            <mat-error libFiledError></mat-error>
-          </mat-form-field>
-        </div>
-        <div class="mb-3 col-md-6 col-lg-4 col-12">
-          <mat-form-field  class="w-100">
-            <mat-label>Age</mat-label>
-            <input formControlName="age" matInput placeholder="Patient age">
-            <mat-error libFiledError></mat-error>
-          </mat-form-field>
-        </div>
-        
 
-      </div>
-      <div class="row">
-        <div class="mb-3 col-md-6 col-lg-4 col-12">
-          <mat-form-field  class="w-100">
-            <mat-label>Diagnosis</mat-label>
-            <input formControlName="diagnosis" matInput placeholder="Patient diagnosis">
-            <mat-error libFiledError></mat-error>
-          </mat-form-field>
+        <div class="row">
+          <div class=" col-md-6 col-lg-4 col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Choose a date</mat-label>
+              <input matInput formControlName="date" [matDatepicker]="picker">
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error libFieldError></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mb-3 col-md-6 col-lg-4 col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Patient</mat-label>
+              <mat-select formControlName="patientId">
+                <mat-option value="">-- Select patient --</mat-option>
+                @for (patient of patients; track patient.id) {
+                <mat-option [value]="patient.id">
+                  <div class="d-flex align-items-center">
+                    <img [src]="'http://localhost:5069/'+patient.imageUrl" class="patient-img" />
+                    <div class="ms-2">
+                      {{ patient.fullName }}
+                    </div>
+                  </div>
+                </mat-option>
+                }
+              </mat-select>
+
+              <mat-error libFieldError></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mb-3 col-md-6 col-lg-4 col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Age</mat-label>
+              <input formControlName="age" matInput placeholder="Patient age">
+              <mat-error libFiledError></mat-error>
+            </mat-form-field>
+          </div>
+
+
         </div>
-        <div class="mb-3 col-md-6 col-lg-4 col-12">
-          <mat-form-field  class="w-100">
-            <mat-label>Choose a next visit</mat-label>
-            <input matInput formControlName="nextVisit" [matDatepicker]="visitPicker">
-            <mat-datepicker-toggle matIconSuffix [for]="visitPicker"></mat-datepicker-toggle>
-            <mat-datepicker #visitPicker></mat-datepicker>
-            <mat-error libFiledError></mat-error>
-            
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="section-heading mt-3">
-        <h3 class="section-title d-flex align-content-center">
-          <i class="fa-regular fa-clipboard"></i>
-
-          Prescription Details
-        </h3>
-      </div>
-
-      <div class="row">
-        <div class="mb-3">
-          <div class="NgxEditor__Wrapper">
-            <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
-            <ngx-editor  [editor]="editor"  formControlName="notes"
-              [placeholder]="'Type here your notes...'"></ngx-editor>
+        <div class="row">
+          <div class="mb-3 col-md-6 col-lg-4 col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Diagnosis</mat-label>
+              <input formControlName="diagnosis" matInput placeholder="Patient diagnosis">
+              <mat-error libFiledError></mat-error>
+            </mat-form-field>
           </div>
         </div>
-      </div>
 
-      <div [formGroup]="medicationForm" class="row">
-        <div class="mb-3 col-md-4 col-lg-3 col-12">
-          <mat-form-field  class="w-100">
-            <mat-label>Medication Name</mat-label>
-            <input formControlName="name" matInput placeholder="Medication Name">
-            <mat-error libFiledError></mat-error>
-          </mat-form-field>
-        </div>
-        <div class="mb-3 col-md-4 col-lg-3 col-12">
-          <mat-form-field class="w-100">
-            <mat-label>Dosage</mat-label>
-            <input formControlName="dosage" matInput placeholder="Dosage">
-            <mat-error libFiledError></mat-error>
-          </mat-form-field>
-        </div>
-        <div class="mb-3 col-md-4 col-lg-1 col-12">
-          <mat-form-field class="w-100">
-            <mat-label>Frequency</mat-label>
-            <input formControlName="frequency" matInput placeholder="Frequency">
-            <mat-error libFiledError></mat-error>
-          </mat-form-field>
-        </div>
-        <div class="mb-3 col-md-4 col-lg-1 col-12">
-          <mat-form-field class="w-100">
-            <mat-label>Days</mat-label>
-            <input formControlName="days" matInput placeholder="Days">
-            <mat-error libFiledError></mat-error>
-          </mat-form-field>
-        </div>
-        <div class="mb-3 col-md-4 col-lg-3 col-12">
-          <mat-form-field class="w-100">
-            <mat-label>Instructions</mat-label>
-            <input formControlName="instructions" matInput placeholder="Instructions">
-            <mat-error libFiledError></mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-1 h-100">
-          <button mat-flat-button color="primary" type="button" [disabled]="medicationForm.invalid" (click)="addToTable()">Add</button>
+        <div class="section-heading mt-3 d-flex align-items-center gap-2 mb-3">
+            <i class="fa-regular fa-clipboard"></i>
+
+          <h3 class="section-title d-flex align-content-center">
+
+            Prescription Details
+          </h3>
         </div>
 
-      </div>
+        <div class="row">
+          <div class="mb-3">
+            <div class="NgxEditor__Wrapper">
+              <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+              <ngx-editor [editor]="editor" formControlName="notes"
+                [placeholder]="'Type here your notes...'"></ngx-editor>
+            </div>
+          </div>
+        </div>
 
-    <!-- Medications Table -->
-      <div class=" table-responsive mt-3" *ngIf="medications.controls.length > 0">
-        <table class="table mt-3 table-bordered align-middle"  >
-        <thead class=" thead-dark">
-          <tr >
-            <th >Medication Name</th>
-            <th >Dosage</th>
-            <th >Frequency</th>
-            <th >Days</th>
-            <th >Instructions</th>
-            <th class="text-center ">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let med of medications.controls; let i = index" [formGroup]="med" >
-            <td >
-              <mat-form-field class="w-100" >
-                <input matInput formControlName="name" >
-              </mat-form-field>
-            </td>
-            <td >
-              <mat-form-field class="w-100">
-                <input matInput formControlName="dosage" >
-              </mat-form-field>
-            </td>
-            <td >
-              <mat-form-field class="w-100">
-                <input matInput formControlName="frequency" >
-              </mat-form-field>
-            </td>
-            <td >
-              <mat-form-field class="w-100">
-                <input matInput formControlName="days" >
-              </mat-form-field>
-            </td>
-            <td >
-              <mat-form-field class="w-100">
-                <input matInput formControlName="instructions">
-              </mat-form-field>
-            </td>
-            <td class="text-center ">
-              <button mat-icon-button color="warn" (click)="removeMedication(i)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-      <div class="my-3 d-flex justify-content-end">
-        <button mat-flat-button color="primary" [disabled]="prescriptionForm.invalid" type="submit">Submit Prescription</button>
-      </div>
-    </form>
+        <div [formGroup]="medicationForm" class="row">
+          <div class="mb-3 col-md-4 col-lg-3 col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Medication Name</mat-label>
+              <input formControlName="name" matInput placeholder="Medication Name">
+              <mat-error libFiledError></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mb-3 col-md-4 col-lg-3 col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Dosage</mat-label>
+              <input formControlName="dosage" matInput placeholder="Dosage">
+              <mat-error libFiledError></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mb-3 col-md-4 col-lg-1 col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Frequency</mat-label>
+              <input formControlName="frequency" matInput placeholder="Frequency">
+              <mat-error libFiledError></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mb-3 col-md-4 col-lg-1 col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Days</mat-label>
+              <input formControlName="days" matInput placeholder="Days">
+              <mat-error libFiledError></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mb-3 col-md-4 col-lg-3 col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Instructions</mat-label>
+              <input formControlName="instructions" matInput placeholder="Instructions">
+              <mat-error libFiledError></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-1 h-100">
+            <button mat-flat-button color="primary" type="button" [disabled]="medicationForm.invalid"
+              (click)="addToTable()">Add</button>
+          </div>
 
-  </mat-card-content>
-</mat-card>
+        </div>
+
+        <!-- Medications Table -->
+        <div class="overflow-x-auto">
+          <div class=" table-responsive mt-3" *ngIf="medications.controls.length > 0">
+            <table class="table mt-3 table-bordered align-middle">
+              <thead class=" thead-dark">
+                <tr>
+                  <th>Medication Name</th>
+                  <th>Dosage</th>
+                  <th>Frequency</th>
+                  <th>Days</th>
+                  <th>Instructions</th>
+                  <th class="text-center ">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let med of medications.controls; let i = index" [formGroup]="med">
+                  <td>
+                    <mat-form-field class="w-100">
+                      <input matInput formControlName="name">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="w-100">
+                      <input matInput formControlName="dosage">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="w-100">
+                      <input matInput formControlName="frequency">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="w-100">
+                      <input matInput formControlName="days">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="w-100">
+                      <input matInput formControlName="instructions">
+                    </mat-form-field>
+                  </td>
+                  <td class="text-center ">
+                    <button mat-icon-button color="warn" (click)="removeMedication(i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="my-3 d-flex justify-content-end">
+          <button mat-flat-button color="primary" [disabled]="prescriptionForm.invalid" type="submit">Submit
+            Prescription</button>
+        </div>
+      </form>
+
+    </mat-card-content>
+  </mat-card>
 </div>

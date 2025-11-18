@@ -80,13 +80,6 @@ export class LayoutComponent {
         },
       ],
     },
-
-    {
-      icon: 'access_time',
-      lable: 'Availability',
-      route: '/availability',
-    },
-
     // Prescriptions menu
     {
       icon: 'description',
@@ -104,6 +97,12 @@ export class LayoutComponent {
           route: '/prescriptions/add',
         },
       ],
+    },
+    
+    {
+      icon: 'access_time',
+      lable: 'Availability',
+      route: '/availability',
     },
 
     {

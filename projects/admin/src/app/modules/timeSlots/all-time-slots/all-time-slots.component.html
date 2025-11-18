@@ -1,9 +1,6 @@
 <div class="page-wrapper">
-  <mat-tab-group
-    animationDuration="0"
-    (selectedIndexChange)="onTabChange($event)"
-  >
-    @for (day of daysOfWeek; track day) {
+  <mat-tab-group animationDuration="0" (selectedIndexChange)="onTabChange($event)">
+    @for (day of timeSlotService.dayOfWeek; track day) {
     <mat-tab [label]="day" class="">
       <div class="my-4">
         <lib-material-table

@@ -14,7 +14,6 @@ export interface IPrescription {
   date: string;    
   age: number;
   diagnosis: string;
-  nextVisit: string;
   notes?: string;
   items: IPrescriptionItem[];
 }
@@ -25,7 +24,6 @@ export interface IPrescriptionResponse {
   date: string;        
   age: number;
   diagnosis: string;
-  nextVisit: string;
   notes?: string;
 }
 

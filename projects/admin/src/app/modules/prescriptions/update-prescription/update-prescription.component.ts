@@ -1,23 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatError, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { Editor, NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { CommonModule, FormatWidth } from '@angular/common';
-import { IPrescription, PrescriptionService } from 'DAL';
+import { IPrescription, PrescriptionService, SnackbarService } from 'DAL';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 @Component({
@@ -47,13 +40,12 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
   html = '';
   editor!: Editor;
 
-  constructor(
-    private service: PrescriptionService,
-    private fb: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
-
+  private snackbarService = inject(SnackbarService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private service = inject(PrescriptionService)
+  private fb = inject(FormBuilder);
+  
   prescriptionForm!: FormGroup;
   medicationForm!: FormGroup;
   id!: number;
@@ -67,10 +59,7 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
     this.initMedicationForm();
 
     this.loadPrescription();
-
   }
-
-  
 
   createForm() {
     this.prescriptionForm = this.fb.group({
@@ -78,43 +67,39 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
       date: [new Date(this.prescription?.date) || '', Validators.required],
       age: [this.prescription?.age || '', Validators.required],
       diagnosis: [this.prescription?.diagnosis || '', Validators.required],
-      nextVisit: [new Date(this.prescription?.nextVisit) || '', Validators.required],
       notes: [this.prescription?.notes || ''],
       items: this.fb.array([]),
     });
   }
 
-  initForm(){
+  initForm() {
     this.prescriptionForm = this.fb.group({
-    patientId: [''],
-    date: [''],
-    age: [''],
-    diagnosis: [''],
-    nextVisit: [''],
-    notes: [''],
-    items: this.fb.array([])
-  });
+      patientId: [''],
+      date: [''],
+      age: [''],
+      diagnosis: [''],
+      nextVisit: [''],
+      notes: [''],
+      items: this.fb.array([]),
+    });
   }
 
-  initMedicationForm(){
+  initMedicationForm() {
     this.medicationForm = this.fb.group({
       id: [0],
       name: ['', Validators.required],
       dosage: ['', Validators.required],
       frequency: [0, Validators.required],
       days: [0, Validators.required],
-      instructions: ['']
+      instructions: [''],
     });
   }
 
   populateMedications() {
-    const medicationArray = this.prescriptionForm.get(
-      'items'
-    ) as FormArray;
+    const medicationArray = this.prescriptionForm.get('items') as FormArray;
     medicationArray.clear();
 
     if (!this.prescription?.items || !Array.isArray(this.prescription.items)) return;
-
 
     this.prescription.items.forEach((med) => {
       medicationArray.push(
@@ -125,7 +110,7 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
           frequency: [med.frequency, [Validators.required]],
           days: [med.days, [Validators.required]],
           instructions: [med.instructions || ''],
-        })
+        }),
       );
     });
   }
@@ -147,7 +132,7 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
 
   get medications(): FormArray<FormGroup> {
     return this.prescriptionForm.get('items') as FormArray<FormGroup>;
-  } 
+  }
 
   // Adds a new medication row
   addToTable() {
@@ -168,16 +153,15 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
 
     const formattedValue = {
       ...formValue,
-      date:moment(formValue.date).format('YYYY-MM-DD'),
-      nextVisit:moment(formValue.nextVisit).format('YYYY-MM-DD')
-    }
+      date: moment(formValue.date).format('YYYY-MM-DD'),
+      nextVisit: moment(formValue.nextVisit).format('YYYY-MM-DD'),
+    };
 
-    this.service.update(this.id,formattedValue).subscribe({
+    this.service.update(this.id, formattedValue).subscribe({
       next: (res) => {
-        console.log(res);
+        this.snackbarService.success('Prescription added successfully');
+        this.router.navigate(['/prescriptions']);
       },
     });
   }
-
-
 }

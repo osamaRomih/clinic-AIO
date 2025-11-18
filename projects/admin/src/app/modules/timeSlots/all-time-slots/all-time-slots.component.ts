@@ -1,70 +1,41 @@
 import { Component, inject, signal } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import {
-  DialogService,
-  MaterialTableComponent,
-  SnackbarService,
-  TableColumn,
-  TimeSlotResponse,
-  TimeslotService,
-} from 'DAL';
-import { MatCardModule } from '@angular/material/card';
-import { CommonModule } from '@angular/common';
+import { DialogService, MaterialTableComponent, SnackbarService, TableColumn, TimeslotService } from 'DAL';
 import { TimeSlotFormComponent } from '../time-slot-form/time-slot-form.component';
 
 @Component({
   selector: 'app-all-time-slots',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatTabsModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatCardModule,
-    MaterialTableComponent,
-  ],
+  imports: [MatTabsModule, MaterialTableComponent],
   templateUrl: './all-time-slots.component.html',
   styleUrls: ['./all-time-slots.component.scss'],
 })
 export class AllTimeSlotsComponent {
-  daysOfWeek: string[] = [
-    'Saturday',
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-  ];
-
   timeSlotsTableColumns!: TableColumn[];
-  timeSlotService = inject(TimeslotService);
-  dialog = inject(MatDialog);
-  snackBarService = inject(SnackbarService);
-  confirmationService = inject(DialogService);
+
+  protected timeSlotService = inject(TimeslotService);
+  private dialog = inject(MatDialog);
+  private snackBarService = inject(SnackbarService);
+  private confirmationService = inject(DialogService);
 
   selectedDay = signal<string>('');
 
   ngOnInit(): void {
     this.getAllTimeSlots();
     this.initColumns();
-
-    this.selectedDay.set(this.daysOfWeek[0]);
+    this.selectedDay.set(this.timeSlotService.dayOfWeek[0]);
   }
 
   getAllTimeSlots() {
-    this.timeSlotService.getAll(undefined, true).subscribe();
+    this.timeSlotService.getAll(true).subscribe();
   }
 
   onTabChange(index: number) {
-    this.selectedDay.set(this.daysOfWeek[index]);
+    this.selectedDay.set(this.timeSlotService.dayOfWeek[index]);
   }
 
+  // add time slot
   onAdd(): void {
     const day = this.selectedDay();
     const dialogRef = this.dialog.open(TimeSlotFormComponent, {
@@ -79,11 +50,10 @@ export class AllTimeSlotsComponent {
     });
   }
 
+  // edit time slot
   onEdit(id: number) {
     const day = this.selectedDay();
-    const timeSlot = this.timeSlotService
-      .timeSlotsByDay()
-      [day].find((ts) => ts.id == id);
+    const timeSlot = this.timeSlotService.timeSlotsByDay()[day].find((ts) => ts.id == id);
     if (!timeSlot) return;
 
     if (timeSlot.isBooked) {
@@ -103,35 +73,22 @@ export class AllTimeSlotsComponent {
     });
   }
 
-
+  // delete time slot
   onDelete(id: number) {
-    // optimistic: confirm on UI level if needed
-    this.confirmationService
-      .confirmDialog({
-        title: 'Confirm Deletion',
-        message: 'Are you sure you want to toggle this time slot status?',
-        cancelCaption: 'No',
-        confirmCaption: 'Yes',
-      })
-      .subscribe((confirmed) => {
-        if (confirmed) {
-          this.timeSlotService.toggleStatus(id).subscribe({
-            next: () => {
-              this.snackBarService.success('Time is toggled successfully');
-              this.getAllTimeSlots();
-            },
-            error: (err) => {
-              this.snackBarService.error('Failed to toggle time slot status');
-              console.error(err);
-            },
-          });
-        }
-      });
-  }
-
-  onRowClick(row: TimeSlotResponse) {
-    if (row.isBooked) return;
-    this.onEdit(row.id);
+    this.confirmationService.confirmDialog('Confirm Deletion', 'Are you sure you want to toggle this time slot status?').subscribe((confirmed) => {
+      if (confirmed) {
+        this.timeSlotService.toggleStatus(id).subscribe({
+          next: () => {
+            this.snackBarService.success('Time is toggled successfully');
+            this.getAllTimeSlots();
+          },
+          error: (err) => {
+            this.snackBarService.error('Failed to toggle time slot status');
+            console.error(err);
+          },
+        });
+      }
+    });
   }
 
   initColumns(): void {
@@ -160,7 +117,7 @@ export class AllTimeSlotsComponent {
         name: 'Booked At',
         dataKey: 'bookedAt',
         isSortable: true,
-      }
+      },
     ];
   }
 }

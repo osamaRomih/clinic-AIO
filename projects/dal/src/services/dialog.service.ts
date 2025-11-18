@@ -11,7 +11,14 @@ export class DialogService {
 
   private dialog = inject(MatDialog);
 
-  confirmDialog(data: ConfirmDialogData): Observable<boolean> {
+  confirmDialog(title:string,message:string): Observable<boolean> {
+    const data: ConfirmDialogData = {
+      title,
+      message,
+      confirmCaption: 'Yes',
+      cancelCaption: 'No'
+    };
+    
     return this.dialog
       .open(ConfirmationDialogComponent, {
         data,

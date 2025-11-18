@@ -11,6 +11,7 @@ export class TimeslotService {
   baseAPI = 'http://localhost:5069/api';
   private httpClient = inject(HttpClient);
 
+  dayOfWeek = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
   timeSlots = signal<DaySlotsResponse[]>([]);
 
   timeSlotsByDay = computed(()=>{
@@ -33,7 +34,7 @@ export class TimeslotService {
     return this.httpClient.put(`${this.baseAPI}/timeSlots/${id}`,model);
   }
 
-  getAll(date?:string, includeDeleted:boolean = false){
+  getAll(includeDeleted:boolean = false){
     var params = new HttpParams();
 
     params = params.append('includeDeleted', includeDeleted.toString());

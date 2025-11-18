@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { IPrescription, IPrescriptionResponse, MaterialTableComponent, PrescriptionService, TableColumn } from 'DAL';
+import { IPatient, IPrescription, IPrescriptionResponse, MaterialTableComponent, PatientService, PrescriptionService, TableColumn } from 'DAL';
 import { MatIconModule } from '@angular/material/icon';
 import moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,23 +19,15 @@ interface Customer {
 @Component({
   selector: 'app-all-prescription',
   standalone: true,
-  imports: [
-    MatButtonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatIconModule,
-    MatButtonModule,
-    MaterialTableComponent,
-  ],
+  imports: [MatButtonModule, MatTableModule, MatPaginatorModule, MatIconModule, MatButtonModule, MaterialTableComponent],
   templateUrl: './all-prescription.component.html',
   styleUrl: './all-prescription.component.scss',
 })
 export class AllPrescriptionComponent implements OnInit {
+  private router = inject(Router);
+  private prescriptionService = inject(PrescriptionService);
+  private dialog = inject(MatDialog);
 
-  router = inject(Router);
-  service = inject(PrescriptionService);
-  dialog = inject(MatDialog);
-  
   prescriptionsTableColumns!: TableColumn[];
   totalItems!: number;
   pageSize: number = 10;
@@ -47,14 +39,13 @@ export class AllPrescriptionComponent implements OnInit {
     this.initColumns();
   }
 
-  getAllPrescription(pageNumber: number = 1,pageSize: number = 10) {
-    this.service.getAll(pageNumber, pageSize).subscribe({
+  getAllPrescription(pageNumber: number = 1, pageSize: number = 10) {
+    this.prescriptionService.getAll(pageNumber, pageSize).subscribe({
       next: (res) => {
         this.prescriptions = res.items.map((item) => {
           return {
             ...item,
             date: moment(item.date).format('LL'),
-            nextVisit: moment(item.date).format('LL'),
           } as IPrescription;
         });
         this.totalItems = res.totalCount;
@@ -65,7 +56,7 @@ export class AllPrescriptionComponent implements OnInit {
   }
 
   onAdd() {
-    this.router.navigateByUrl('prescriptions/add-prescription');
+    this.router.navigateByUrl('prescriptions/add');
   }
 
   onPageChange(event: PageEvent) {
@@ -73,19 +64,19 @@ export class AllPrescriptionComponent implements OnInit {
   }
 
   onEdit(id: number) {
-    this.router.navigate(['/prescriptions/update', id]);
+    this.router.navigate(['/prescriptions/edit', id]);
   }
 
   onDelete(id: number) {
-    this.service.delete(id).subscribe({
+    this.prescriptionService.delete(id).subscribe({
       next: (res) => {
         this.getAllPrescription();
       },
     });
   }
-  
+
   openDialogDetails(id: number) {
-    this.service.getById(id).subscribe({
+    this.prescriptionService.getById(id).subscribe({
       next: (res) => {
         const dialogRef = this.dialog.open(DetailsPrescriptionComponent, {
           data: res,
@@ -119,12 +110,6 @@ export class AllPrescriptionComponent implements OnInit {
         dataKey: 'diagnosis',
         isSortable: true,
       },
-      {
-        name: 'Next Visit',
-        dataKey: 'nextVisit',
-        isSortable: true,
-      },
-      
     ];
   }
 
@@ -133,14 +118,9 @@ export class AllPrescriptionComponent implements OnInit {
 
     if (!key) return;
 
-    const dir =
-      sortParameters.direction === 'asc'
-        ? 1
-        : sortParameters.direction === 'desc'
-        ? -1
-        : 0;
+    const dir = sortParameters.direction === 'asc' ? 1 : sortParameters.direction === 'desc' ? -1 : 0;
     if (dir === 0) {
-       this.getAllPrescription();
+      this.getAllPrescription();
       return;
     }
 
@@ -158,14 +138,13 @@ export class AllPrescriptionComponent implements OnInit {
     });
   }
 
-  exportAsExcel(){
+  exportAsExcel() {
     const dataToExport = this.prescriptions.map((item) => {
       return {
         'Patient Name': item.patientName,
         'Appointment Date': item.date,
         'Age': item.age,
         'Diagnosis': item.diagnosis,
-        'Next Visit': item.nextVisit,
       };
     });
 

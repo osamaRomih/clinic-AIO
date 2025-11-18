@@ -42,9 +42,9 @@
   <button
     mat-flat-button
     color="primary"
-    (click)="data?.timeSlot?.id == undefined ? addTimeSlot() : updateTimeSlot(data?.timeSlot?.id!)"
+    (click)="data.timeSlot?.id == undefined ? addTimeSlot() : updateTimeSlot(data.timeSlot?.id!)"
     [disabled]="timeSlotForm.invalid"
     cdkFocusInitial>
-    {{ data?.timeSlot?.id == undefined ? 'Create' : 'Update' }}
+    {{ data.timeSlot?.id == undefined ? 'Create' : 'Update' }}
   </button>
 </mat-dialog-actions>

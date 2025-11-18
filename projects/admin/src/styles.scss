@@ -249,3 +249,46 @@ span.badge {
   border: 1px solid var(--sys-surface) !important;
   box-shadow: 0 5px 25px #0003;
 }
+
+// NgxEditor styles
+
+.NgxEditor {
+  background: var(--sys-surface);
+  color: var(--sys-on-surface);
+  background-clip: padding-box;
+  border-radius: 8px;
+  border: 1px solid var(--sys-outline-variant);
+  position: relative;
+}
+
+.NgxEditor__Content {
+  background: var(--sys-surface);
+  color: var(--sys-on-surface);
+}
+
+.NgxEditor:hover {
+  border-color: var(--sys-surface-container-high);
+}
+
+.NgxEditor:focus-within {
+  border-color: var(--sys-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--sys-primary) 30%, transparent);
+}
+
+.NgxEditor__MenuBar {
+  background: var(--sys-surface-container) !important;
+  border-bottom: 1px solid var(--sys-outline-variant);
+}
+
+.NgxEditor__MenuBar button {
+  color: var(--sys-on-surface-variant);
+}
+
+.NgxEditor__MenuBar button:hover {
+  background: var(--sys-surface-container-high);
+}
+
+.NgxEditor__MenuBar button.active {
+  background: var(--sys-primary-container);
+  color: var(--sys-on-primary-container);
+}
