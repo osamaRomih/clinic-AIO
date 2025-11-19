@@ -2,16 +2,28 @@
     <div class="bg-white w-100" style="max-width:450px;">
         <div class="pt-5" style="margin-top:130px;">
             <div class="d-flex justify-content-center align-items-center">
-                <img src="assets/logo.svg" alt="logo" class="me-2" />
-                <span class="text-primary fw-bold" style="font-size:32px">Clinic</span>
+                <img src="assets/images/logo.png" alt="logo" class="me-2" width="200" height="200" />
             </div>
 
-            <div class="text-center fw-semibold" style="font-size:25px; margin-top:23px;">
+            <div class="text-center fw-semibold" style="font-size:25px;">
                 Log in
             </div>
 
+            @if(validationErrors.length > 0){
+            <div class="px-4 mt-2">
+                <div class="alert alert-danger" role="alert" aria-live="assertive">
+                    <strong>There are errors in the form</strong>
+                    <ul class="mb-0 mt-2 small">
+                        @for (item of validationErrors; track $index) {
+                        <li>{{item}}</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            }
+
             <div class="mt-4 px-4">
-                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mx-auto" style="max-width:360px;">
+                <form [formGroup]="form" class="mx-auto" style="max-width:360px;">
                     <mat-form-field class="w-100 mb-3">
                         <mat-label>Email / Usename</mat-label>
                         <input matInput placeholder="Enter your email or username" formControlName="emailOrUsername">
@@ -21,15 +33,18 @@
                     <mat-form-field class="w-100 mb-3">
                         <mat-label>Enter your password</mat-label>
                         <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" />
-                        <button mat-icon-button matSuffix (click)="toggleHide($event)" [attr.aria-label]="'Hide password'"
-                            [attr.aria-pressed]="hide()">
+                        <button mat-icon-button matSuffix (click)="toggleHide($event)"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
                             <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                         <mat-error libFieldError>Password is required</mat-error>
                     </mat-form-field>
 
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg rounded-3">Log in</button>
+                        <button mat-flat-button type="button" [disabled]="form.invalid" [loading]="isLoading"
+                            (click)="onSubmit()">
+                            <span class="btn-label">Log in</span>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -38,7 +53,7 @@
 
     <div class="flex-fill d-flex justify-content-center align-items-center" style="min-height:100vh;">
         <div class="w-75 w-md-50" style="max-width:650px;">
-            <img src="assets/Illustration.svg" class="img-fluid" alt="illustration" />
+            <img src="assets/images/Illustration.svg" class="img-fluid" alt="illustration" />
         </div>
     </div>
 </div>

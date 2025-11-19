@@ -5,16 +5,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { ButtonLoadingDirective } from '../../directives/button-loading.directive';
 
 @Component({
   selector: 'lib-login',
   standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule,MatIconModule,MatInputModule,MatButtonModule],
+  imports: [ReactiveFormsModule,MatFormFieldModule,MatIconModule,MatInputModule,MatButtonModule,ButtonLoadingDirective],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  @Output() submit = new EventEmitter<ILoginCreds>();
+  @Output() formSubmit = new EventEmitter<ILoginCreds>();
+  @Input() isLoading = false;
+  @Input() validationErrors: string[] = [];
 
   hide = signal(true);
 
@@ -30,8 +33,10 @@ export class LoginComponent {
     });
   }
   
-  onSubmit(){
-    this.submit.emit(this.form.value);
+  onSubmit(event?:Event){
+    event?.stopPropagation();
+    event?.preventDefault();
+    this.formSubmit.emit(this.form.value);
   }
 
   toggleHide(event: MouseEvent){
@@ -39,4 +44,5 @@ export class LoginComponent {
     event.preventDefault();
     event.stopPropagation();
   }
+
 }

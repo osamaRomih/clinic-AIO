@@ -2,11 +2,15 @@ import { Routes } from '@angular/router';
 import { LoginPageComponent } from './modules/login-page/login-page.component';
 import { LayoutComponent } from './modules/layout/layout.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
-import { authGuard } from 'DAL';
+import { authGuard, authInterceptor } from 'DAL';
 import { AllAppointmentsComponent } from './modules/appointments/all-appointments/all-appointments.component';
 import { AppointmentCalenderComponent } from './modules/appointments/appointment-calender/appointment-calender.component';
 import { AddAppointmentComponent } from './modules/appointments/add-appointment/add-appointment.component';
 import { UpdateAppointmentComponent } from './modules/appointments/update-appointment/update-appointment.component';
+import { AllPatientsComponent } from './modules/patients/all-patients/all-patients.component';
+import { AddPatientComponent } from './modules/patients/add-patient/add-patient.component';
+import { UpdatePatientComponent } from './modules/patients/update-patient/update-patient.component';
+import { withInterceptors } from '@angular/common/http';
 
 export const routes: Routes =  [
   {
@@ -15,37 +19,7 @@ export const routes: Routes =  [
     canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-
-      // Home / Dashboard
       { path: 'dashboard', component: DashboardComponent },
-
-      // Settings
-      // {
-      //   path: 'settings',
-      //   component: SettingsComponent,
-    
-      //   children: [
-      //     { path: '', redirectTo: 'profile', pathMatch: 'full' },
-      //     { path: 'profile', component: ProfileComponent },
-      //     { path: 'change-password', component: ChangePasswordComponent}
-      //   ]
-      // },
-
-      // Availability
-  //     { path: 'availability', component: AllTimeSlotsComponent },
-
-  //     // Prescriptions
-  //     {
-  //       path: 'prescriptions',
-    
-  //       children: [
-  //         { path: '', component: AllPrescriptionComponent},
-  //         { path: 'add', component: AddPrescriptionComponent },
-  //         { path: 'edit/:id', component: UpdatePrescriptionComponent }
-  //       ]
-  //     },
-
-      // Appointments
       {
         path: 'appointments',
     
@@ -54,6 +28,14 @@ export const routes: Routes =  [
           { path: 'calendar', component: AppointmentCalenderComponent },
           { path: 'add', component: AddAppointmentComponent },
           { path: 'edit/:id', component: UpdateAppointmentComponent }
+        ]
+      },
+      {
+        path: 'patients',
+        children: [
+          { path: '', component: AllPatientsComponent },
+          { path: 'add', component: AddPatientComponent },
+          { path: 'edit/:id', component: UpdatePatientComponent }
         ]
       },
 

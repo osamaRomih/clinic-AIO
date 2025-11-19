@@ -78,6 +78,22 @@ export class LayoutComponent {
         },
       ],
     },
-
+    {
+      icon: 'group',
+      lable: 'Patients',
+      route: '/patients',
+      subItems: [
+        {
+          icon: 'person',
+          lable: 'View All',
+          route: '/patients',
+        },
+        {
+          icon: 'add',
+          lable: 'Add Patient',
+          route: '/patients/add',
+        },
+      ],
+    },
   ]);
 }

@@ -1,28 +1,12 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {
-  MatSidenavContainer,
-  MatSidenav,
-  MatSidenavContent,
-} from '@angular/material/sidenav';
-import {
-  HeaderComponent,
-  MenuItem,
-  ResponsiveService,
-  SideNavComponent,
-} from 'DAL';
+import { MatSidenavContainer, MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
+import { HeaderComponent, MenuItem, ResponsiveService, SideNavComponent } from 'DAL';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [
-    MatSidenavContainer,
-    MatSidenav,
-    MatSidenavContent,
-    RouterOutlet,
-    HeaderComponent,
-    SideNavComponent,
-  ],
+  imports: [MatSidenavContainer, MatSidenav, MatSidenavContent, RouterOutlet, HeaderComponent, SideNavComponent],
 
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
@@ -42,7 +26,7 @@ export class LayoutComponent {
           this.collapsed.set(false);
         }
       },
-      { allowSignalWrites: true }
+      { allowSignalWrites: true },
     );
   }
 
@@ -98,7 +82,7 @@ export class LayoutComponent {
         },
       ],
     },
-    
+
     {
       icon: 'access_time',
       lable: 'Availability',
@@ -143,9 +127,13 @@ export class LayoutComponent {
           icon: 'person',
           lable: 'View All',
           route: '/patients',
-        }
+        },
+        {
+          icon: 'add',
+          lable: 'Add Patient',
+          route: '/patients/add',
+        },
       ],
     },
-    
   ]);
 }

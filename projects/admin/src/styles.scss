@@ -310,3 +310,42 @@ span.badge {
   gap: 8px;
   margin-bottom: 0;
 }
+
+.mdc-button-loading {
+  .mdc-button__label {
+    visibility: hidden;
+  }
+
+  .mat-mdc-progress-spinner {
+    position: absolute;
+  }
+}
+/* simple spinner circle */
+.btn-inline-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: rgba(255,255,255,0.9);
+  margin-left: 8px;
+  box-sizing: border-box;
+  animation: btn-spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* optional class when loading for additional styling */
+.mdc-button-loading {
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+button .btn-spinner {
+  margin-left: 8px;
+  display: inline-flex;
+  vertical-align: middle;
+}

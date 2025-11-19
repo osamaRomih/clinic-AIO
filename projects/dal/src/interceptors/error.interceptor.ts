@@ -1,64 +1,68 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { catchError, switchMap, throwError } from 'rxjs';
-import { AuthService, SnackbarService } from '../public-api';
+import { SnackbarService } from '../services/admin/snackbar.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  const snackbarService = inject(SnackbarService);
-  const authService = inject(AuthService);
+  const toast = inject(SnackbarService);
   const router = inject(Router);
 
-  let ctr = 0;
   return next(req).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status === 0) {
-        snackbarService.error('Network error: unable to reach server');
-        return throwError(() => error);
+    catchError((err: HttpErrorResponse) => {
+      // Network / CORS / no response
+      if (err.status === 0) {
+        toast.error('Network error: unable to reach server');
+        return throwError(() => err);
       }
 
-      switch (error.status) {
+      const serverMessage = err.error?.message || err.error?.title || err.error?.detail || null;
+
+      switch (err.status) {
         case 400: {
-          const validationErrors = error.error?.errors;
-
-          if (validationErrors) {
-            let modelStateErrors:string[] = [];
-
-            for (const key in validationErrors) {
-              if (validationErrors[key]) {
-                validationErrors[key].forEach((msg: string) => {
-                  modelStateErrors.push(msg);
-                  snackbarService.error(msg || 'Validation Error');
-                });
-              }
-            }
-
-            throw modelStateErrors;
+          const validationErrors = err.error?.errors;
+          if (validationErrors && typeof validationErrors === 'object') {
+            return throwError(() => getErrors(validationErrors));
           } else {
-            const msg = error.error?.title || error.error?.message || 'Bad Request';
-            snackbarService.error(msg);
+            toast.error(serverMessage ?? 'Bad Request');
+            return throwError(() => err);
+          }
+        }
+
+        case 401: {
+          const maybeErrors = err.error?.errors;
+          if (maybeErrors && typeof maybeErrors === 'object') {
+            return throwError(() => getErrors(maybeErrors));
           }
 
-          break;
+          return throwError(() => err);
         }
-        case 401:
-          snackbarService.error('Unauthorized');
-          break;
-        case 404:
+
+        case 404: {
           router.navigateByUrl('/not-found');
-          break;
-        case 500: {
-          const navigationExtras = { state: { error: error.error } };
-          router.navigateByUrl('/server-error', navigationExtras);
-          break;
+          return throwError(() => err);
         }
-        default:
-          snackbarService.error('Unexpected error');
+
+        case 500: {
+          const navigationExtras = { state: { error: err.error } };
+          router.navigateByUrl('/server-error', navigationExtras);
+          return throwError(() => err);
+        }
+
+        default: {
+          toast.error(serverMessage ?? 'Unexpected error');
+          return throwError(() => err);
+        }
       }
-
-
-      return throwError(() => error);
     }),
   );
+};
+
+const getErrors = (errors: any): string[] => {
+  const modelStateErrors: string[] = [];
+  for (const key in errors)
+    if (errors[key]) {
+      modelStateErrors.push(...errors[key]);
+    }
+  return modelStateErrors;
 };

@@ -17,7 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import {
   AppointmentService,
-  IPatient,
+  IPatientRead,
   PatientService,
   SnackbarService,
   TimeSlotResponse,
@@ -52,7 +52,7 @@ import { Router } from '@angular/router';
 export class AddAppointmentComponent implements OnInit {
   timeSlots: TimeSlotResponse[] = [];
   appointmentForm!: FormGroup;
-  patients: IPatient[] = [];
+  patients: IPatientRead[] = [];
 
   private timeSlotService = inject(TimeslotService);
   private appointmentService = inject(AppointmentService)

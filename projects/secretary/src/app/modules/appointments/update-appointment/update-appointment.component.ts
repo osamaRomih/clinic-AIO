@@ -29,7 +29,7 @@ import {
   AuthService,
   IAppointment,
   IAppointmentRead,
-  IPatient,
+  IPatientRead,
   PatientService,
   ScheduleResponse,
   SnackbarService,
@@ -74,7 +74,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UpdateAppointmentComponent implements OnInit {
   timeSlots: TimeSlotResponse[] = [];
   appointmentForm!: FormGroup;
-  patients: IPatient[] = [];
+  patients: IPatientRead[] = [];
   appointment!: IAppointment;
   appointmentId!: number;
   constructor(

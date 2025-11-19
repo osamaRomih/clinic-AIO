@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AuthService, ILoginCreds, LoginComponent, SnackbarService } from 'DAL';
 import { Router } from '@angular/router';
 
@@ -15,18 +15,30 @@ export class LoginPageComponent {
   private authService = inject(AuthService);
   private snackBarService = inject(SnackbarService);
   private router = inject(Router);
+  protected isLoading = false;
+
+  validationErrors = signal<string[]>([]);
 
 
-  login(data:ILoginCreds){
-    this.authService.login(data).subscribe({
+  login(data:any){
+    this.isLoading = true;
+    this.authService.login(data as ILoginCreds).subscribe({
       next:(res)=>{
-
+        this.isLoading = false;
         localStorage.setItem('token',res.token);
         localStorage.setItem('refreshToken',res.refreshToken);
-
-        this.authService.getUserInfo().subscribe();
-        this.snackBarService.success('login successfully');
-        this.router.navigate(['/']);
+        
+        this.authService.getUserInfo().subscribe({
+          next:()=>{
+            this.snackBarService.success('login successfully');
+            this.router.navigateByUrl('/dashboard');
+          }
+        });
+      },
+      error:(err)=>{
+        this.isLoading = false;
+        this.snackBarService.error('login failed');
+        this.validationErrors.set(err);
       }
     })
   }

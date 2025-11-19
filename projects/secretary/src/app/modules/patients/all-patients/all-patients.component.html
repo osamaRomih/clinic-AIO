@@ -1,0 +1,41 @@
+<div class="page-wrapper">
+  <div class="breadcrumb">
+    <li>
+      <h4 class="page-title">View Patients</h4>
+    </li>
+    <mat-icon>chevron_right</mat-icon>
+    <li class="breadcrumb-item breadcrumb-icon d-flex align-items-center">
+      <img src="/assets/images/home.svg" />
+    </li>
+    <mat-icon>chevron_right</mat-icon>
+    <li class="breadcrumb-item">Patient</li>
+    <mat-icon>chevron_right</mat-icon>
+    <li class="breadcrumb-item active">View</li>
+  </div>
+
+  <div class="card-body">
+    <lib-material-table
+      [title]="'Patients'"
+      [tableData]="patients"
+      [tableColumns]="patientsTableColumns"
+      [isFilterable]="true"
+      [isSortable]="false"
+      [isPageable]="true"
+      [isServerSidePagination]="true"
+      [totalItems]="totalItems"
+      [pageSize]="pageSize"
+      [isServerSideSortable]="true"
+      (sort)="onSort($event)"
+      (search)="onSearch($event)"
+      (page)="onPageChange($event)"
+      (add)="onAdd()"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      [isExportable]="true"
+      (exportExcel)="exportAsExcel()"
+      [enableSelection]="true"
+      (bulkDelete)="confirmBulkDelete($event)"
+      (openDialogDetails)="openDialogDetails($event)"
+    ></lib-material-table>
+  </div>
+</div>

@@ -6,14 +6,14 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { authInterceptor, InitService, ThemeService } from 'DAL';
+import { authInterceptor, errorInterceptor, InitService, ThemeService } from 'DAL';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 export const appConfig: ApplicationConfig = {
   providers: [
       provideHttpClient(
         withFetch(),
-        withInterceptors([authInterceptor])
+        withInterceptors([authInterceptor,errorInterceptor])
       ),
       provideZoneChangeDetection({ eventCoalescing: true }),
       provideRouter(routes),
