@@ -1,35 +1,17 @@
-import {
-  APP_INITIALIZER,
-  ApplicationConfig,
-  importProvidersFrom,
-  inject,
-  provideZoneChangeDetection,
-} from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, inject, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
-import {
-  provideHttpClient,
-  withFetch,
-  withInterceptors,
-} from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import {
-  authInterceptor,
-  errorInterceptor,
-  InitService,
-  loadingInterceptor,
-} from 'DAL';
+import { authInterceptor, errorInterceptor, InitService, loadingInterceptor } from 'DAL';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ThemeService } from 'DAL';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(
-      withFetch(),
-      withInterceptors([authInterceptor, errorInterceptor, loadingInterceptor])
-    ),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor, errorInterceptor, loadingInterceptor])),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimations(),
@@ -45,17 +27,17 @@ export const appConfig: ApplicationConfig = {
       },
       multi: true,
     },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: () => {
+    //     const initService = inject(InitService);
+    //     return () => initService.init();
+    //   },
+    //   multi: true,
+    // },
     {
-      provide: APP_INITIALIZER,
-      useFactory: () => {
-        const initService = inject(InitService);
-        return () => initService.init();
-      },
-      multi: true,
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'outline', subscriptSizing: 'dynamic' },
     },
-    {
-      provide:MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: {appearance:'outline',subscriptSizing:'dynamic'}
-    }
   ],
 };

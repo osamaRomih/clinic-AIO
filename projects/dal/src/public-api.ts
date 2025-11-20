@@ -53,6 +53,7 @@ export {ILoginRequest} from './models/login-request'
 export {ILoginResponse} from './models/login-response'
 export {IUser} from './models/user'
 export {ConfirmDialogData} from './models/confirmation-dialog-data'
+export {IExternalAuth} from './models/external-auth'
 
 
 // interceptors

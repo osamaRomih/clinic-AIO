@@ -35,6 +35,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             return throwError(() => getErrors(maybeErrors));
           }
 
+          router.navigateByUrl('/auth/login');
           return throwError(() => err);
         }
 

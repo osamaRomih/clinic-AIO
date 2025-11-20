@@ -6,43 +6,57 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonLoadingDirective } from '../../directives/button-loading.directive';
+import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'lib-login',
   standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule,MatIconModule,MatInputModule,MatButtonModule,ButtonLoadingDirective],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
+    ButtonLoadingDirective,
+    GoogleSigninButtonModule,
+  ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
   @Output() formSubmit = new EventEmitter<ILoginCreds>();
+  @Input() googleSignInEnabled = false;
+  @Output() onGoogleSignIn = new EventEmitter<void>();
   @Input() isLoading = false;
   @Input() validationErrors: string[] = [];
 
   hide = signal(true);
 
   private fb = inject(FormBuilder);
-  protected form!:FormGroup ;
+  protected form!: FormGroup;
 
+  
 
-
-  ngOnInit(){
+  ngOnInit() {
     this.form = this.fb.group({
-      emailOrUsername:['',[Validators.required]],
-      password:['',[Validators.required]]
+      emailOrUsername: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
-  
-  onSubmit(event?:Event){
+
+  onSubmit(event?: Event) {
     event?.stopPropagation();
     event?.preventDefault();
     this.formSubmit.emit(this.form.value);
   }
 
-  toggleHide(event: MouseEvent){
-    this.hide.update(hide => !hide);
+  // signInWithGoogle(){
+  //   this.onGoogleSignIn.emit();
+  // }
+
+  toggleHide(event: MouseEvent) {
+    this.hide.update((hide) => !hide);
     event.preventDefault();
     event.stopPropagation();
   }
-
 }

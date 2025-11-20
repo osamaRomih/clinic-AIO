@@ -23,6 +23,9 @@
             }
 
             <div class="mt-4 px-4">
+                @if(googleSignInEnabled){
+                <asl-google-signin-button type='standard' size='medium'></asl-google-signin-button>
+                }
                 <form [formGroup]="form" class="mx-auto" style="max-width:360px;">
                     <mat-form-field class="w-100 mb-3">
                         <mat-label>Email / Usename</mat-label>

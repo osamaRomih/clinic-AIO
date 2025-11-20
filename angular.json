@@ -123,7 +123,9 @@
             "styles": [
               "projects/patient/src/styles.scss",
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/patient/src/styles/themes/theme-blue.css",
+              "projects/patient/src/styles/themes/theme-green.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"

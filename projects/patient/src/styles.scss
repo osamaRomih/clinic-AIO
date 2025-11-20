@@ -1,3 +1,80 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@use '@angular/material' as mat;
+@use '../../dal/src/lib/styles/theme' as dalAuth;
+
+$system-theme: mat.define-theme((
+  color: (
+    use-system-variables: true
+  ),
+  typography: (
+    use-system-variables: true
+  )
+));
+
+@include mat.core();
+
+@include dalAuth.dal-auth-theme($system-theme);
+
+$compact-theme:mat.define-theme((
+  (
+    density:(
+      scale:-3
+    )
+  )
+));
+
+.theme-green {
+  @include mat.system-level-colors($system-theme);
+  @include mat.system-level-typography($system-theme);
+  @include mat.all-component-themes($system-theme);
+}
+
+.theme-blue {
+  @include mat.system-level-colors($system-theme);
+  @include mat.system-level-typography($system-theme);
+  @include mat.all-component-themes($system-theme);
+}
+
+.theme-green.dark,
+.theme-blue.dark {
+  @include mat.system-level-colors($system-theme);
+  @include mat.system-level-typography($system-theme);
+  @include mat.all-component-themes($system-theme);
+}
+
+.NgxEditor {
+    height: 250px !important;
+    overflow-y: scroll;
+  }
+
+  .NgxEditor__Content {
+    min-height: 300px !important;
+  }
+:root {
+  @include mat.table-overrides((
+    header-headline-size:14px,
+    header-headline-weight:600,
+    row-item-label-text-font:17px,
+    header-headline-color:#1a1b1f
+  ));
+  @include mat.form-field-density($compact-theme);
+  @include mat.datepicker-density($compact-theme);
+  @include mat.icon-button-density($compact-theme);
+  // @include mat.all-component-themes(theme.$light-theme);
+
+}
+
+.snack-error {
+  @include mat.snack-bar-overrides((
+    button-color: var(--sys-on-error),
+    container-color: var(--sys-error),
+    supporting-text-color: var(--sys-on-error)
+  ));
+}
+
+.snack-success {
+  @include mat.snack-bar-overrides((
+    button-color: var(--sys-on-primary),
+    container-color: var(--sys-primary),
+    supporting-text-color: var(--sys-on-primary)
+  ));
+}
