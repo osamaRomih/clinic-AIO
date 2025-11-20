@@ -27,14 +27,14 @@ export const appConfig: ApplicationConfig = {
       },
       multi: true,
     },
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: () => {
-    //     const initService = inject(InitService);
-    //     return () => initService.init();
-    //   },
-    //   multi: true,
-    // },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => {
+        const initService = inject(InitService);
+        return () => initService.init();
+      },
+      multi: true,
+    },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'outline', subscriptSizing: 'dynamic' },

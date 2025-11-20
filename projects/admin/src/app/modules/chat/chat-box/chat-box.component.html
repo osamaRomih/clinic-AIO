@@ -1,5 +1,5 @@
 @if(chatService.currentOpenedChat()){
-<div class="card">
+<div class="card chat-card">
   <div class="chat-header d-flex gap-2">
     <div class="d-flex flex-column justify-content-start">
       <img [src]="'http://localhost:5069'+chatService.currentOpenedChat()?.imageUrl " class="p-img" />
@@ -10,17 +10,18 @@
       <div class="chat-num-msg">{{chatService.currentOpenedChat()?.unReadCount}} new messages</div>
     </div>
   </div>
+
   <div class="p-2">
     <div class="chat-content overflow-y-auto p-3 d-flex flex-column gap-3" #chatBox>
       <!-- Show spinner while loading -->
       @if(chatService.chatMessages().length ==0 && chatService.isLoading()){
       <div class="d-flex justify-content-center">
-        <mat-spinner diameter="20" strokeWidth="3">Loading</mat-spinner>
+        <mat-spinner diameter="20" strokeWidth="3" color="primary"></mat-spinner>
       </div>
       }
       <!-- this when chat is selected but empty -->
       @if (!chatService.isLoading() && chatService.chatMessages().length == 0 && chatService.currentOpenedChat()) {
-      <div class="empty-state text-center text-muted py-5">
+      <div class="empty-state text-center py-5">
         <p>No messages yet 👋</p>
         <small>Start the conversation by sending a message below.</small>
       </div>
@@ -29,18 +30,17 @@
       <!-- load more button -->
       @if(chatService.totalPages() > pageNumber && chatService.chatMessages().length > 5){
       <div class="text-center py-1 w-100">
-        <button class="btn btn-primary" (click)="loadMoreMessages()">
+        <button class="btn btn-primary load-more-btn" (click)="loadMoreMessages()">
           <div class="d-flex  align-items-center gap-2">
             @if(chatService.isLoading()){
-            <mat-spinner diameter="20" strokeWidth="3">Loading</mat-spinner>
+            <mat-spinner diameter="20" strokeWidth="3" color="primary"></mat-spinner>
             }
             Load more
           </div>
-
         </button>
       </div>
       }
- 
+
       <!-- Load chat messages -->
       @for (item of chatService.chatMessages(); track item.id) {
       @if(item.senderId!=authService.user()?.id){
@@ -49,39 +49,44 @@
           <img [src]="'http://localhost:5069/'+chatService.currentOpenedChat()?.imageUrl"
             [alt]="chatService.currentOpenedChat()?.firstName" class="p-img" />
         </div>
-        <div class="msg">
+        <div class="msg received">
           <p class="msg-content"> {{item.content}} </p>
         </div>
-
       </div>
       }@else {
-      <div class="msg-item d-flex align-items-start flex-row-reverse w-100 gap-2 min-w-64 ">
+      <div class="msg-item d-flex align-items-start flex-row-reverse justify-content-start w-100 gap-2 min-w-64 ">
         <div class="d-flex flex-column justify-content-end">
           <img [src]="'http://localhost:5069/'+authService.user()?.imageUrl" class="p-img" />
         </div>
-        <div class="msg bg-dark">
-          <p class="msg-content text-white"> {{item.content}} </p>
+        <div class="msg sent">
+          <p class="msg-content"> {{item.content}} </p>
         </div>
-
       </div>
       }
       }
-
 
     </div>
   </div>
 
   <div class="send-msg p-3">
     <div class="d-flex gap-3">
-      <input type="text" class="form-control" placeholder="Write your message..." [(ngModel)]="message"
-        (keyup)="onTyping()" (keydown.enter)="sendMessage()" />
-      <button class="btn bg-dark text-white" (click)="sendMessage()">Send</button>
+      <mat-form-field class="w-100">
+        <mat-label>Message</mat-label>
+        <input matInput type="text" placeholder="Write your message..." [(ngModel)]="message" (keyup)="onTyping()"
+          (keydown.enter)="sendMessage()" />
+      </mat-form-field>
+      <div class="d-flex align-items-center">
+        <button mat-mini-fab color="primary" class="d-flex align-items-center " (click)="sendMessage()"
+          [disabled]="message==null || message.trim()==''">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>
 }@else {
-<div class="card d-flex align-items-center justify-content-center" style="min-height: 400px;">
-  <div class="text-center text-muted">
+<div class="card chat-card empty-card d-flex align-items-center justify-content-center" style="min-height: 400px;">
+  <div class="text-center empty-content">
     <img src="/assets/images/empty-chat.jpg" alt="Select chat" width="120" class="mb-3" />
     <p class="fw-medium">Select a conversation to start chatting 💬</p>
   </div>

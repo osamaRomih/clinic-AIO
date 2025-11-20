@@ -3,11 +3,15 @@ import { AfterViewChecked, Component, ElementRef, NgModule, ViewChild } from '@a
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinner, ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { AuthService, ChatService } from 'DAL';
+import { MatButton, MatButtonModule } from "@angular/material/button";
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-chat-box',
   standalone: true,
-  imports: [MatProgressSpinner,FormsModule],
+  imports: [MatProgressSpinner, FormsModule, MatButtonModule,MatIcon,MatLabel,MatFormFieldModule,MatInputModule],
   templateUrl: './chat-box.component.html',
   styleUrl: './chat-box.component.scss'
 })
@@ -41,6 +45,7 @@ export class ChatBoxComponent implements AfterViewChecked {
   }
 
   sendMessage(){
+    if(!this.message || this.message.trim() === '') return;
     this.chatService.sendMessage(this.message!);
     this.scrollToBottom();
     this.message = '';

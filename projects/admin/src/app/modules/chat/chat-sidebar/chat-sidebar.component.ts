@@ -1,19 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from '@angular/material/input';
 import { ChatService, IChatUser, TimeAgoPipe } from 'DAL';
 
 @Component({
   selector: 'app-chat-sidebar',
   standalone: true,
-  imports: [MatIconModule, TimeAgoPipe],
+  imports: [MatIconModule, TimeAgoPipe,MatLabel,MatFormFieldModule,MatInputModule],
   templateUrl: './chat-sidebar.component.html',
   styleUrl: './chat-sidebar.component.scss'
 })
 export class ChatSidebarComponent {
 
-  constructor(public chatService:ChatService,
-    ){
-    }
+  chatService = inject(ChatService);
+
   openChatWindow(user:IChatUser){
     this.chatService.chatMessages.set([]);
     this.chatService.totalPages.set(1);
@@ -23,7 +24,6 @@ export class ChatSidebarComponent {
   }
 
   onSearch(event:any){
-    console.log(event.target.value)
-    this.chatService.search(event.target.value)
+    this.chatService.searchTerm.set(event.target.value)
   }
 }

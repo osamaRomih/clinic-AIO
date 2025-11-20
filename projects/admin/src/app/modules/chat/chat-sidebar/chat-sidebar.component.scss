@@ -1,45 +1,115 @@
-
-.peaple-list{
+.peaple-list {
   max-height: 650px;
+  overflow-y: auto;
+  gap: 0.5rem;
 
-  
+  /* scrollbar */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--sys-outline-variant);
+    border-radius: 8px;
+  }
+  &:hover::-webkit-scrollbar-thumb {
+    background: var(--sys-outline);
+  }
 
-  .peaple-item{
+  .peaple-item {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    gap: 0.75rem;
+    position: relative;
+    border-radius: 6px;
+    transition: background-color 0.12s ease, transform 0.06s ease;
 
-    &.active{
-      background-color: #efefef;
-      border-radius: 4px;
+    /* default bg (transparent so theme surface shows) */
+    background: transparent;
+    color: var(--sys-on-surface);
+
+    /* active state */
+    &.active {
+      background-color: var(--sys-surface-container); /* subtle container */
+      box-shadow: 0 1px 0 rgba(0,0,0,0.03);
     }
 
-    &:hover{
-      @extend .active;
+    &:hover {
+      background-color: var(--sys-surface-container-low);
+      transform: translateY(-1px);
     }
 
-    .status{
+    .p-img {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid var(--sys-surface-container-low);
+      background: var(--sys-surface-container-low);
+      flex-shrink: 0;
+    }
+
+    .status {
       font-size: 13px;
-      color:#999;
+      color: var(--sys-on-surface-variant);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-    .name{
-      font-size:15px;
+
+    .name {
+      font-size: 15px;
+      font-weight: var(--sys-medium-font-weight, 500);
+      color: var(--sys-on-surface);
     }
+
     .offline {
       margin-right: 3px;
       font-size: 10px;
-      color: #e38968;
-      width: fit-content;
-      display: flex;
+      color: var(--sys-error);           /* error color for offline */
+      display: inline-flex;
       align-items: center;
     }
 
-    .online{
+    .online {
       margin-right: 3px;
       font-size: 10px;
-      color: #0004fc;
-      width: fit-content;
-      display: flex;
+      color: var(--sys-primary);         /* primary color for online */
+      display: inline-flex;
       align-items: center;
     }
-    
+
+    /* small badges like "Typing..." */
+    .typing {
+      font-size: 12px;
+      color: var(--sys-on-surface-variant);
+      font-style: italic;
+    }
+
+    /* responsive layout tweaks */
+    @media (max-width: 767px) {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .status.position-absolute {
+        position: absolute !important;
+        top: 8px;
+        right: 8px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+
+      .status.position-absolute {
+        position: static;
+        margin-left: 6px;
+      }
+    }
   }
 }

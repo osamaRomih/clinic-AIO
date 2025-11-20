@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { IMessage } from '../../models/message';
 import { IChatUser } from '../../models/user';
@@ -8,13 +8,23 @@ import { IChatUser } from '../../models/user';
 })
 export class ChatService {
   private hubUrl = 'http://localhost:5069/hubs/chat';
-  allUsers = signal<IChatUser[]>([]);
   userId?: string;
   currentOpenedChat = signal<IChatUser | null>(null);
   chatMessages = signal<IMessage[]>([]);
   totalPages = signal<number>(0);
   isLoading = signal<boolean>(false);
   autoScrollEnabled = signal<boolean>(true);
+  searchTerm = signal<string>('');
+
+  allUsers = signal<IChatUser[]>([]);
+  filteredUsers = computed(()=>{
+    const term = this.searchTerm().toLowerCase();
+    return this.allUsers().filter(user=>{
+      const fullName = (user.firstName + ' ' + user.lastName).toLowerCase();
+      return fullName.includes(term.trim());
+    });
+  })
+
 
   private typingTimeouts: { [id: string]: any } = {};
   private hubConnection?: HubConnection;
@@ -76,10 +86,7 @@ export class ChatService {
     })
   }
 
-  search(name:string){
-    
-
-  }
+  
 
   applyUsers(users: IChatUser[]) {
     const filteredUsers = users.filter((user) => user.id != this.userId);
