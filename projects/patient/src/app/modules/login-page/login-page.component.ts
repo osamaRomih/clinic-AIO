@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { AuthService, IExternalAuth, ILoginCreds, LoginComponent, SnackbarService } from 'DAL';
 import { Router } from '@angular/router';
-import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -35,7 +35,7 @@ export class LoginPageComponent {
         this.authService.getUserInfo().subscribe({
           next: () => {
             this.snackBarService.success('login successfully');
-            this.router.navigateByUrl('/dashboard');
+            this.router.navigateByUrl('/');
           },
         });
       },
@@ -48,7 +48,7 @@ export class LoginPageComponent {
   }
 
   signInWithGoogle(){
-    this.socialAuthService.signIn('GOOGLE');
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
      this.socialAuthService.authState.subscribe( user => {
       const externalAuth: IExternalAuth = {
         provider: user.provider,
@@ -61,18 +61,19 @@ export class LoginPageComponent {
   validateExternalAuth(externalAuth: IExternalAuth){
     this.authService.loginWithGoogle(externalAuth).subscribe({
       next: (res:any) => {
-        console.log(res)
-        alert('Login with Google successful');
-          // localStorage.setItem("token", res.token);
-          // this.authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
-          // this.router.navigate([this.returnUrl]);
+        localStorage.setItem('token',res.token);
+        localStorage.setItem('refreshToken',res.refreshToken);
+        
+        this.authService.getUserInfo().subscribe({
+          next:()=>{
+            this.snackBarService.success('login successfully');
+            this.router.navigateByUrl('/');
+          }
+        });
     },
       error: (err:any) => {
-        alert('Login with Google failed');
-        console.log(err);
-        // this.errorMessage = err.message;
-        // this.showError = true;
-        // this.authService.signOutExternal();
+        this.snackBarService.error('Login with Google failed');
+        this.validationErrors.set(err);
       }
     });
   }

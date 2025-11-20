@@ -1,32 +1,32 @@
-<div class="d-flex flex-column-reverse flex-md-row bg-light min-vh-100">
-    <div class="bg-white w-100" style="max-width:450px;">
-        <div class="pt-5" style="margin-top:130px;">
+<div class="d-flex align-items-center bg-light min-vh-100">
+    <div class="mx-auto bg-white w-100 h-100 rounded-3" style="max-width:450px;">
+        <div class="px-4">
             <div class="d-flex justify-content-center align-items-center">
                 <img src="assets/images/logo.png" alt="logo" class="me-2" width="200" height="200" />
             </div>
 
             <div class="text-center fw-semibold" style="font-size:25px;">
-                Log in
+                Sign in
             </div>
 
-            @if(validationErrors.length > 0){
-            <div class="px-4 mt-2">
-                <div class="alert alert-danger" role="alert" aria-live="assertive">
-                    <strong>There are errors in the form</strong>
-                    <ul class="mb-0 mt-2 small">
-                        @for (item of validationErrors; track $index) {
-                        <li>{{item}}</li>
-                        }
-                    </ul>
-                </div>
+            @if(googleSignInEnabled){
+            <div class="text-center">
+                Need an account?
+                <a routerLink="/auth/register" class="text-decoration-none">Sign in</a>
+            </div>
+            <div class="d-flex align-items-center justify-content-center gap-2 mt-4">
+                <asl-google-signin-button type="icon" size="large" (googleSignIn)="signInWithGoogle()">
+                </asl-google-signin-button>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 my-4">
+                <div class="border-top w-100 border-1"></div>
+                <div class="text-muted">OR</div>
+                <div class="border-top w-100 border-1"></div>
             </div>
             }
-
-            <div class="mt-4 px-4">
-                @if(googleSignInEnabled){
-                <asl-google-signin-button type='standard' size='medium'></asl-google-signin-button>
-                }
-                <form [formGroup]="form" class="mx-auto" style="max-width:360px;">
+            <div>
+                <form [formGroup]="form" class="mx-auto">
                     <mat-form-field class="w-100 mb-3">
                         <mat-label>Email / Usename</mat-label>
                         <input matInput placeholder="Enter your email or username" formControlName="emailOrUsername">
@@ -43,7 +43,7 @@
                         <mat-error libFieldError>Password is required</mat-error>
                     </mat-form-field>
 
-                    <div class="d-grid">
+                    <div class="d-grid mb-3">
                         <button mat-flat-button type="button" [disabled]="form.invalid" [loading]="isLoading"
                             (click)="onSubmit()">
                             <span class="btn-label">Log in</span>
@@ -51,11 +51,23 @@
                     </div>
                 </form>
             </div>
+            @if(validationErrors.length > 0){
+            <div class="mt-2">
+                <div class="alert alert-danger" role="alert" aria-live="assertive">
+                    <strong>There are errors in the form</strong>
+                    <ul class="mb-0 mt-2 small">
+                        @for (item of validationErrors; track $index) {
+                        <li>{{item}}</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            }
         </div>
     </div>
 
-    <div class="flex-fill d-flex justify-content-center align-items-center" style="min-height:100vh;">
-        <div class="w-75 w-md-50" style="max-width:650px;">
+    <div class="flex-fill d-none d-md-block" style="min-height:100vh;">
+        <div class="w-75 w-md-50 mx-auto h-100 d-flex align-items-centerr" style="max-width:650px;">
             <img src="assets/images/Illustration.svg" class="img-fluid" alt="illustration" />
         </div>
     </div>

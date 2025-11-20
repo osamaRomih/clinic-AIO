@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonLoadingDirective } from '../../directives/button-loading.directive';
 import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'lib-login',
@@ -19,6 +20,7 @@ import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-
     MatButtonModule,
     ButtonLoadingDirective,
     GoogleSigninButtonModule,
+    RouterLink,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -50,9 +52,9 @@ export class LoginComponent {
     this.formSubmit.emit(this.form.value);
   }
 
-  // signInWithGoogle(){
-  //   this.onGoogleSignIn.emit();
-  // }
+  signInWithGoogle(){
+    this.onGoogleSignIn.emit();
+  }
 
   toggleHide(event: MouseEvent) {
     this.hide.update((hide) => !hide);

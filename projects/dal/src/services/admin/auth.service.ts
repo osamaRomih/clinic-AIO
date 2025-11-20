@@ -3,6 +3,7 @@ import { Injectable, signal } from '@angular/core';
 import { map, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ChatService, IExternalAuth, ILoginRequest, ILoginResponse, IUser } from '../../public-api';
+import { IRegisterCred } from '../../models/login-request';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class AuthService {
   login(model:ILoginRequest){
     return this.httpClient.post<ILoginResponse>(`${this.baseAPI}/auth/login`,model);
   } 
+
+  register(model:IRegisterCred){
+    return this.httpClient.post(`${this.baseAPI}/auth/register`,model);
+  }
 
   loginWithGoogle(body:IExternalAuth){
     console.log(body)

@@ -81,7 +81,8 @@ export {MaterialTableComponent} from './components/material-table/material-table
 export {NotFoundComponent} from './components/not-found/not-found.component'
 export {ServerErrorComponent} from './components/server-error/server-error.component'
 // directives
-export {FieldErrorDirective} from './directives/field-error.directive'
+export {FieldErrorDirective} from './directives/field-error.directive';
+export {ButtonLoadingDirective} from './directives/button-loading.directive';
 
 // guards
 export {authGuard} from './guards/auth.guard'

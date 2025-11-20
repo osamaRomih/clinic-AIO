@@ -31,6 +31,10 @@ export class FieldErrorDirective implements AfterViewInit {
 
   getErrorMessage(error: string, errorValue: any): string {
     const errorMessages: { [key: string]: string | ((errorValue: any) => string) } = {
+      passwordMismatch: 'Password and repeat password do not match',
+      passwordPattern:
+        'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit and one special character.',
+      phonePattern: 'Phone number must be 11 digits and start with 011, 010, 012, or 015.',
       required: 'this field is required',
       email: 'Please enter a valid email address',
       minlength: (errorValue) => `Must be at least ${errorValue.requiredLength} characters`,
