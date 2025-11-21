@@ -10,7 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { CommonModule, FormatWidth } from '@angular/common';
-import { IPatientRead, IPrescription, PatientService, PrescriptionService, SnackbarService } from 'DAL';
+import { IPatientActiveRead, IPatientRead, IPrescription, PatientService, PrescriptionService, SnackbarService } from 'DAL';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
@@ -53,7 +53,7 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
   medicationForm!: FormGroup;
   id!: number;
   prescription!: IPrescription;
-  patients: IPatientRead[] = [];
+  patients: IPatientActiveRead[] = [];
 
   ngOnInit(): void {
     this.editor = new Editor();
@@ -160,7 +160,7 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
   // Remove medication row
   removeMedication(index: number): void {
     this.medications.removeAt(index);
-    // this.toastr.warning('Medication removed');
+    this.snackbarService.error('Medication removed');
   }
 
   onSubmit() {
@@ -174,7 +174,7 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
 
     this.prescriptionService.update(this.id, formattedValue).subscribe({
       next: (res) => {
-        this.snackbarService.success('Prescription added successfully');
+        this.snackbarService.success('Prescription updated successfully');
         this.router.navigate(['/prescriptions']);
       },
     });

@@ -24,6 +24,7 @@ export class ChatSidebarComponent {
   }
 
   onSearch(event:any){
+    console.log(event)
     this.chatService.searchTerm.set(event.target.value)
   }
 }

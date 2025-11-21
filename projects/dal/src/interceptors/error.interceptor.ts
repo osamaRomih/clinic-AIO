@@ -22,7 +22,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         case 400: {
           const validationErrors = err.error?.errors;
           if (validationErrors && typeof validationErrors === 'object') {
-            return throwError(() => getErrors(validationErrors));
+            const errors = getErrors(validationErrors);
+            errors.forEach(err => toast.error(err));
+            return throwError(() => errors);
           } else {
             toast.error(serverMessage ?? 'Bad Request');
             return throwError(() => err);

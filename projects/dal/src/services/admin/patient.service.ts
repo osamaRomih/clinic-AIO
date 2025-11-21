@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IPatientRead } from '../../models/patient';
+import { IPatientActiveRead, IPatientRead } from '../../models/patient';
 import { IPagedResponse } from '../../models/IPagedResponse';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class PatientService {
   constructor(private httpClient: HttpClient) {}
 
   getAllActive() {
-    return this.httpClient.get<IPatientRead[]>(`${this.baseAPI}/patients/active`);
+    return this.httpClient.get<IPatientActiveRead[]>(`${this.baseAPI}/patients/active`);
   }
 
   getAll(pageNumber: number, pageSize: number,searchBy?:string, sortBy?:string,sortDirection?:string) {

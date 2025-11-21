@@ -2,8 +2,8 @@
   <div class="p-3">
     <div class="mb-3">
       <mat-form-field class="w-100">
-        <mat-label>Last name</mat-label>
-        <input formControlName="lastName" matInput placeholder="Patient last name">
+        <mat-label>Search by name</mat-label>
+        <input matInput placeholder="Search user by name" (keyup)="onSearch($event)">
       </mat-form-field>
     </div>
     <div class="peaple-list d-flex flex-row flex-md-column overflow-auto gap-1">

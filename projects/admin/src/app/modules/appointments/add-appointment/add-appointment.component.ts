@@ -23,6 +23,7 @@ import {
   TimeSlotResponse,
   TimeslotService,
   FieldErrorDirective,
+  IPatientActiveRead,
 } from 'DAL';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -52,7 +53,7 @@ import { Router } from '@angular/router';
 export class AddAppointmentComponent implements OnInit {
   timeSlots: TimeSlotResponse[] = [];
   appointmentForm!: FormGroup;
-  patients: IPatientRead[] = [];
+  patients: IPatientActiveRead[] = [];
 
   private timeSlotService = inject(TimeslotService);
   private appointmentService = inject(AppointmentService)

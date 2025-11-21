@@ -36,3 +36,9 @@ export interface IPatientUpdate{
   phoneNumber: string;
   image?: File | null; 
 }
+export interface IPatientActiveRead{
+    id: string;
+    fullName: string;
+    imageUrl: string;
+    phoneNumber: string;
+}
