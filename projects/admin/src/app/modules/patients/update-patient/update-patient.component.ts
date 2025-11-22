@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -9,8 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { FieldErrorDirective, PatientService, SnackbarService } from 'DAL';
 import moment from 'moment';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-update-patient',
@@ -26,9 +28,10 @@ import moment from 'moment';
     MatInputModule,
     MatFormFieldModule,
     MatLabel,
-    MatButton,
+    MatButtonModule,
     FieldErrorDirective,
     MatSelectModule,
+    TranslatePipe
   ],
   templateUrl: './update-patient.component.html',
   styleUrl: './update-patient.component.scss',
@@ -39,6 +42,8 @@ export class UpdatePatientComponent {
   private snackbarService = inject(SnackbarService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private translateService = inject(TranslateService);
+
 
   patientId!: string;
   patientForm!: FormGroup;
@@ -57,8 +62,7 @@ export class UpdatePatientComponent {
     this.patientService.getById(this.patientId).subscribe({
       next: (patient) => {
         this.patientForm.patchValue({
-          firstName: patient.firstName,
-          lastName: patient.lastName,
+          fullName: patient.fullName,
           gender: patient.gender,
           dateOfBirth: moment(patient.dateOfBirth).toDate(),
           address: patient.address,
@@ -66,15 +70,15 @@ export class UpdatePatientComponent {
           email: patient.email,
           phoneNumber: patient.phoneNumber,
         });
-        if (patient.imageUrl) this.imageSrc = patient.imageUrl;
+        if (patient.imageUrl)
+           this.imageSrc = `${environment.apiUrl}/${patient.imageUrl}`;
       },
     });
   }
 
   initForm() {
     this.patientForm = this.fb.group({
-      firstName: [null, Validators.required],
-      lastName: [null, Validators.required],
+      fullName: [null, Validators.required],
       gender: [null, Validators.required],
       dateOfBirth: [null, Validators.required],
       address: [null],
@@ -121,10 +125,14 @@ export class UpdatePatientComponent {
 
     this.patientService.update(this.patientId, formData).subscribe({
       next: () => {
-        this.snackbarService.success('Patient updated successfully');
+        const successMsg = this.translateService.instant('PATIENTS.MESSAGES.SUBMIT_SUCCESS')
+        this.snackbarService.success(successMsg);
         this.router.navigate(['patients']);
       },
-      error: () => this.snackbarService.error('Failed to update patient'),
+      error: () => {
+        const errorMsg = this.translateService.instant('PATIENTS.MESSAGES.SUBMIT_FAILED');
+        this.snackbarService.error(errorMsg)
+      }
     });
   }
 }

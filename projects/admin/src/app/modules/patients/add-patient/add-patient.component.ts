@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { FieldErrorDirective, PatientService, SnackbarService } from 'DAL';
 import moment from 'moment';
 
@@ -26,18 +27,22 @@ import moment from 'moment';
     MatInputModule,
     MatFormFieldModule,
     MatLabel,
-    MatButton,
+    MatButtonModule,
     FieldErrorDirective,
     MatSelectModule,
+    TranslatePipe,
+    
   ],
   templateUrl: './add-patient.component.html',
   styleUrl: './add-patient.component.scss',
 })
 export class AddPatientComponent {
-  private patientService = inject(PatientService);
   private fb = inject(FormBuilder);
-  private snackbarService = inject(SnackbarService);
   private router = inject(Router);
+  private snackbarService = inject(SnackbarService);
+  private patientService = inject(PatientService);
+  private translateService = inject(TranslateService);
+
 
   patientForm!: FormGroup;
   imageFile?: File | null;
@@ -50,8 +55,7 @@ export class AddPatientComponent {
 
   createForm() {
     this.patientForm = this.fb.group({
-      firstName: [null, [Validators.required, Validators.minLength(3)]],
-      lastName: [null, [Validators.required, Validators.minLength(3)]],
+      fullName: [null, [Validators.required, Validators.minLength(3)]],
       gender: [null, [Validators.required]],
       dateOfBirth: [null, [Validators.required]],
       address: [null],
@@ -100,10 +104,14 @@ export class AddPatientComponent {
 
     this.patientService.create(formData).subscribe({
       next: () => {
-        this.snackbarService.success('Patient added successfully');
+        const successMsg = this.translateService.instant('PATIENTS.MESSAGES.SUBMIT_SUCCESS')
+        this.snackbarService.success(successMsg);
         this.router.navigate(['patients']);
       },
-      error: () => this.snackbarService.error('Failed to add patient'),
+      error: () => {
+        const errorMsg = this.translateService.instant('PATIENTS.MESSAGES.SUBMIT_FAILED');
+        this.snackbarService.error(errorMsg)
+      }
     });
   }
 }

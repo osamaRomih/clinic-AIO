@@ -40,6 +40,7 @@
     }
   },
   "PROFILE": {
+    "TITLE": "تعديل الملف الشخصي",
     "PICTURE": "صورة الملف الشخصي",
     "CHANGE_PICTURE": "تغيير الصورة",
     "DELETE_PICTURE": "حذف الصورة",
@@ -52,5 +53,92 @@
     "EMAIL_LABEL": "البريد الإلكتروني",
     "EMAIL_PLACEHOLDER": "البريد الإلكتروني",
     "SAVE_CHANGES": "حفظ التغييرات"
+  },
+  "CHANGE_PASSWORD": {
+    "TITLE": "تغيير كلمة المرور",
+    "CURRENT_PASSWORD_LABEL": "كلمة المرور الحاليه",
+    "CURRENT_PASSWORD_PLACEHOLDER": "أدخل كلمة المرور الحاليه",
+    "NEW_PASSWORD_LABEL": "كلمة المرور الجديدة",
+    "NEW_PASSWORD_PLACEHOLDER": "أدخل كلمة المرور الجديدة",
+    "SAVE_CHANGES": "حفظ التغييرات"
+  },
+
+  "PATIENTS": {
+    "NAME":"المرضي",
+    "TITLE_ALL": "جميع المرضى",
+    "TITLE_ADD": "إضافة مريض",
+    "TITLE_EDIT": "تعديل مريض",
+    "FILE_NAME": "قائمة_المرضى",
+
+    "BREADCRUMB_TITLE": "إدارة المرضى",
+    "BREADCRUMB_PATIENT": "مريض",
+    "BREADCRUMB_ALL": "الكل",
+    "BREADCRUMB_ADD": "إضافة",
+    "BREADCRUMB_EDIT": "تعديل",
+
+    "SECTIONS": {
+      "PATIENT_INFO": "معلومات المريض",
+      "ACCOUNT_INFO": "معلومات الحساب",
+      "CONTACT_INFO": "معلومات الاتصال",
+      "PROFILE_IMAGE": "صورة الملف الشخصي"
+    },
+
+    "FIELDS": {
+      "FULLNAME": "الاسم الكامل",
+      "FULLNAME_PLACEHOLDER": "الاسم الكامل للمريض",
+      "GENDER": "النوع",
+      "GENDER_SELECT_DEFAULT": "-- اختر النوع --",
+      "GENDER_MALE": "ذكر",
+      "GENDER_FEMALE": "أنثى",
+      "DATE_OF_BIRTH": "تاريخ الميلاد",
+      "USER_NAME": "اسم المستخدم",
+      "USER_NAME_PLACEHOLDER": "تعيين اسم مستخدم",
+      "EMAIL": "البريد الإلكتروني",
+      "EMAIL_PLACEHOLDER": "name@example.com",
+      "PASSWORD": "كلمة المرور",
+      "PASSWORD_PLACEHOLDER": "تعيين كلمة مرور",
+      "PHONE_NUMBER": "رقم الهاتف",
+      "PHONE_NUMBER_PLACEHOLDER": "رقم هاتف المريض",
+      "ADDRESS": "العنوان",
+      "ADDRESS_PLACEHOLDER": "عنوان المريض"
+    },
+
+    "TABLE_COLUMNS": {
+      "FULLNAME": "الاسم الكامل",
+      "USERNAME": "اسم المستخدم",
+      "EMAIL": "البريد الإلكتروني",
+      "PHONENUMBER": "رقم الهاتف",
+      "GENDER": "النوع",
+      "LASTVISIT": "آخر زيارة",
+      "ADDRESS": "العنوان",
+      "DATEOFBIRTH": "تاريخ الميلاد",
+      "ACTIONS": "الإجراءات"
+    },
+
+    "ACTIONS": {
+      "SEARCH_PLACEHOLDER": "البحث بالاسم أو البريد الإلكتروني...",
+      "EXPORT_EXCEL": "تصدير إلى إكسل",
+      "ADD_NEW": "إضافة مريض جديد",
+      "CHANGE_PICTURE": "تغيير الصورة",
+      "ADD_PICTURE": "اضافة الصورة",
+      "DELETE_PICTURE": "حذف الصورة",
+      "SUBMIT_ADD": "اضافة المريض",
+      "SUBMIT_EDIT": "حفظ التعديلات",
+      "DELETE_BULK": "حذف المحدد"
+    },
+
+    "MESSAGES": {
+      "DELETE_CONFIRM_TITLE": "تأكيد الحذف",
+      "DELETE_BULK_CONFIRM_MESSAGE": "هل أنت متأكد من رغبتك في حذف {{count}} مريض(مرضى) محدد؟",
+      "DELETE_SINGLE_CONFIRM_MESSAGE": "هل أنت متأكد من رغبتك في حذف هذا المريض؟",
+      "DELETE_SUCCESS": "تم الحذف بنجاح",
+      "DELETE_FAILED": "فشل الحذف",
+      "SUBMIT_SUCCESS": "تم حفظ بيانات المريض بنجاح",
+      "SUBMIT_FAILED": "فشل حفظ بيانات المريض"
+    }
+  },
+
+  "TABLE": {
+    "ACTIONS": "الافعال"
   }
 }

@@ -15,8 +15,8 @@
     <button mat-button (click)="setTheme('green')">{{'green'|translate}}</button>
     <button mat-button (click)="setTheme('blue')">{{'blue'|translate}}</button>
     <button mat-button (click)="toggleDark()">{{'toggle-dark'|translate}}</button>
-    <button mat-button (click)="switchToArabic()">{{'ar'|translate}}</button>
-    <button mat-button (click)="switchToEnglish()">{{'en'|translate}}</button>
+    <button mat-button (click)="languageService.switchToArabic()">{{'ar'|translate}}</button>
+    <button mat-button (click)="languageService.switchToEnglish()">{{'en'|translate}}</button>
   </mat-menu>
   <!-- <app-language-selector class="language-selector-position"></app-language-selector> -->
 

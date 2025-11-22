@@ -2,7 +2,7 @@ import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { AuthService, BusyService, ThemeService } from '../../public-api';
+import { AuthService, BusyService, LanguageService, ThemeService } from '../../public-api';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
@@ -16,21 +16,12 @@ import { TranslatePipe, TranslateDirective, TranslateService } from '@ngx-transl
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  // authService = inject(AuthService);
-  // busyService = inject(BusyService);
-  // themeService = inject(ThemeService);
-  // private translate = inject(TranslateService);
-  // constructor(private translate:TranslateService){}
-  constructor(
-    private translate: TranslateService,
-    protected authService: AuthService,
-    protected busyService: BusyService,
-    private themeService: ThemeService,
-  ) {}
+  authService = inject(AuthService);
+  busyService = inject(BusyService);
+  themeService = inject(ThemeService);
+  protected languageService = inject(LanguageService);
+  
 
-  // useLanguage(language: string): void {
-  //     this.translate.use(language);
-  // }
 
   @Output() onCollapsed = new EventEmitter();
 
@@ -51,18 +42,5 @@ export class HeaderComponent {
 
   toggleCollapsed() {
     this.onCollapsed.emit();
-  }
-
-  switchToArabic() {
-    this.translate.use('ar');
-    localStorage.setItem('lang','ar');
-    document.documentElement.setAttribute('dir','rtl');
-  }
-
-  switchToEnglish() {
-    this.translate.use('en');
-    localStorage.setItem('lang','en');
-    document.documentElement.setAttribute('dir','ltr');
-
   }
 }

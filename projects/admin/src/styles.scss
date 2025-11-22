@@ -1,8 +1,10 @@
 @use '@angular/material' as mat;
 
 $system-theme: mat.define-theme((color: (use-system-variables: true),
-      typography: (use-system-variables: true),
+      typography: (brand-family:'Cairo',
+        bold-weight:900),
     ));
+
 
 @include mat.core();
 $compact-theme: mat.define-theme(((density:(scale:-3))));
@@ -15,7 +17,15 @@ $compact-theme: mat.define-theme(((density:(scale:-3))));
   @include mat.all-component-themes($system-theme);
 }
 
+:root,
+body {
+  // This targets ALL non-Material and standard HTML elements.
+  font-family: 'Cairo', sans-serif !important;
+}
+
 :root {
+  --mat-typography-font-family: 'Cairo', sans-serif !important;
+  
   @include mat.system-level-typography($system-theme);
 
   @include mat.table-overrides((header-headline-size:14px,

@@ -6,9 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { AuthService, ProfileService } from 'DAL';
+import { TranslatePipe } from '@ngx-translate/core';
+import { AuthService, FieldErrorDirective, ProfileService } from 'DAL';
 
 @Component({
   selector: 'app-change-password',
@@ -19,6 +21,9 @@ import { AuthService, ProfileService } from 'DAL';
     MatLabel,
     MatInput,
     MatButtonModule,
+    MatCardModule,
+    TranslatePipe,
+    FieldErrorDirective
   ],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss',

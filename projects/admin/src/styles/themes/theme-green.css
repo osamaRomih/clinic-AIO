@@ -134,8 +134,8 @@ OR
 
 /* Typography */
 .theme-green  {
-  --sys-brand-font-family: Roboto;
-  --sys-plain-font-family: Roboto;
+  --sys-brand-font-family: Cairo;
+  --sys-plain-font-family: Cairo;
   --sys-bold-font-weight: 700;
   --sys-medium-font-weight: 500;
   --sys-regular-font-weight: 400;

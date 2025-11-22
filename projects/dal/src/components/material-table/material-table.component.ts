@@ -13,6 +13,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { TableColumn } from '../../models/table-column';
 import { TimeShortPipe } from '../../public-api';
 import { debounceTime, distinct, distinctUntilChanged, Subject, Subscription } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-material-table',
@@ -28,7 +29,8 @@ import { debounceTime, distinct, distinctUntilChanged, Subject, Subscription } f
     MatButtonModule,
     MatTabsModule,
     MatCheckboxModule,
-    TimeShortPipe
+    TimeShortPipe,
+    TranslatePipe
   ],
   templateUrl: './material-table.component.html',
   styleUrl: './material-table.component.scss'

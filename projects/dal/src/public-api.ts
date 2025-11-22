@@ -23,6 +23,7 @@ export {ChatService} from './services/admin/chat.service'
 export {ResponsiveService} from './services/responsive.service'
 export {ThemeService} from './services/admin/theme.service'
 export {DialogService} from './services/dialog.service'
+export {LanguageService} from './services/admin/language.service'
 // patient services
 
 

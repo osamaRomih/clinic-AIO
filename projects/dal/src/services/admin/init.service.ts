@@ -3,15 +3,16 @@ import { AuthService, IUser, ThemeService } from '../../public-api';
 import { lastValueFrom, of } from 'rxjs';
 import { ChatService } from './chat.service';
 import {TranslateService} from '@ngx-translate/core'
+import { LanguageService } from './language.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InitService {
-  private translate = inject(TranslateService);
   private authService = inject(AuthService);
   private chatService = inject(ChatService);
   private themeService = inject(ThemeService);
+  private languageService = inject(LanguageService); 
 
   init(){
     const token = localStorage.getItem('token');
@@ -23,8 +24,8 @@ export class InitService {
     const user = JSON.parse(userString);
     this.authService.setCurrentUser(user);
     this.chatService.startConnection(token,user.id);
-    this.translate.use(localStorage.getItem('lang') || 'ar');
-    document.documentElement.setAttribute('dir',localStorage.getItem('lang')=='ar'?'rtl':'ltr');
+    
+    this.languageService.initLanguage();
     
     return of(null)
   }

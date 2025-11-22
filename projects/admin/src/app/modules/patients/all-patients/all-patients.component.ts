@@ -4,13 +4,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { DialogService, IPatientRead, MaterialTableComponent, PatientService, SnackbarService, TableColumn } from 'DAL';
 import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-all-patients',
   standalone: true,
-  imports: [MatIconModule,MaterialTableComponent],
+  imports: [MatIconModule, MaterialTableComponent, TranslatePipe],
   templateUrl: './all-patients.component.html',
   styleUrl: './all-patients.component.scss',
 })
@@ -19,6 +20,7 @@ export class AllPatientsComponent {
   private patientService = inject(PatientService);
   private snackBarService = inject(SnackbarService);
   private confirmationDialog = inject(DialogService);
+  private translateService = inject(TranslateService);
 
   patientsTableColumns!: TableColumn[];
   totalItems!: number;
@@ -44,7 +46,7 @@ export class AllPatientsComponent {
     });
   }
 
-  onSearch(value:string){
+  onSearch(value: string) {
     this.pageNumber = 1;
     this.searchBy = value;
     this.getAllPatients();
@@ -53,9 +55,11 @@ export class AllPatientsComponent {
   exportAsExcel() {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.patients);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Patients');
+    const sheetName = this.translateService.instant('PATIENTS.NAME');
 
-    XLSX.writeFile(wb, 'Patients.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+
+    XLSX.writeFile(wb, `${sheetName}.xlsx`);
   }
 
   onPageChange(event: any) {
@@ -64,7 +68,7 @@ export class AllPatientsComponent {
     this.getAllPatients();
   }
 
-  onSort(event:Sort){
+  onSort(event: Sort) {
     this.sortBy = event.active;
     this.sortDirection = event.direction;
     this.pageNumber = 1;
@@ -75,9 +79,10 @@ export class AllPatientsComponent {
   confirmBulkDelete(selectedRows: any[]) {
     const count = selectedRows.length;
     if (!count) return;
-    this.confirmationDialog.confirmDialog('Delete Confirmation', `Are you sure you want to delete ${count} selected patient(s)?`).subscribe((result)=>{
-      if(result)
-        this.deleteSelected(selectedRows);
+    const title = this.translateService.instant('PATIENTS.MESSAGES.DELETE_CONFIRM_TITLE');
+    const message = this.translateService.instant('PATIENTS.MESSAGES.DELETE_BULK_CONFIRM_MESSAGE', { count });
+    this.confirmationDialog.confirmDialog(title, message).subscribe((result) => {
+      if (result) this.deleteSelected(selectedRows);
     });
   }
 
@@ -98,9 +103,14 @@ export class AllPatientsComponent {
           this.getAllPatients();
         }
 
-        this.snackBarService.success('Deleted successfully');
+        const successMsg = this.translateService.instant('PATIENTS.MESSAGES.DELETE_SUCCESS');
+
+        this.snackBarService.success(successMsg);
       },
-      error: () => this.snackBarService.error('Delete failed'),
+      error: () => {
+        const errorMsg = this.translateService.instant('PATIENTS.MESSAGES.DELETE_FAILED');
+        this.snackBarService.error(errorMsg);
+      },
     });
   }
 
@@ -113,12 +123,23 @@ export class AllPatientsComponent {
   }
 
   onDelete(id: string) {
-    this.patientService.delete(id).subscribe({
-      next: () => {
-        this.getAllPatients();
-        this.snackBarService.success('Deleted successfully');
-      },
-      error: () => this.snackBarService.error('Delete failed'),
+    const title = this.translateService.instant('PATIENTS.MESSAGES.DELETE_CONFIRM_TITLE');
+    const message = this.translateService.instant('PATIENTS.MESSAGES.DELETE_SINGLE_CONFIRM_MESSAGE');
+
+    this.confirmationDialog.confirmDialog(title, message).subscribe((result) => {
+      if (result) {
+        this.patientService.delete(id).subscribe({
+          next: () => {
+            this.getAllPatients();
+            const successMsg = this.translateService.instant('PATIENTS.MESSAGES.DELETE_SUCCESS');
+            this.snackBarService.success(successMsg);
+          },
+          error: () => {
+            const errorMsg = this.translateService.instant('PATIENTS.MESSAGES.DELETE_FAILED');
+            this.snackBarService.error(errorMsg);
+          },
+        });
+      }
     });
   }
 
@@ -137,45 +158,45 @@ export class AllPatientsComponent {
   initColumns(): void {
     this.patientsTableColumns = [
       {
-        name: 'Name',
-        dataKey: 'firstName',
+        name: 'PATIENTS.TABLE_COLUMNS.FULLNAME',
+        dataKey: 'fullName',
         isSortable: true,
       },
       {
-        name: 'User name',
+        name: 'PATIENTS.TABLE_COLUMNS.USERNAME',
         dataKey: 'userName',
         isSortable: true,
       },
       {
-        name: 'Email',
+        name: 'PATIENTS.TABLE_COLUMNS.EMAIL',
         dataKey: 'email',
         isSortable: true,
       },
       {
-        name: 'Mobile',
+        name: 'PATIENTS.TABLE_COLUMNS.PHONENUMBER',
         dataKey: 'phoneNumber',
         isSortable: true,
       },
       {
-        name: 'Gender',
+        name: 'PATIENTS.TABLE_COLUMNS.GENDER',
         dataKey: 'gender',
         isSortable: true,
       },
       {
-        name: 'Last Visit',
+        name: 'PATIENTS.TABLE_COLUMNS.LASTVISIT',
         dataKey: 'lastVisit',
         isSortable: false,
       },
       {
-        name: 'Address',
+        name: 'PATIENTS.TABLE_COLUMNS.ADDRESS',
         dataKey: 'address',
         isSortable: true,
       },
       {
-        name: 'Date Of Birth',
+        name: 'PATIENTS.TABLE_COLUMNS.DATEOFBIRTH',
         dataKey: 'dateOfBirth',
         isSortable: true,
-      },
+      }
     ];
   }
 }

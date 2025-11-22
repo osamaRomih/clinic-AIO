@@ -1,7 +1,6 @@
 export interface IPatientRead{
   id:string;
-  firstName:string;
-  lastName:string;
+  fullName:string;
   imageUrl:string;
   phoneNumber:string;
   email:string;
