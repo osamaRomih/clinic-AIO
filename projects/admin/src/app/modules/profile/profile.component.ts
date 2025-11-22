@@ -6,11 +6,12 @@ import { MatFormField, MatFormFieldModule, MatLabel } from "@angular/material/fo
 import { MatInputModule } from '@angular/material/input';
 import { AuthService, ProfileService } from 'DAL';
 import { Validators } from 'ngx-editor';
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [MatFormFieldModule, MatLabel,ReactiveFormsModule,MatInputModule,MatButtonModule,MatCardModule],
+  imports: [MatFormFieldModule, MatLabel, ReactiveFormsModule, MatInputModule, MatButtonModule, MatCardModule, MatIcon],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -21,7 +22,7 @@ export class ProfileComponent implements OnInit {
   imageFile?: File;
   @ViewChild('preview') preview:any; 
   imageSrc:string | ArrayBuffer | null = null;
-  defaultAvatar = 'assets/images/profile-image.jpg';
+  defaultAvatar = 'assets/images/user.png';
 
   ngOnInit(): void {
     this.createForm();

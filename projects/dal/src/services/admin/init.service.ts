@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService, IUser } from '../../public-api';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, of } from 'rxjs';
 import { ChatService } from './chat.service';
 
 @Injectable({
@@ -9,19 +9,17 @@ import { ChatService } from './chat.service';
 export class InitService {
   constructor(private authService:AuthService,private chatService:ChatService){}
 
-  init():Promise<void>{
+  init(){
     const token = localStorage.getItem('token');
+    const userString = localStorage.getItem('user');
 
-    if(!token)
-      return Promise.resolve();
+    if(!userString || !token)
+      return of(null);
 
-    return lastValueFrom(this.authService.getUserInfo()).then({
-      next:(user:IUser)=>{
-        if(user.id)
-          this.chatService.startConnection(token,user.id);
-        console.log(user)
-      },
-      error:()=>{}
-    } as any);
+    const user = JSON.parse(userString);
+    this.authService.setCurrentUser(user);
+    this.chatService.startConnection(token,user.id);
+    
+    return of(null)
   }
 }

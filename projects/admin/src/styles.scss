@@ -1,189 +1,143 @@
 @use '@angular/material' as mat;
-@use '../../dal/src/lib/styles/theme' as dalAuth;
 
-$system-theme: mat.define-theme((
-  color: (
-    use-system-variables: true
-  ),
-  typography: (
-    use-system-variables: true
-  )
-));
+$system-theme: mat.define-theme((color: (use-system-variables: true),
+      typography: (use-system-variables: true),
+    ));
 
 @include mat.core();
+$compact-theme: mat.define-theme(((density:(scale:-3))));
 
-@include dalAuth.dal-auth-theme($system-theme);
-
-$compact-theme:mat.define-theme((
-  (
-    density:(
-      scale:-3
-    )
-  )
-));
-
-.theme-green {
-  @include mat.system-level-colors($system-theme);
-  @include mat.system-level-typography($system-theme);
-  @include mat.all-component-themes($system-theme);
-}
-
-.theme-blue {
-  @include mat.system-level-colors($system-theme);
-  @include mat.system-level-typography($system-theme);
-  @include mat.all-component-themes($system-theme);
-}
-
+.theme-green,
+.theme-blue,
 .theme-green.dark,
 .theme-blue.dark {
   @include mat.system-level-colors($system-theme);
-  @include mat.system-level-typography($system-theme);
   @include mat.all-component-themes($system-theme);
 }
 
-.NgxEditor {
-    height: 250px !important;
-    overflow-y: scroll;
-  }
-
-  .NgxEditor__Content {
-    min-height: 300px !important;
-  }
 :root {
-  @include mat.table-overrides((
-    header-headline-size:14px,
-    header-headline-weight:600,
-    row-item-label-text-font:17px,
-    header-headline-color:#1a1b1f
-  ));
+  @include mat.system-level-typography($system-theme);
+
+  @include mat.table-overrides((header-headline-size:14px,
+      header-headline-weight:600,
+      row-item-label-text-font:17px,
+      header-headline-color:#1a1b1f));
   @include mat.form-field-density($compact-theme);
   @include mat.datepicker-density($compact-theme);
   @include mat.icon-button-density($compact-theme);
-  // @include mat.all-component-themes(theme.$light-theme);
-
 }
 
+.NgxEditor {
+  height: 250px !important;
+  overflow-y: scroll;
+}
+
+.NgxEditor__Content {
+  min-height: 300px !important;
+}
+
+
 .snack-error {
-  @include mat.snack-bar-overrides((
-    button-color: var(--sys-on-error),
-    container-color: var(--sys-error),
-    supporting-text-color: var(--sys-on-error)
-  ));
+  @include mat.snack-bar-overrides((button-color: var(--sys-on-error),
+      container-color: var(--sys-error),
+      supporting-text-color: var(--sys-on-error)));
 }
 
 .snack-success {
-  @include mat.snack-bar-overrides((
-    button-color: var(--sys-on-primary),
-    container-color: var(--sys-primary),
-    supporting-text-color: var(--sys-on-primary)
-  ));
-}
-
-input{
-  outline: none;
-  font-size: 14px !important;
-  text-decoration: none;
+  @include mat.snack-bar-overrides((button-color: var(--sys-on-primary),
+      container-color: var(--sys-primary),
+      supporting-text-color: var(--sys-on-primary)));
 }
 
 
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
-}
-button, input, select, a {
-    outline: none !important;
-    font-size: 14px !important;
-    text-decoration: none !important;
-}
-.col-red{
+.col-red {
   color: var(--sys-error) !important
 }
 
 .col-green {
-    color: var(--sys-primary) !important;
+  color: var(--sys-primary) !important;
 }
 
 .col-blue {
-    color: var(--sys-tertiary) !important;
+  color: var(--sys-tertiary) !important;
 }
 
 span.badge {
-    min-width: auto;
-    float: none;
-    font-size: 13px;
+  min-width: auto;
+  float: none;
+  font-size: 13px;
 }
 
 .badge-solid-purple {
-    color: var(--sys-on-surface);
-    background-color: color-mix(in srgb, var(--sys-surface) 85%, var(--sys-primary) 15%);
-    border: none;
-    padding: 5px 12px;
-    font-weight: 500;
-    line-height: 1.2;
-    border-radius: 5px;
+  color: var(--sys-on-surface);
+  background-color: color-mix(in srgb, var(--sys-surface) 85%, var(--sys-primary) 15%);
+  border: none;
+  padding: 5px 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  border-radius: 5px;
 
 }
 
 .badge-solid-green {
-    color:var(--sys-on-primary);
-    background-color: var(--sys-primary-container);
-    border: none;
-    padding: 5px 12px;
-    font-weight: 500;
-    line-height: 1.2;
-    border-radius: 5px;
+  color: var(--sys-on-primary);
+  background-color: var(--sys-primary-container);
+  border: none;
+  padding: 5px 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  border-radius: 5px;
 
 }
 
-.mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background{
+.mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,
+.mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background {
   background-color: var(--sys-primary) !important;
   border-color: var(--sys-primary) !important;
 }
 
-.mat-mdc-checkbox-ripple, .mdc-checkbox__ripple{
+.mat-mdc-checkbox-ripple,
+.mdc-checkbox__ripple {
   display: none !important;
 }
 
-.page-wrapper{
+.page-wrapper {
   padding: 25px 25px 0 25px;
 }
 
-.breadcrumb{
+.breadcrumb {
   font-size: 15px;
   color: var(--sys-on-surface-variant);
 }
 
-.breadcrumb .page-title{
+.breadcrumb .page-title {
   font-size: 20px;
   color: var(--sys-on-surface);
   margin-bottom: 0px;
 }
 
-.breadcrumb-icon img{
+.breadcrumb-icon img {
   width: 18px;
   height: 18px;
   color: var(--sys-on-surface);
 }
 
-.breadcrumb.active{
+.breadcrumb.active {
   color: var(--sys-on-surface);
   font-weight: 400;
 }
 
 .mat-mdc-card-content {
-    padding: 15px !important;
+  padding: 15px !important;
 }
 
 .mat-mdc-card-header {
-    position: relative;
-    display: flex;
-    width: 100%;
-    padding: 10px 15px !important;
-    line-height: 30px;
-    border-bottom: 1px solid;
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 10px 15px !important;
+  line-height: 30px;
+  border-bottom: 1px solid;
   border-color: var(--sys-surface-container-highest);
 }
 
@@ -231,7 +185,7 @@ span.badge {
   color: var(--sys-on-surface-variant);
 }
 
-.fc-view > table th {
+.fc-view>table th {
   border-color: var(--sys-surface-container-high) !important;
   font-weight: 500;
   color: var(--sys-on-surface);
@@ -299,7 +253,7 @@ span.badge {
   border-radius: 50%;
 }
 
-.section-heading{
+.section-heading {
   color: var(--sys-primary);
 
 }
@@ -320,14 +274,15 @@ span.badge {
     position: absolute;
   }
 }
+
 /* simple spinner circle */
 .btn-inline-spinner {
   display: inline-block;
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: rgba(255,255,255,0.9);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: rgba(255, 255, 255, 0.9);
   margin-left: 8px;
   box-sizing: border-box;
   animation: btn-spin 0.8s linear infinite;
@@ -335,7 +290,9 @@ span.badge {
 }
 
 @keyframes btn-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* optional class when loading for additional styling */
@@ -348,4 +305,99 @@ button .btn-spinner {
   margin-left: 8px;
   display: inline-flex;
   vertical-align: middle;
+}
+
+.loader {
+  position: relative;
+  width: 85px;
+  height: 50px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(#007bff 50px, transparent 0),
+    linear-gradient(#007bff 50px, transparent 0),
+    linear-gradient(#007bff 50px, transparent 0),
+    linear-gradient(#007bff 50px, transparent 0),
+    linear-gradient(#007bff 50px, transparent 0),
+    linear-gradient(#007bff 50px, transparent 0);
+  background-position:
+    0px center,
+    15px center,
+    30px center,
+    45px center,
+    60px center,
+    75px center;
+  animation: rikSpikeRoll 0.65s linear infinite alternate;
+}
+
+@keyframes rikSpikeRoll {
+  0% {
+    background-size:
+      10px 3px,
+      10px 3px,
+      10px 3px,
+      10px 3px,
+      10px 3px,
+      10px 3px;
+  }
+
+  16% {
+    background-size:
+      10px 50px,
+      10px 3px,
+      10px 3px,
+      10px 3px,
+      10px 3px,
+      10px 3px;
+  }
+
+  33% {
+    background-size:
+      10px 30px,
+      10px 50px,
+      10px 3px,
+      10px 3px,
+      10px 3px,
+      10px 3px;
+  }
+
+  50% {
+    background-size:
+      10px 10px,
+      10px 30px,
+      10px 50px,
+      10px 3px,
+      10px 3px,
+      10px 3px;
+  }
+
+  66% {
+    background-size:
+      10px 3px,
+      10px 10px,
+      10px 30px,
+      10px 50px,
+      10px 3px,
+      10px 3px;
+  }
+
+  83% {
+    background-size:
+      10px 3px,
+      10px 3px,
+      10px 10px,
+      10px 30px,
+      10px 50px,
+      10px 3px;
+  }
+
+  100% {
+    background-size:
+      10px 3px,
+      10px 3px,
+      10px 3px,
+      10px 10px,
+      10px 30px,
+      10px 50px;
+  }
 }

@@ -8,6 +8,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { authInterceptor, errorInterceptor, InitService, loadingInterceptor } from 'DAL';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ThemeService } from 'DAL';
+import { lastValueFrom } from 'rxjs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,7 +32,21 @@ export const appConfig: ApplicationConfig = {
       provide: APP_INITIALIZER,
       useFactory: () => {
         const initService = inject(InitService);
-        return () => initService.init();
+
+         // Wait 500ms, run app initialization, then remove splash screen before bootstrapping
+        return () => new Promise<void>((resolve) => {
+        setTimeout(async () => {
+          try {
+            return lastValueFrom(initService.init());
+          } finally {
+            const splash = document.getElementById('initial-splash');
+            if (splash) 
+              splash.remove();
+            resolve();
+          }
+        },500);
+      });
+
       },
       multi: true,
     },

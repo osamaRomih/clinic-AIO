@@ -99,22 +99,20 @@ export class LayoutComponent {
       lable: 'Chat',
       route: '/chat',
     },
-
-    // Settings menu
     {
       icon: 'settings',
       lable: 'Settings',
-      route: '/settings',
+      route: '',
       subItems: [
         {
           icon: 'person',
           lable: 'Profile',
-          route: '/settings/profile',
+          route: '/profile',
         },
         {
           icon: 'lock',
           lable: 'Change Password',
-          route: '/settings/change-password',
+          route: '/change-password',
         },
       ],
     },

@@ -31,10 +31,15 @@ export class AuthService {
   getUserInfo(){
     return this.httpClient.get<IUser>(`${this.baseAPI}/me`).pipe(
       map((res) => {
-        this.user.set(res);
+        this.setCurrentUser(res);
         return res;
       })
     );
+  }
+  
+  setCurrentUser(user:IUser){
+    localStorage.setItem('user',JSON.stringify(user));
+    this.user.set(user);
   }
 
   refreshToken(){

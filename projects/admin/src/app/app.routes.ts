@@ -4,9 +4,8 @@ import { AllTimeSlotsComponent } from './modules/timeSlots/all-time-slots/all-ti
 import { AllPrescriptionComponent } from './modules/prescriptions/all-prescription/all-prescription.component';
 import { AddPrescriptionComponent } from './modules/prescriptions/add-prescription/add-prescription.component';
 import { UpdatePrescriptionComponent } from './modules/prescriptions/update-prescription/update-prescription.component';
-import { ProfileComponent } from './modules/settings/profile/profile.component';
-import { ChangePasswordComponent } from './modules/settings/change-password/change-password.component';
-import { SettingsComponent } from './modules/settings/settings.component';
+import { ProfileComponent } from './modules/profile/profile.component';
+import { ChangePasswordComponent } from './modules/change-password/change-password.component';
 import { AllUsersComponent } from './modules/users/all-users/all-users.component';
 import { AllAppointmentsComponent } from './modules/appointments/all-appointments/all-appointments.component';
 import { AppointmentCalenderComponent } from './modules/appointments/appointment-calender/appointment-calender.component';
@@ -27,70 +26,43 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-
       { path: 'dashboard', component: DashboardComponent },
-
-      // Settings
-      {
-        path: 'settings',
-        component: SettingsComponent,
-    
-        children: [
-          { path: '', redirectTo: 'profile', pathMatch: 'full' },
-          { path: 'profile', component: ProfileComponent },
-          { path: 'change-password', component: ChangePasswordComponent}
-        ]
-      },
-
-      // Availability
+      { path: 'profile', component: ProfileComponent },
+      { path: 'change-password', component: ChangePasswordComponent },
       { path: 'availability', component: AllTimeSlotsComponent },
-
-      // Prescriptions
       {
         path: 'prescriptions',
-    
         children: [
-          { path: '', component: AllPrescriptionComponent},
+          { path: '', component: AllPrescriptionComponent },
           { path: 'add', component: AddPrescriptionComponent },
-          { path: 'edit/:id', component: UpdatePrescriptionComponent }
-        ]
+          { path: 'edit/:id', component: UpdatePrescriptionComponent },
+        ],
       },
-
-      // Appointments
       {
         path: 'appointments',
-    
         children: [
           { path: '', component: AllAppointmentsComponent },
           { path: 'calendar', component: AppointmentCalenderComponent },
           { path: 'add', component: AddAppointmentComponent },
-          { path: 'edit/:id', component: UpdateAppointmentComponent }
-        ]
+          { path: 'edit/:id', component: UpdateAppointmentComponent },
+        ],
       },
       {
         path: 'patients',
         children: [
           { path: '', component: AllPatientsComponent },
           { path: 'add', component: AddPatientComponent },
-          { path: 'edit/:id', component: UpdatePatientComponent }
-        ]
+          { path: 'edit/:id', component: UpdatePatientComponent },
+        ],
       },
-
-      // Chat
       { path: 'chat', component: ChatComponent },
-      // Users
       { path: 'users', component: AllUsersComponent },
     ],
   },
-
-  // Auth
   {
     path: 'auth',
-
-    children: [
-      { path: 'login', component: LoginPageComponent },
-    ]
+    children: [{ path: 'login', component: LoginPageComponent }],
   },
   { path: 'server-error', component: ServerErrorComponent },
-  { path: '**', component:NotFoundComponent }
+  { path: '**', component: NotFoundComponent },
 ];
