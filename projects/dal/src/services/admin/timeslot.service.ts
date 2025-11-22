@@ -9,7 +9,7 @@ import { tap } from 'rxjs';
 export class TimeslotService {
 
   baseAPI = 'http://localhost:5069/api';
-  private httpClient = inject(HttpClient);
+  constructor(private httpClient: HttpClient) {}
 
   dayOfWeek = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
   timeSlots = signal<DaySlotsResponse[]>([]);

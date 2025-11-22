@@ -3,7 +3,7 @@
   <mat-icon [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'" matListItemIcon>{{ item().icon
     }}</mat-icon>
   @if(!collapsed()){
-  <span matListItemTitle>{{ item().lable }}</span>
+  <span matListItemTitle>{{ item().lable | translate}}</span>
   } @if(item().subItems){
   <span matListItemMeta>
     @if(nestedMenuOpen()){
@@ -23,7 +23,7 @@
     <mat-icon [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'" matListItemIcon>{{ subItem.icon
       }}</mat-icon>
     @if(!collapsed()){
-    <span matListItemTitle>{{ subItem.lable }}</span>
+    <span matListItemTitle>{{ subItem.lable | translate}}</span>
     }
   </a>
   }

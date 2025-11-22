@@ -70,10 +70,8 @@ export {TimeAgoPipe} from './pipes/time-ago.pipe'
 export {TimeShortPipe} from './pipes/time-short.pipe'
 export {DatePipe} from './pipes/date.pipe'
 // Components
-export { LoginComponent as DalLoginComponent } from './components/login/login.component'
 
 // components
-export {LoginComponent} from './components/login/login.component'
 export {HeaderComponent} from './components/header/header.component'
 export {MenuItemComponent} from './components/menu-item/menu-item.component'
 export {SideNavComponent} from './components/side-nav/side-nav.component'

@@ -1,0 +1,42 @@
+{
+  "welcome": "Welcome",
+  "clinic": "Clinic",
+  "logout": "Log out",
+  "green": "Green",
+  "blue": "Blue",
+  "toggle-dark": "Toggle dark",
+  "ar": "Arabic",
+  "en": "English",
+  "SIDENAV": {
+    "DASHBOARD": "Dashboard",
+
+    "APPOINTMENTS": {
+      "MAIN": "Appointments",
+      "VIEW_ALL": "View All",
+      "CALENDAR": "Calendar",
+      "ADD": "Add Appointment"
+    },
+
+    "PRESCRIPTIONS": {
+      "MAIN": "Prescriptions",
+      "VIEW_ALL": "View All",
+      "ADD": "Add Prescription"
+    },
+
+    "AVAILABILITY": "Availability",
+    "USERS": "Users",
+    "CHAT": "Chat",
+
+    "SETTINGS": {
+      "MAIN": "Settings",
+      "PROFILE": "Profile",
+      "CHANGE_PASSWORD": "Change Password"
+    },
+
+    "PATIENTS": {
+      "MAIN": "Patients",
+      "VIEW_ALL": "View All",
+      "ADD": "Add Patient"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "welcome": "مرحبا",
+  "clinic": "عيادة",
+  "logout": "تسجيل الخروج",
+  "green": "اخضر",
+  "blue": "ازرق",
+  "toggle-dark": "اسود",
+  "ar": "عربي",
+  "en": "انجليزي",
+  "SIDENAV": {
+    "DASHBOARD": "لوحة التحكم",
+
+    "APPOINTMENTS": {
+      "MAIN": "المواعيد",
+      "VIEW_ALL": "عرض الكل",
+      "CALENDAR": "التقويم",
+      "ADD": "إضافة موعد"
+    },
+
+    "PRESCRIPTIONS": {
+      "MAIN": "الوصفات الطبية",
+      "VIEW_ALL": "عرض الكل",
+      "ADD": "إضافة وصفة"
+    },
+
+    "AVAILABILITY": "الوقت المتاح",
+    "USERS": "المستخدمون",
+    "CHAT": "المحادثة",
+
+    "SETTINGS": {
+      "MAIN": "الإعدادات",
+      "PROFILE": "الملف الشخصي",
+      "CHANGE_PASSWORD": "تغيير كلمة المرور"
+    },
+
+    "PATIENTS": {
+      "MAIN": "المرضى",
+      "VIEW_ALL": "عرض الكل",
+      "ADD": "إضافة مريض"
+    }
+  }
+}

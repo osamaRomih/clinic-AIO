@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from '../../public-api';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-menu-item',
@@ -20,7 +21,7 @@ import { MenuItem } from '../../public-api';
       ),
     ]),
   ],
-  imports: [MatListModule, RouterModule, MatIconModule],
+  imports: [MatListModule, RouterModule, MatIconModule,TranslatePipe],
   templateUrl: './menu-item.component.html',
   styleUrl: './menu-item.component.css',
 })

@@ -1,13 +1,14 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, Injector } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../services/admin/snackbar.service';
+import { TranslateService } from '@ngx-translate/core'
+
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const toast = inject(SnackbarService);
   const router = inject(Router);
-
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
       // Network / CORS / no response
