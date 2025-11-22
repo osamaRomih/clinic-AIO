@@ -1,8 +1,7 @@
 export interface IUser {
   id:string;
   email: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   phoneNumber?: string;
   userName: string;
   imageUrl?:string;

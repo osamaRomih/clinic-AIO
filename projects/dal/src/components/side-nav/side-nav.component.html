@@ -6,7 +6,7 @@
   />
   <div class="header-text" [class.hide-header-text]="sidenavCollapsed()">
     <h2>Clinic</h2>
-    <p>{{authService.user()?.firstName + ' ' + authService.user()?.lastName}}</p>
+    <p>{{authService.user()?.fullName}}</p>
   </div>
 </div>
 <mat-nav-list>

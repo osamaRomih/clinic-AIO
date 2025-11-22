@@ -3,18 +3,18 @@
     <mat-card-content>
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
-          <h4 class="text-muted fw-medium mb-3">Profile picture</h4>
+          <h4 class="text-muted fw-medium mb-3">{{'PROFILE.PICTURE' | translate}}</h4>
           <div class="d-flex align-content-center gap-5">
             <img [src]="imageSrc || defaultAvatar" #preview class="profile-img " alt="avatar" />
             <input (change)="onFileSelected($event)" hidden type="file" #imageProfile />
             <div class="d-flex align-items-center gap-3">
-              <button mat-stroked-button extended (click)="imageProfile.click()">
+              <button mat-stroked-button extended type="button" (click)="imageProfile.click()">
                 <mat-icon>edit</mat-icon>
-                Change picture
+                {{'PROFILE.CHANGE_PICTURE' | translate}}
               </button>
-              <button mat-stroked-button extended (click)="removeImage()">
+              <button mat-stroked-button extended type="button" (click)="removeImage()">
                 <mat-icon>delete</mat-icon>
-                Delete picture
+                {{'PROFILE.DELETE_PICTURE' | translate}}
               </button>
             </div>
           </div>
@@ -22,29 +22,16 @@
         <div class="row mt-5 mb-3">
           <div class="mb-3 col-md-6 col-lg-4 col-12">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>First Name</mat-label>
-              <input formControlName="firstName" matInput placeholder="First name">
-              @if(profileForm.get('firstName')?.hasError('required')){
-              <mat-error>First name is required</mat-error>
-              }
+              <mat-label>{{'PROFILE.FULL_NAME_LABEL' | translate}}</mat-label>
+              <input formControlName="fullName" matInput placeholder="{{'PROFILE.FULL_NAME_PLACEHOLDER'|translate}}">
+              <mat-error libFieldError></mat-error>
             </mat-form-field>
           </div>
           <div class="mb-3 col-md-6 col-lg-4 col-12">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Last Name</mat-label>
-              <input formControlName="lastName" matInput placeholder="Last name">
-              @if(profileForm.get('lastName')?.hasError('required')){
-              <mat-error>Last name is required</mat-error>
-              }
-            </mat-form-field>
-          </div>
-          <div class="mb-3 col-md-6 col-lg-4 col-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>PhoneNumber</mat-label>
-              <input formControlName="phoneNumber" matInput placeholder="Phone number">
-              @if(profileForm.get('phoneNumber')?.hasError('required')){
-              <mat-error>PhoneNumber is required</mat-error>
-              }
+              <mat-label>{{'PROFILE.PHONE_NUMBER_LABEL' | translate}}</mat-label>
+              <input formControlName="phoneNumber" matInput placeholder="{{'PROFILE.PHONE_NUMBER_PLACEHOLDER'|translate}}">
+              <mat-error libFieldError></mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -52,19 +39,19 @@
         <div class="row mb-3">
           <div class="mb-3 col-md-6 col-lg-4 col-12">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Username</mat-label>
-              <input formControlName="userName" readonly matInput placeholder="User name">
+              <mat-label>{{'PROFILE.USERNAME_LABEL' | translate}}</mat-label>
+              <input formControlName="userName" readonly matInput placeholder="{{'PROFILE.USERNAME_PLACEHOLDER'|translate}}">
             </mat-form-field>
           </div>
           <div class="mb-3 col-md-6 col-lg-4 col-12">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Email</mat-label>
-              <input formControlName="email" readonly matInput placeholder="Email">
+              <mat-label>{{'PROFILE.EMAIL_LABEL' | translate}}</mat-label>
+              <input formControlName="email" readonly matInput placeholder="{{'PROFILE.EMAIL_PLACEHOLDER'|translate}}">
             </mat-form-field>
           </div>
         </div>
 
-        <button mat-flat-button type="submit">Save changes</button>
+        <button mat-flat-button type="submit">{{'PROFILE.SAVE_CHANGES' | translate}}</button>
       </form>
     </mat-card-content>
   </mat-card>

@@ -38,5 +38,19 @@
       "VIEW_ALL": "عرض الكل",
       "ADD": "إضافة مريض"
     }
+  },
+  "PROFILE": {
+    "PICTURE": "صورة الملف الشخصي",
+    "CHANGE_PICTURE": "تغيير الصورة",
+    "DELETE_PICTURE": "حذف الصورة",
+    "FULL_NAME_LABEL": "الاسم الكامل",
+    "FULL_NAME_PLACEHOLDER": "الاسم الكامل",
+    "PHONE_NUMBER_LABEL": "رقم الهاتف",
+    "PHONE_NUMBER_PLACEHOLDER": "رقم الهاتف",
+    "USERNAME_LABEL": "اسم المستخدم",
+    "USERNAME_PLACEHOLDER": "اسم المستخدم",
+    "EMAIL_LABEL": "البريد الإلكتروني",
+    "EMAIL_PLACEHOLDER": "البريد الإلكتروني",
+    "SAVE_CHANGES": "حفظ التغييرات"
   }
 }

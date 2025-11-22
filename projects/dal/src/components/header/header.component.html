@@ -4,7 +4,7 @@
   </button>
   <span class="title" routerLink="/">{{'clinic'|translate}}</span>
   <span class="spacer"></span>
-  <span class="welcome-text">{{'welcome' | translate}} {{ this.authService.user()?.firstName + ' '+this.authService.user()?.lastName}}</span>
+  <span class="welcome-text">{{'welcome' | translate}} {{ this.authService.user()?.fullName}}</span>
   <div [matMenuTriggerFor]="menu" class="ms-2">
     <img [src]="'http://localhost:5069/'+this.authService.user()?.imageUrl" class="img" />
   </div>

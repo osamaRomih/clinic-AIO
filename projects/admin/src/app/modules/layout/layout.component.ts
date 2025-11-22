@@ -2,7 +2,6 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenavContainer, MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { HeaderComponent, MenuItem, ResponsiveService, SideNavComponent } from 'DAL';
-import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
@@ -40,8 +39,6 @@ export class LayoutComponent {
     lable: 'SIDENAV.DASHBOARD',
     route: '/dashboard',
   },
-
-  // Appointments menu
   {
     icon: 'event',
     lable: 'SIDENAV.APPOINTMENTS.MAIN',
@@ -64,8 +61,6 @@ export class LayoutComponent {
       },
     ],
   },
-
-  // Prescriptions menu
   {
     icon: 'description',
     lable: 'SIDENAV.PRESCRIPTIONS.MAIN',
@@ -83,25 +78,21 @@ export class LayoutComponent {
       },
     ],
   },
-
   {
     icon: 'access_time',
     lable: 'SIDENAV.AVAILABILITY',
     route: '/availability',
   },
-
   {
     icon: 'group',
     lable: 'SIDENAV.USERS',
     route: '/users',
   },
-
   {
     icon: 'chat',
     lable: 'SIDENAV.CHAT',
     route: '/chat',
   },
-
   {
     icon: 'settings',
     lable: 'SIDENAV.SETTINGS.MAIN',
@@ -119,7 +110,6 @@ export class LayoutComponent {
       },
     ],
   },
-
   {
     icon: 'persons',
     lable: 'SIDENAV.PATIENTS.MAIN',

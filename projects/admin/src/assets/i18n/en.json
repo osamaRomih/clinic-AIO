@@ -38,5 +38,19 @@
       "VIEW_ALL": "View All",
       "ADD": "Add Patient"
     }
+  },
+  "PROFILE": {
+    "PICTURE": "Profile picture",
+    "CHANGE_PICTURE": "Change picture",
+    "DELETE_PICTURE": "Delete picture",
+    "FULL_NAME_LABEL": "Full Name",
+    "FULL_NAME_PLACEHOLDER": "Full name",
+    "PHONE_NUMBER_LABEL": "Phone Number",
+    "PHONE_NUMBER_PLACEHOLDER": "Phone number",
+    "USERNAME_LABEL": "Username",
+    "USERNAME_PLACEHOLDER": "User name",
+    "EMAIL_LABEL": "Email",
+    "EMAIL_PLACEHOLDER": "Email",
+    "SAVE_CHANGES": "Save changes"
   }
 }
