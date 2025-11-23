@@ -23,8 +23,9 @@
   }
 
   .chat-content {
-    min-height: 300px;
-    max-height: 480px;
+    min-height: calc(100vh - 350px);
+    max-height: calc(100vh - 350px);
+    // max-height: 480px;
     background: transparent; /* parent provides BG */
   }
 
@@ -103,6 +104,10 @@
       align-items: center;
       justify-content: center;
     }
+  }
+
+  [dir="rtl"] .rtl-icon-flip{
+    transform: scaleX(-1) !important;
   }
 
   /* card for empty state */

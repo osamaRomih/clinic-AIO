@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewChecked, Component, ElementRef, NgModule, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, inject, NgModule, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinner, ProgressSpinnerMode } from '@angular/material/progress-spinner';
-import { AuthService, ChatService } from 'DAL';
+import { AuthService, ChatService, LanguageService } from 'DAL';
 import { MatButton, MatButtonModule } from "@angular/material/button";
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-chat-box',
   standalone: true,
-  imports: [MatProgressSpinner, FormsModule, MatButtonModule,MatIcon,MatLabel,MatFormFieldModule,MatInputModule],
+  imports: [MatProgressSpinner, FormsModule, MatButtonModule,MatIcon,MatLabel,MatFormFieldModule,MatInputModule,TranslatePipe],
   templateUrl: './chat-box.component.html',
   styleUrl: './chat-box.component.scss'
 })
@@ -19,9 +20,11 @@ export class ChatBoxComponent implements AfterViewChecked {
   message?:string;
   pageNumber = 1;
   @ViewChild('chatBox') public chatBox?:ElementRef
-  constructor(public chatService:ChatService,public authService:AuthService){
 
-  }
+  protected chatService = inject(ChatService);
+  protected authService = inject(AuthService);
+  protected translateService = inject(TranslateService);
+
   ngAfterViewChecked(): void {
     if(this.chatService.autoScrollEnabled()){
       this.scrollToBottom();
@@ -46,6 +49,7 @@ export class ChatBoxComponent implements AfterViewChecked {
 
   sendMessage(){
     if(!this.message || this.message.trim() === '') return;
+    console.log(this.message)
     this.chatService.sendMessage(this.message!);
     this.scrollToBottom();
     this.message = '';

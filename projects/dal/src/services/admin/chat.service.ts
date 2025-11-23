@@ -17,14 +17,23 @@ export class ChatService {
   searchTerm = signal<string>('');
 
   allUsers = signal<IChatUser[]>([]);
-  filteredUsers = computed(()=>{
+  filteredUsers = computed(() => {
     const term = this.searchTerm().toLowerCase();
-    return this.allUsers().filter(user=>{
-      const fullName = (user.firstName + ' ' + user.lastName).toLowerCase();
-      return fullName.includes(term.trim());
+    return this.allUsers().filter((user) => {
+      return user.fullName.includes(term.trim());
     });
-  })
+  });
 
+  numberOfUnReadMessages = computed(()=>{
+    let counter = 0;
+    console.log(this.chatMessages())
+    this.chatMessages().forEach(msg=>{
+      if(!msg.isRead && msg.receiverId==this.userId)
+        counter++;
+    });
+
+    return counter;
+  })
 
   private typingTimeouts: { [id: string]: any } = {};
   private hubConnection?: HubConnection;
@@ -63,30 +72,28 @@ export class ChatService {
       this.updateUserStatus(user.id, false, user.lastSeen);
     });
 
-    this.hubConnection.on('ReceiveMessageList', (messages: IMessage[],totalPages:number) => {
+    this.hubConnection.on('ReceiveMessageList', (messages: IMessage[], totalPages: number) => {
       this.totalPages.set(totalPages);
       this.isLoading.set(true);
       this.receiveMessages(messages);
-      console.log(totalPages)
-      console.log(messages)
+      console.log(totalPages);
+      console.log(messages);
       this.isLoading.set(false);
-
     });
 
     this.hubConnection.on('ReceiveNewMessage', (message: IMessage) => {
       this.receiveNewMessage(message);
+      console.log(message);
     });
 
-    this.hubConnection.on('NotifyOnlineUser',(user:IChatUser)=>{
+    this.hubConnection.on('NotifyOnlineUser', (user: IChatUser) => {
       this.displayNotification(user);
     });
 
-    this.hubConnection.on('NotifyTypingToUser',(id:string)=>{
+    this.hubConnection.on('NotifyTypingToUser', (id: string) => {
       this.notifyTypingToUser(id);
-    })
+    });
   }
-
-  
 
   applyUsers(users: IChatUser[]) {
     const filteredUsers = users.filter((user) => user.id != this.userId);
@@ -95,13 +102,7 @@ export class ChatService {
   }
 
   updateUserStatus(id: string, status: boolean, lastSeen?: string) {
-    this.allUsers.update((users) =>
-      users.map((user) =>
-        user.id == id
-          ? { ...user, isOnline: status, lastSeen: lastSeen ?? '' }
-          : user
-      )
-    );
+    this.allUsers.update((users) => users.map((user) => (user.id == id ? { ...user, isOnline: status, lastSeen: lastSeen ?? '' } : user)));
   }
 
   loadMessages(pageNumber: number) {
@@ -110,21 +111,19 @@ export class ChatService {
       ?.invoke('LoadMessages', this.currentOpenedChat()?.id, pageNumber)
       .then()
       .catch()
-      .finally(() => {
-      });
+      .finally(() => {});
   }
 
-  displayNotification(user:IChatUser){
-    Notification.requestPermission().then((result)=>{
-      console.log(result)
-      if(result=="granted"){
-
-        new Notification('Active Now',{
-          body:user.firstName + ' ' + user.lastName + "is online now",
-          icon:'http://localhost:5069'+user.imageUrl
-        })
+  displayNotification(user: IChatUser) {
+    Notification.requestPermission().then((result) => {
+      console.log(result);
+      if (result == 'granted') {
+        new Notification('Active Now', {
+          body: user.fullName + 'is online now',
+          icon: 'http://localhost:5069' + user.imageUrl,
+        });
       }
-    })
+    });
   }
 
   receiveMessages(messages: IMessage[]) {
@@ -133,37 +132,62 @@ export class ChatService {
   }
 
   receiveNewMessage(message: IMessage) {
-    if(this.currentOpenedChat()?.id == message.senderId)
-      this.chatMessages.update((curr) => [...curr, message]);
+    if (this.currentOpenedChat()?.id == message.senderId) {
+      const exists = this.chatMessages().some((m) => m.id === message.id);
+
+      if (!exists) {
+        this.chatMessages.update((curr) => [...curr, message]);
+      }
+    }
   }
 
-  notifyTypingToUser(id:string){
-    this.allUsers.update(users=>
-      users.map(user=>{
-        if(user.id==id){
-          user.isTyping=true;
+  notifyTypingToUser(id: string) {
+    this.allUsers.update((users) =>
+      users.map((user) => {
+        if (user.id == id) {
+          user.isTyping = true;
         }
         return user;
-      })
+      }),
     );
 
-    if(this.typingTimeouts[id])
-      clearTimeout(this.typingTimeouts[id]);
+    if (this.typingTimeouts[id]) clearTimeout(this.typingTimeouts[id]);
 
     this.typingTimeouts[id] = setTimeout(() => {
-      this.allUsers.update(users=>
-        users.map(user=>{
-          if(user.id==id){
-            user.isTyping=false;
+      this.allUsers.update((users) =>
+        users.map((user) => {
+          if (user.id == id) {
+            user.isTyping = false;
           }
-          return user
-        })
+          return user;
+        }),
       );
       delete this.typingTimeouts[id];
     }, 2000);
-
-      console.log(this.allUsers())
   }
+
+  markMessagesAsRead(senderId: string) {
+    if (!this.hubConnection || !senderId) return;
+
+    this.hubConnection
+      ?.invoke('MarkMessagesAsRead', senderId)
+      .then(() => {
+        this.updateLocalMessagesReadStatus();
+      })
+      .catch((err) => console.error('Error marking messages as read:', err));
+  }
+
+  private updateLocalMessagesReadStatus() {
+    const currentChatId = this.currentOpenedChat()?.id;
+    if (!currentChatId || !this.userId) return;
+
+    this.chatMessages.update(messages => messages.map(msg => {
+        if (msg.senderId === currentChatId && msg.receiverId === this.userId && !msg.isRead) {
+            return { ...msg, isRead: true };
+        }
+        return msg;
+    }));
+}
 
   sendMessage(content: string) {
     this.chatMessages.update((curr) => [
@@ -172,11 +196,13 @@ export class ChatService {
         id: 0,
         content: content,
         createdDate: new Date().toString(),
-        isRead: false,
+        isRead: true,
         receiverId: this.currentOpenedChat()?.id!,
         senderId: this.userId!,
       },
     ]);
+
+    this.markMessagesAsRead(this.userId!);
 
     this.hubConnection
       ?.invoke('SendMessage', {
@@ -188,11 +214,12 @@ export class ChatService {
       .finally(() => {});
   }
 
-  typing(){
-    this.hubConnection?.invoke('NotifyTyping',this.currentOpenedChat()?.id)
-    .then()
-    .catch()
-    .finally(() => {});
+  typing() {
+    this.hubConnection
+      ?.invoke('NotifyTyping', this.currentOpenedChat()?.id)
+      .then()
+      .catch()
+      .finally(() => {});
   }
 
   async closeConnection() {

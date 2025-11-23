@@ -2,20 +2,20 @@
 
   <div class="breadcrumb">
     <li>
-      <h4 class="page-title">Chat</h4>
+      <h4 class="page-title">{{ 'CHAT.TITLE' | translate }}</h4>
     </li>
     <mat-icon>chevron_right</mat-icon>
     <li class="breadcrumb-item breadcrumb-icon d-flex align-items-center"><img src="/assets/images/home.svg" /></li>
     <mat-icon>chevron_right</mat-icon>
-    <li class="breadcrumb-item active">Chat</li>
+    <li class="breadcrumb-item active">{{ 'CHAT.TITLE' | translate }}</li>
   </div>
 
   <app-chat-sidebar class="d-block d-md-none mb-3"></app-chat-sidebar>
   <div class="row">
-    <div class="col-xs-12 col-md-3">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
       <app-chat-sidebar class="d-none d-md-block "></app-chat-sidebar>
     </div>
-    <div class="col-xs-12 col-md-9">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
       <app-chat-box></app-chat-box>
     </div>
   </div>

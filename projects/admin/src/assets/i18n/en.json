@@ -137,5 +137,26 @@
   },
   "TABLE": {
     "ACTIONS": "Actions"
+  },
+  "CHAT": {
+    "TITLE": "Chat",
+    "SEARCH_PLACEHOLDER": "Search user by name",
+    "SEARCH_LABEL": "Search by name",
+    "NEW_MESSAGES": "{{count}} new messages",
+    "NO_MESSAGES_YET": "No messages yet 👋",
+    "START_CONVERSATION": "Start the conversation by sending a message below.",
+    "LOAD_MORE": "Load more",
+    "MESSAGE_LABEL": "Message",
+    "MESSAGE_PLACEHOLDER": "Write your message...",
+    "EMPTY_SELECT": "Select a conversation to start chatting 💬"
+  },
+  "USER_STATUS": {
+    "ONLINE": "Online",
+    "TYPING": "Typing ...",
+    "OFFLINE": ""
+  },
+  "TIME_AGO": {
+    "DEFAULT": "long time ago",
+    "PREFIX": "left"
   }
 }

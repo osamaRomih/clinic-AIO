@@ -9,8 +9,7 @@ export interface IUser {
 
 export interface IChatUser{
   id:string;
-  firstName:string;
-  lastName:string;
+  fullName:string;
   phoneNumber?: string;
   userName: string;
   imageUrl?:string;

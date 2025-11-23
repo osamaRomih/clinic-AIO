@@ -4,10 +4,11 @@ import { AuthService, ChatService, IChatUser, IUser, TimeAgoPipe } from 'DAL';
 import moment from 'moment'
 import { ChatBoxComponent } from "./chat-box/chat-box.component";
 import { ChatSidebarComponent } from "./chat-sidebar/chat-sidebar.component";
+import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [MatIconModule, ChatBoxComponent, ChatSidebarComponent],
+  imports: [MatIconModule, ChatBoxComponent, ChatSidebarComponent,TranslatePipe],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
