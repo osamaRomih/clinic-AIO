@@ -3,7 +3,6 @@
   overflow-y: auto;
   gap: 0.5rem;
 
-  /* scrollbar */
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -28,13 +27,11 @@
     border-radius: 6px;
     transition: background-color 0.12s ease, transform 0.06s ease;
 
-    /* default bg (transparent so theme surface shows) */
     background: transparent;
     color: var(--sys-on-surface);
 
-    /* active state */
     &.active {
-      background-color: var(--sys-surface-container); /* subtle container */
+      background-color: var(--sys-surface-container);
       box-shadow: 0 1px 0 rgba(0,0,0,0.03);
     }
 
@@ -70,7 +67,7 @@
     .offline {
       margin-right: 3px;
       font-size: 10px;
-      color: var(--sys-error);           /* error color for offline */
+      color: var(--sys-error);           
       display: inline-flex;
       align-items: center;
     }
@@ -78,19 +75,17 @@
     .online {
       margin-right: 3px;
       font-size: 10px;
-      color: var(--sys-primary);         /* primary color for online */
+      color: var(--sys-primary);        
       display: inline-flex;
       align-items: center;
     }
 
-    /* small badges like "Typing..." */
     .typing {
       font-size: 12px;
       color: var(--sys-on-surface-variant);
       font-style: italic;
     }
 
-    /* responsive layout tweaks */
     @media (max-width: 767px) {
       flex-direction: column;
       align-items: flex-start;

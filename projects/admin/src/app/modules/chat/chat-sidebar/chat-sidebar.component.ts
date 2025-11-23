@@ -17,6 +17,7 @@ export class ChatSidebarComponent {
   chatService = inject(ChatService);
 
   openChatWindow(user:IChatUser){
+    console.log(user)
     this.chatService.chatMessages.set([]);
     this.chatService.totalPages.set(1);
     this.chatService.currentOpenedChat.set(user);

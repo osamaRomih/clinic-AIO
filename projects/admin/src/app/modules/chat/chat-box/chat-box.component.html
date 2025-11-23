@@ -1,4 +1,5 @@
-@if(chatService.currentOpenedChat()){
+<div class="p-1">
+  @if(chatService.currentOpenedChat()){
 <div class="card chat-card">
   <div class="chat-header d-flex gap-2">
     <div class="d-flex flex-column justify-content-start">
@@ -7,12 +8,12 @@
     <div class="chat-about">
       <div class="chat-with">{{chatService.currentOpenedChat()?.fullName}}</div>
       <div class="chat-num-msg">
-        {{ 'CHAT.NEW_MESSAGES' | translate: { count: chatService.numberOfUnReadMessages() } }}
+        {{chatService.currentOpenedChat()?.phoneNumber}}
       </div>
     </div>
   </div>
 
-  <div class="p-2">
+  <div class="p-1">
     <div class="chat-content overflow-y-auto p-3 d-flex flex-column gap-3" #chatBox>
       @if(chatService.chatMessages().length ==0 && chatService.isLoading()){
       <div class="d-flex justify-content-center">
@@ -47,7 +48,10 @@
             [alt]="chatService.currentOpenedChat()?.fullName" class="p-img" />
         </div>
         <div class="msg received">
-          <p class="msg-content"> {{item.content}} </p>
+          <div class="msg-content"> 
+            <div class="mb-1 fw-semibold">{{item.content}}</div>
+            <div>{{item.createdDate | date:'LLL'}}</div>
+          </div>
         </div>
       </div>
       }@else {
@@ -56,7 +60,10 @@
           <img [src]="'http://localhost:5069/'+authService.user()?.imageUrl" class="p-img" />
         </div>
         <div class="msg sent">
-          <p class="msg-content"> {{item.content}} </p>
+          <div class="msg-content"> 
+            <div class="mb-1 fw-semibold d-flex flex-row-reverse">{{item.content}}</div>
+            <div>{{item.createdDate | date:'LLL'}}</div>
+          </div>
         </div>
       </div>
       }
@@ -68,21 +75,21 @@
   <div class="send-msg p-3">
     <div class="d-flex gap-3">
       <!-- <form> -->
-        <mat-form-field class="w-100">
-          <mat-label>{{ 'CHAT.MESSAGE_LABEL' | translate }}</mat-label>
-          <input matInput type="text" placeholder="{{ 'CHAT.MESSAGE_PLACEHOLDER' | translate }}" [(ngModel)]="message"
-            (keyup)="onTyping()" (keydown.enter)="sendMessage()" />
-        </mat-form-field>
-        <div class="d-flex align-items-center">
-          <button mat-mini-fab color="primary" class="d-flex align-items-center" type="button" (click)="sendMessage()"
-            [disabled]="message==null || message.trim()==''">
-            @if(translateService.getCurrentLang()==='ar'){
-            <mat-icon>arrow_back</mat-icon>
-            }@else {
-            <mat-icon>arrow_forward</mat-icon>
-            }
-          </button>
-        </div>
+      <mat-form-field class="w-100">
+        <mat-label>{{ 'CHAT.MESSAGE_LABEL' | translate }}</mat-label>
+        <input matInput type="text" placeholder="{{ 'CHAT.MESSAGE_PLACEHOLDER' | translate }}" [(ngModel)]="message"
+          (keyup)="onTyping()" (keydown.enter)="sendMessage()" />
+      </mat-form-field>
+      <div class="d-flex align-items-center">
+        <button mat-mini-fab color="primary" class="d-flex align-items-center" type="button" (click)="sendMessage()"
+          [disabled]="message==null || message.trim()==''">
+          @if(translateService.getCurrentLang()==='ar'){
+          <mat-icon>arrow_back</mat-icon>
+          }@else {
+          <mat-icon>arrow_forward</mat-icon>
+          }
+        </button>
+      </div>
       <!-- </form> -->
     </div>
   </div>
@@ -95,3 +102,4 @@
   </div>
 </div>
 }
+</div>

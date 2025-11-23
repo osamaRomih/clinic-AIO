@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewChecked, Component, ElementRef, inject, NgModule, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinner, ProgressSpinnerMode } from '@angular/material/progress-spinner';
-import { AuthService, ChatService, LanguageService } from 'DAL';
+import { AuthService, ChatService, DatePipe, LanguageService, TimeShortPipe } from 'DAL';
 import { MatButton, MatButtonModule } from "@angular/material/button";
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
@@ -12,7 +12,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-chat-box',
   standalone: true,
-  imports: [MatProgressSpinner, FormsModule, MatButtonModule,MatIcon,MatLabel,MatFormFieldModule,MatInputModule,TranslatePipe],
+  imports: [MatProgressSpinner, FormsModule, MatButtonModule,MatIcon,MatLabel,MatFormFieldModule,MatInputModule,TranslatePipe,DatePipe],
   templateUrl: './chat-box.component.html',
   styleUrl: './chat-box.component.scss'
 })

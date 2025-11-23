@@ -1,5 +1,5 @@
 <div>
-  <div class="p-3">
+  <div class="p-1">
     <div class="mb-3">
       <mat-form-field class="w-100">
         <mat-label>{{ 'CHAT.SEARCH_LABEL' | translate }}</mat-label>
@@ -26,14 +26,15 @@
           <div class="name d-none d-md-block">{{user.fullName}}</div>
           <div class="align-items-center status d-none d-md-flex">
             @if(!user.isOnline){
-            <mat-icon class="offline">fiber_manual_record</mat-icon>
-            <div> {{user.lastSeen | timeAgo}}</div>
+              <mat-icon class="offline">fiber_manual_record</mat-icon>
+              <div> {{user.lastSeen | timeAgo}}</div>
             }@else {
-            <mat-icon class="online">fiber_manual_record</mat-icon>
-            <div>{{ 'USER_STATUS.ONLINE' | translate }}</div>
-            @if(user.isTyping){
-            <div>{{ 'USER_STATUS.TYPING' | translate }}</div>
-            }
+              <mat-icon class="online">fiber_manual_record</mat-icon>
+              <div>{{ 'USER_STATUS.ONLINE' | translate }}</div>
+              
+              @if(user.isTyping){
+                <div>{{ 'USER_STATUS.TYPING' | translate }}</div>
+              }
             }
           </div>
         </div>

@@ -161,6 +161,6 @@
   },
   "TIME_AGO": {
     "DEFAULT": "منذ زمن طويل",
-    "PREFIX": ""
+    "PREFIX": "نشط"
   }
 }

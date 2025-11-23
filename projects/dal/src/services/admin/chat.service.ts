@@ -2,6 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { IMessage } from '../../models/message';
 import { IChatUser } from '../../models/user';
+import { SnackbarService } from './snackbar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,16 +25,7 @@ export class ChatService {
     });
   });
 
-  numberOfUnReadMessages = computed(()=>{
-    let counter = 0;
-    console.log(this.chatMessages())
-    this.chatMessages().forEach(msg=>{
-      if(!msg.isRead && msg.receiverId==this.userId)
-        counter++;
-    });
-
-    return counter;
-  })
+  private snackBarService = inject(SnackbarService);
 
   private typingTimeouts: { [id: string]: any } = {};
   private hubConnection?: HubConnection;
@@ -76,14 +68,15 @@ export class ChatService {
       this.totalPages.set(totalPages);
       this.isLoading.set(true);
       this.receiveMessages(messages);
-      console.log(totalPages);
-      console.log(messages);
       this.isLoading.set(false);
     });
 
     this.hubConnection.on('ReceiveNewMessage', (message: IMessage) => {
+      const sender = this.allUsers().find((u) => u.id == message.senderId);
       this.receiveNewMessage(message);
-      console.log(message);
+      let audio = new Audio('assets/audios/notification.mp3');
+      audio.play();
+      this.snackBarService.success('Message recevied successfully from ' + sender?.fullName);
     });
 
     this.hubConnection.on('NotifyOnlineUser', (user: IChatUser) => {
@@ -127,14 +120,16 @@ export class ChatService {
   }
 
   receiveMessages(messages: IMessage[]) {
+    console.log(messages);
     this.chatMessages.update((curr) => [...messages, ...curr]);
     this.isLoading.update(() => false);
   }
 
   receiveNewMessage(message: IMessage) {
-    if (this.currentOpenedChat()?.id == message.senderId) {
-      const exists = this.chatMessages().some((m) => m.id === message.id);
+    console.log(message);
+    const exists = this.chatMessages().some((m) => m.id === message.id);
 
+    if (this.currentOpenedChat()?.id == message.senderId) {
       if (!exists) {
         this.chatMessages.update((curr) => [...curr, message]);
       }
@@ -166,29 +161,6 @@ export class ChatService {
     }, 2000);
   }
 
-  markMessagesAsRead(senderId: string) {
-    if (!this.hubConnection || !senderId) return;
-
-    this.hubConnection
-      ?.invoke('MarkMessagesAsRead', senderId)
-      .then(() => {
-        this.updateLocalMessagesReadStatus();
-      })
-      .catch((err) => console.error('Error marking messages as read:', err));
-  }
-
-  private updateLocalMessagesReadStatus() {
-    const currentChatId = this.currentOpenedChat()?.id;
-    if (!currentChatId || !this.userId) return;
-
-    this.chatMessages.update(messages => messages.map(msg => {
-        if (msg.senderId === currentChatId && msg.receiverId === this.userId && !msg.isRead) {
-            return { ...msg, isRead: true };
-        }
-        return msg;
-    }));
-}
-
   sendMessage(content: string) {
     this.chatMessages.update((curr) => [
       ...curr,
@@ -196,13 +168,13 @@ export class ChatService {
         id: 0,
         content: content,
         createdDate: new Date().toString(),
-        isRead: true,
+        isRead: false,
         receiverId: this.currentOpenedChat()?.id!,
         senderId: this.userId!,
       },
     ]);
 
-    this.markMessagesAsRead(this.userId!);
+    // this.markMessagesAsRead(this.userId!);
 
     this.hubConnection
       ?.invoke('SendMessage', {
