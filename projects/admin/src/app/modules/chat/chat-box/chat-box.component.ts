@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewChecked, Component, ElementRef, inject, NgModule, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinner, ProgressSpinnerMode } from '@angular/material/progress-spinner';
-import { AuthService, ChatService, DatePipe, LanguageService, TimeShortPipe } from 'DAL';
+import { AuthService, ChatService, DatePipe, DialogService, IMessage, LanguageService, TimeShortPipe } from 'DAL';
 import { MatButton, MatButtonModule } from "@angular/material/button";
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
@@ -17,13 +17,15 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
   styleUrl: './chat-box.component.scss'
 })
 export class ChatBoxComponent implements AfterViewChecked {
-  message?:string;
+  message:IMessage | null = null;
+  messageContent?:string;
   pageNumber = 1;
   @ViewChild('chatBox') public chatBox?:ElementRef
 
   protected chatService = inject(ChatService);
   protected authService = inject(AuthService);
   protected translateService = inject(TranslateService);
+  private confirmDialog = inject(DialogService);
 
   ngAfterViewChecked(): void {
     if(this.chatService.autoScrollEnabled()){
@@ -48,11 +50,16 @@ export class ChatBoxComponent implements AfterViewChecked {
   }
 
   sendMessage(){
-    if(!this.message || this.message.trim() === '') return;
-    console.log(this.message)
-    this.chatService.sendMessage(this.message!);
+    if(!this.messageContent || this.messageContent?.trim() === '') return;
+    if(this.message && this.message.id){
+      this.chatService.updateMessage({...this.message,content:this.messageContent!});
+      this.message = null;
+    }
+    else
+      this.chatService.sendMessage(this.messageContent!);
+      
     this.scrollToBottom();
-    this.message = '';
+    this.messageContent = '';
   }
 
   onTyping(){
@@ -65,5 +72,19 @@ export class ChatBoxComponent implements AfterViewChecked {
       this.chatService.loadMessages(this.pageNumber);
     this.scrollToTop();
 
+  }
+
+  deleteMessage(item:IMessage){
+    this.confirmDialog.confirmDialog('Delete message','Are you sure that you want to delete this message?').subscribe({
+      next:(result)=>{
+        if(result)
+          this.chatService.deleteMessage(item);
+      }
+    })
+  }
+
+  updateMessage(item:IMessage){
+    this.messageContent = item.content;
+    this.message = item;
   }
 }

@@ -51,6 +51,7 @@
           <div class="msg-content"> 
             <div class="mb-1 fw-semibold">{{item.content}}</div>
             <div>{{item.createdDate | date:'LLL'}}</div>
+            
           </div>
         </div>
       </div>
@@ -63,6 +64,12 @@
           <div class="msg-content"> 
             <div class="mb-1 fw-semibold d-flex flex-row-reverse">{{item.content}}</div>
             <div>{{item.createdDate | date:'LLL'}}</div>
+            <button mat-icon-button (click)="deleteMessage(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button (click)="updateMessage(item)">
+              <mat-icon>edit</mat-icon>
+            </button>
           </div>
         </div>
       </div>
@@ -77,12 +84,12 @@
       <!-- <form> -->
       <mat-form-field class="w-100">
         <mat-label>{{ 'CHAT.MESSAGE_LABEL' | translate }}</mat-label>
-        <input matInput type="text" placeholder="{{ 'CHAT.MESSAGE_PLACEHOLDER' | translate }}" [(ngModel)]="message"
+        <input matInput type="text" placeholder="{{ 'CHAT.MESSAGE_PLACEHOLDER' | translate }}" [(ngModel)]="messageContent"
           (keyup)="onTyping()" (keydown.enter)="sendMessage()" />
       </mat-form-field>
       <div class="d-flex align-items-center">
         <button mat-mini-fab color="primary" class="d-flex align-items-center" type="button" (click)="sendMessage()"
-          [disabled]="message==null || message.trim()==''">
+          [disabled]="messageContent==null || messageContent==''">
           @if(translateService.getCurrentLang()==='ar'){
           <mat-icon>arrow_back</mat-icon>
           }@else {

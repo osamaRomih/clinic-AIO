@@ -49,7 +49,7 @@ export {MenuItem} from './models/menu-item'
 export * from './models/patient'
 export {ILoginCreds} from './models/login-request'
 export {TableColumn} from './models/table-column'
-
+export {IMessage} from './models/message'
 export {ILoginRequest} from './models/login-request'
 export {ILoginResponse} from './models/login-response'
 export {IUser} from './models/user'

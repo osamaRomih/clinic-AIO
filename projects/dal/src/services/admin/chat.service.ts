@@ -72,11 +72,7 @@ export class ChatService {
     });
 
     this.hubConnection.on('ReceiveNewMessage', (message: IMessage) => {
-      const sender = this.allUsers().find((u) => u.id == message.senderId);
       this.receiveNewMessage(message);
-      let audio = new Audio('assets/audios/notification.mp3');
-      audio.play();
-      this.snackBarService.success('Message recevied successfully from ' + sender?.fullName);
     });
 
     this.hubConnection.on('NotifyOnlineUser', (user: IChatUser) => {
@@ -85,6 +81,14 @@ export class ChatService {
 
     this.hubConnection.on('NotifyTypingToUser', (id: string) => {
       this.notifyTypingToUser(id);
+    });
+
+    this.hubConnection.on('DeletedMessage', (message: IMessage) => {
+      this.deleteMessageFromChatMessages(message);
+    });
+
+    this.hubConnection.on('UpdatedMessage', (message: IMessage) => {
+      this.updateMessageInChatMessages(message);
     });
   }
 
@@ -126,14 +130,55 @@ export class ChatService {
   }
 
   receiveNewMessage(message: IMessage) {
-    console.log(message);
     const exists = this.chatMessages().some((m) => m.id === message.id);
 
-    if (this.currentOpenedChat()?.id == message.senderId) {
+    if (this.currentOpenedChat()?.id == message.senderId || message.senderId == this.userId) {
       if (!exists) {
         this.chatMessages.update((curr) => [...curr, message]);
+        console.log(this.chatMessages());
       }
     }
+
+    if (message.receiverId == this.userId) {
+      const sender = this.allUsers().find((u) => u.id == message.senderId);
+      let audio = new Audio('assets/audios/notification.mp3');
+      audio.play();
+      this.snackBarService.success('Message recevied successfully from ' + sender?.fullName);
+    }
+  }
+
+  deleteMessage(message: IMessage) {
+    this.hubConnection?.invoke('DeleteMessage', message.id).then().catch();
+  }
+
+  deleteMessageFromChatMessages(message: IMessage) {
+    this.chatMessages.update((messages) => messages.filter((msg) => msg.id != message.id));
+
+    if (message?.senderId == this.userId) this.snackBarService.success('Message deleted successfully');
+    else if (message?.receiverId == this.userId) {
+      const userMessage = this.allUsers().find((u) => u.id == message?.senderId);
+      this.snackBarService.success(userMessage?.fullName + ' delete message');
+    }
+  }
+
+  updateMessageInChatMessages(message: IMessage) {
+    console.log(message)
+    this.chatMessages.update((messages) => messages
+    .map((msg) => msg.id === message.id ? { ...msg, content: message.content } : msg));
+
+    if (message.senderId == this.userId) {
+      this.snackBarService.success('Message updated successfully');
+    }
+  }
+
+  updateMessage(message: IMessage) {
+    const updatedMessage = {
+      id: message.id,
+      content: message.content,
+      senderId: message.senderId,
+      receiverId: message.receiverId,
+    };
+    this.hubConnection?.invoke('UpdateMessage',updatedMessage).then().catch();
   }
 
   notifyTypingToUser(id: string) {
@@ -162,20 +207,7 @@ export class ChatService {
   }
 
   sendMessage(content: string) {
-    this.chatMessages.update((curr) => [
-      ...curr,
-      {
-        id: 0,
-        content: content,
-        createdDate: new Date().toString(),
-        isRead: false,
-        receiverId: this.currentOpenedChat()?.id!,
-        senderId: this.userId!,
-      },
-    ]);
-
-    // this.markMessagesAsRead(this.userId!);
-
+    //TODO: don't add message with id = 0 because when delete message
     this.hubConnection
       ?.invoke('SendMessage', {
         receiverId: this.currentOpenedChat()?.id,
