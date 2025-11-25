@@ -1,0 +1,40 @@
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z0 w-100">
+
+    <ng-container matColumnDef="issueDate">
+      <th mat-header-cell *matHeaderCellDef class="text-secondary small fw-bold border-bottom"> {{'PATIENT_PROFILE.TABLE_HEADERS.ISSUE_DATE' | translate}} </th>
+      <td mat-cell *matCellDef="let element"> {{element.issueDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="diagnosis">
+      <th mat-header-cell *matHeaderCellDef class="text-secondary small fw-bold border-bottom"> {{'PATIENT_PROFILE.TABLE_HEADERS.DIAGNOSIS' | translate}} </th>
+      <td mat-cell *matCellDef="let element"> {{element.diagnosis}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="notesSummary">
+      <th mat-header-cell *matHeaderCellDef class="text-secondary small fw-bold border-bottom"> {{'PATIENT_PROFILE.TABLE_HEADERS.NOTES_SUMMARY' | translate}} </th>
+      <td mat-cell *matCellDef="let element"> 
+        <div [innerHTML]="element.notesSummary"></div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="medications">
+      <th mat-header-cell *matHeaderCellDef class="text-secondary small fw-bold border-bottom"> {{'PATIENT_PROFILE.TABLE_HEADERS.MEDICATIONS' | translate}} </th>
+      <td mat-cell *matCellDef="let element"> {{element.medications}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <div class="text-center p-3 ">
+    @if(data.length > 5){
+      <a href="#" (click)="toggleView($event)" class="text-decoration-none view-all">
+        {{ showAll 
+          ? ('PATIENT_PROFILE.TABLE_HEADERS.VIEW_LESS' | translate) 
+          : ('PATIENT_PROFILE.TABLE_HEADERS.VIEW_ALL' | translate)
+        }}
+        ({{data.length}})
+      </a>
+    }
+  </div>
+</div>

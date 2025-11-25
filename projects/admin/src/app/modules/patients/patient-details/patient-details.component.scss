@@ -1,0 +1,25 @@
+.patient-profile-img{
+  border:1px solid var(--sys-primary);
+  box-shadow: 0 3px 10px #0003;
+}
+
+.appointment-status{
+  background-color: rgb(212, 64, 64);
+  color: #fff;
+  font-size: 16px;
+  border-radius: 10px;
+  padding:5px 10px;
+  font-weight: 700;
+
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  background-color: var(--sys-primary-container);
+}
+
+.header-icon {
+  color: var(--sys-primary);
+}
+

@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPatientActiveRead, IPatientRead } from '../../models/patient';
 import { IPagedResponse } from '../../models/IPagedResponse';
+import { IPatientProfileDetails } from '../../models/patient-profile-details';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,10 @@ export class PatientService {
 
   getById(id:string){
     return this.httpClient.get<IPatientRead>(`${this.baseAPI}/patients/${id}`);
+  }
+
+  getProfileDetails(id:string){
+    return this.httpClient.get<IPatientProfileDetails>(`${this.baseAPI}/patients/${id}/details`);
   }
 
   create(formData:FormData){

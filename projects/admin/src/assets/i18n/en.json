@@ -63,7 +63,7 @@
     "SAVE_CHANGES": "Save changes"
   },
   "PATIENTS": {
-    "NAME":"Patients",
+    "NAME": "Patients",
     "TITLE_ALL": "All Patients",
     "TITLE_ADD": "Add Patient",
     "TITLE_EDIT": "Edit Patient",
@@ -158,5 +158,41 @@
   "TIME_AGO": {
     "DEFAULT": "long time ago",
     "PREFIX": "left"
+  },
+  "PATIENT_PROFILE": {
+    "TITLE": "Profile",
+    "BREADCRUMB": {
+      "PATIENTS": "Patients"
+    },
+    "CARD": {
+      "PATIENT_ID": "Patient ID:",
+      "PERSONAL_INFO_TITLE": "Personal Information",
+      "PERSONAL_INFO": {
+        "FULL_NAME": "Full Name",
+        "GENDER": "Gender",
+        "AGE": "Age",
+        "DATE_OF_BIRTH": "Date of birth"
+      },
+      "CONTACT_ADDRESS_TITLE": "Contact & Address",
+      "CONTACT_ADDRESS": {
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "ADDRESS": "Address"
+      },
+      "PRESCRIPTION_HISTORY": "Prescription History",
+      "APPOINTMENT_HISTORY": "Appointment History"
+    },
+    "TABLE_HEADERS": {
+      "DATE": "DATE",
+      "VISIT_TYPE": "VISIT TYPE",
+      "REASON_FOR_VISIT": "REASON FOR VISIT",
+      "STATUS": "STATUS",
+      "ISSUE_DATE": "ISSUE DATE",
+      "DIAGNOSIS": "DIAGNOSIS",
+      "NOTES_SUMMARY": "NOTES/SUMMARY",
+      "MEDICATIONS": "MEDICATIONS",
+      "VIEW_ALL": "View All",
+      "VIEW_LESS": "View Less"
+    }
   }
 }

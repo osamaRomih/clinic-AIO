@@ -162,5 +162,41 @@
   "TIME_AGO": {
     "DEFAULT": "منذ زمن طويل",
     "PREFIX": "نشط"
+  },
+  "PATIENT_PROFILE": {
+    "TITLE": "الملف الشخصي",
+    "BREADCRUMB": {
+      "PATIENTS": "المرضى"
+    },
+    "CARD": {
+      "PATIENT_ID": "رقم المريض:",
+      "PERSONAL_INFO_TITLE": "المعلومات الشخصية",
+      "PERSONAL_INFO": {
+        "FULL_NAME": "الاسم الكامل",
+        "GENDER": "النوع",
+        "AGE": "العمر",
+        "DATE_OF_BIRTH": "تاريخ الميلاد"
+      },
+      "CONTACT_ADDRESS_TITLE": "التواصل والعنوان",
+      "CONTACT_ADDRESS": {
+        "EMAIL": "البريد الإلكتروني",
+        "PHONE": "الهاتف",
+        "ADDRESS": "العنوان"
+      },
+      "PRESCRIPTION_HISTORY": "سجل الوصفات الطبية",
+      "APPOINTMENT_HISTORY": "سجل المواعيد"
+    },
+    "TABLE_HEADERS": {
+      "DATE": "التاريخ",
+      "VISIT_TYPE": "نوع الزيارة",
+      "REASON_FOR_VISIT": "سبب الزيارة",
+      "STATUS": "الحالة",
+      "ISSUE_DATE": "تاريخ الإصدار",
+      "DIAGNOSIS": "التشخيص",
+      "NOTES_SUMMARY": "ملاحظات/ملخص",
+      "MEDICATIONS": "الأدوية",
+      "VIEW_ALL": "عرض الكل",
+      "VIEW_LESS": "عرض أقل"
+    }
   }
 }

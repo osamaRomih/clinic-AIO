@@ -18,6 +18,7 @@ import { authGuard, NotFoundComponent, ServerErrorComponent } from 'DAL';
 import { AllPatientsComponent } from './modules/patients/all-patients/all-patients.component';
 import { AddPatientComponent } from './modules/patients/add-patient/add-patient.component';
 import { UpdatePatientComponent } from './modules/patients/update-patient/update-patient.component';
+import { PatientDetailsComponent } from './modules/patients/patient-details/patient-details.component';
 
 export const routes: Routes = [
   {
@@ -53,6 +54,7 @@ export const routes: Routes = [
           { path: '', component: AllPatientsComponent },
           { path: 'add', component: AddPatientComponent },
           { path: 'edit/:id', component: UpdatePatientComponent },
+          { path: 'profile/:id', component: PatientDetailsComponent },
         ],
       },
       { path: 'chat', component: ChatComponent },

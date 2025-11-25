@@ -56,6 +56,7 @@ export {IUser} from './models/user'
 export {ConfirmDialogData} from './models/confirmation-dialog-data'
 export {IExternalAuth} from './models/external-auth'
 export {IProfileUpdate} from './models/profile'
+export * from './models/patient-profile-details'
 
 
 // interceptors

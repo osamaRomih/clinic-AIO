@@ -143,16 +143,8 @@ export class AllPatientsComponent {
     });
   }
 
-  openDialogDetails(id: number) {
-    // this.service.getById(id).subscribe({
-    //   next: (res) => {
-    //     const dialogRef = this.dialog.open(AppointmentDetailsComponent, {
-    //       data: res,
-    //       width: '750px',
-    //     });
-    //     dialogRef.afterClosed().subscribe((result) => {});
-    //   },
-    // });
+  openDialogDetails(id: string) {
+    this.router.navigateByUrl('patients/profile/'+id);
   }
 
   initColumns(): void {
