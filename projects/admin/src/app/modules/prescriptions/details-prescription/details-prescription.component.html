@@ -1,112 +1,19 @@
-<div class="p-3">
-  <div class="modal-header border-bottom pb-4">
-    <h5 class="modal-title fw-bold text-gray-800 d-flex align-items-center">
-      Prescription Details (ID: <span>{{prescription.id}}</span>)
-    </h5>
-    <button type="button" (click)="closeDialog()" class="btn-close"></button>
+<div class="page-wrapper">
 
+  <div class="breadcrumb d-flex align-items-center gap-2">
+    <button mat-icon-button color="primary" (click)="goBack()">
+      <mat-icon class="me-2">arrow_back</mat-icon>
+    </button>
+    <li>
+      <h4 class="page-title">{{ 'PRESCRIPTION_DETAILS.DETAILS_TITLE' | translate }}</h4>
+    </li>
   </div>
-  <section class="my-4 p-4 visit-summary-section rounded-3 border border-opacity-50">
-    <h3 class="h6 fw-bold text-primary mb-3 d-flex align-items-center">
-      <svg class="me-2" width="1em" height="1em" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-      </svg>
-      Visit Summary
-    </h3>
-    <div class="row g-3 text-gray-700">
-      <div class="col-6 col-md-3">
-        <p class="text-xs text-muted mb-0 fw-medium">PRESCRIPTION DATE</p>
-        <p class="fw-semibold text-base">{{prescription.date}}</p>
-      </div>
-      <div class="col-12 col-md-4">
-        <p class="text-xs text-muted mb-0 fw-medium">NEXT SCHEDULED VISIT</p>
-      </div>
-      <div class="col-6 col-md-3">
-        <p class="text-xs text-muted mb-0  fw-medium">PATIENT NAME</p>
-        <p class="fw-semibold text-base">{{prescription.patientName}}</p>
-      </div>
-      <div class="col-6 col-md-2">
-        <p class="text-xs text-muted mb-0  fw-medium">PATIENT AGE</p>
-        <p class="fw-semibold text-base">{{prescription.age}}</p>
-      </div>
-
-      <div class="col-6 mt-2">
-        <p class="text-sm text-muted mb-1 fw-medium">DIAGNOSIS</p>
-        <p class="fw-semibold text-xl mt-1">{{prescription.diagnosis}}</p>
-      </div>
+  <div class="row gap-lg-0 gap-3">
+    <div class="col-12 col-lg-8">
+      <app-prescription-card-details [prescription]="prescription"></app-prescription-card-details>
     </div>
-  </section>
-  <!-- 2. Medication Details (Core Content) -->
-  <section class="mb-4">
-    <h3 class="h6 text-primary fw-bold text-gray-800 mb-3 d-flex align-items-center">
-      <svg class="me-2" width="1em" height="1em" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6a2 2 0 002-2v-1a2 2 0 00-2-2h-3"></path>
-      </svg>
-      Prescribed Medications
-    </h3>
-
-    <div class="table-responsive border rounded-3 shadow-sm">
-      @if(prescription.items.length > 0){
-      <table class="table table-striped table-hover align-middle mb-0">
-        <thead class="table-light">
-          <tr>
-            <th scope="col" class="small fw-bold text-uppercase">Medication</th>
-            <th scope="col" class="small fw-bold text-uppercase">Dosage</th>
-            <th scope="col" class="small fw-bold text-uppercase">Schedule</th>
-            <th scope="col" class="small fw-bold text-uppercase">Instructions</th>
-          </tr>
-        </thead>
-        <tbody id="modalItemsBody">
-          @for (item of prescription.items; track item.id) {
-          <tr>
-            <td>{{item.name}}</td>
-            <td>{{item.dosage}}</td>
-            <td>
-              {{
-              (item.frequency > 1
-              ? item.frequency + ' times per day'
-              : 'Once per day') +
-              ' for ' +
-              item.days +
-              ' day(s)'
-              }}
-            </td>
-
-            <td [innerHTML]="notes"></td>
-          </tr>
-          }
-        </tbody>
-      </table>
-      }@else {
-      <p class="text-center text-muted p-3 mb-0 ">No medications were prescribed for this
-        visit.</p>
-
-      }
-
+    <div class="col-12 col-lg-4 d-flex flex-column gap-4">
+      <app-prescription-patient-info [patient]="prescription.patient"></app-prescription-patient-info>
+      <app-prescription-actions [prescriptionId]="prescription.id"></app-prescription-actions>
     </div>
-  </section>
-  <section>
-    <h3 class="h6 text-primary fw-bold text-gray-800 mb-3 d-flex align-items-center">
-      <svg class="me-2" width="1em" height="1em" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
-        </path>
-      </svg>
-      Doctor's Notes / General Instructions
-    </h3>
-    <div id="modalNotes"
-      class="p-3 bg-light rounded-3 text-gray-700 small border border-secondary border-opacity-25 shadow-sm"
-      style="min-height: 50px; white-space: pre-wrap;">
-      {{prescription.notes}}
-    </div>
-  </section>
-  <div class="modal-footer border-top mt-4 pt-3 d-flex align-content-center gap-3">
-    <button type="button" class="btn btn-secondary" (click)="closeDialog()" data-bs-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-success">Print Prescription</button>
   </div>
-</div>

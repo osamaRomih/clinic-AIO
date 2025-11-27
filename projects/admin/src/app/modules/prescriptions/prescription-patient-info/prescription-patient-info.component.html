@@ -1,0 +1,28 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <h2 class="h5">{{ 'PRESCRIPTION_DETAILS.PATIENT_INFO_TITLE' | translate }}</h2>
+    <div class="d-flex my-3 align-items-center">
+      <img width="60" height="60" class="rounded-circle" [src]="'http://localhost:5069/'+patient.imageUrl"
+        alt="Patient image" />
+      <div class="ms-3">
+        <div class="fw-medium">{{patient.fullName}}</div>
+        <div class="text-muted text-sm">{{ 'PRESCRIPTION_DETAILS.PATIENT_ID' | translate }} {{patient.id}}</div>
+      </div>
+    </div>
+    <div class="mb-2 d-flex align-items-center text-muted">
+      <mat-icon>cake</mat-icon>
+      <span class="text-sm text-muted ms-2">{{patient.dateOfBirth}}</span>
+    </div>
+    <div class="mb-2 d-flex align-items-center text-muted">
+      <mat-icon>phone</mat-icon>
+      <span class="text-sm text-muted ms-2">{{patient.phoneNumber}}</span>
+    </div>
+    <div class="mb-2 d-flex align-items-center text-muted">
+      <mat-icon>location_city</mat-icon>
+      <span class="text-sm text-muted ms-2">{{patient.address}}</span>
+    </div>
+    <button mat-raised-button color="primary" class="mt-3 w-100" (click)="viewPatientProfile()">
+      {{ 'PRESCRIPTION_DETAILS.VIEW_PROFILE' | translate }}
+    </button>
+  </mat-card-content>
+</mat-card>

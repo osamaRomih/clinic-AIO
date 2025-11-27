@@ -198,5 +198,32 @@
       "VIEW_ALL": "عرض الكل",
       "VIEW_LESS": "عرض أقل"
     }
+  },
+  "PRESCRIPTION_DETAILS": {
+    "DETAILS_TITLE": "تفاصيل الوصفة الطبية",
+    "PATIENT_INFO_TITLE": "معلومات المريض",
+    "PATIENT_ID": "رقم المريض:",
+    "VIEW_PROFILE": "عرض الملف الكامل",
+    "INFO_TITLE": "معلومات الوصفة الطبية",
+    "INFO_SUBTITLE": "تفاصيل حول هذه الوصفة",
+    "STATUS_ACTIVE": "فعالة",
+    "ID": "رقم الوصفة",
+    "PRESCRIBED_BY": "وصفها بواسطة",
+    "ISSUE_DATE": "تاريخ الإصدار",
+    "DIAGNOSIS": "التشخيص",
+    "MEDICATIONS_TITLE": "الأدوية",
+    "NO_MEDICATIONS": "لم يتم وصف أي أدوية.",
+    "NOTES_TITLE": "ملاحظات",
+    "TABLE_ID": "الرقم",
+    "TABLE_MEDICINE_NAME": "اسم الدواء",
+    "TABLE_DOSAGE": "الجرعة",
+    "TABLE_FREQUENCY": "التكرار (مرة/يوم)",
+    "TABLE_DURATION": "المدة (أيام)",
+    "TABLE_INSTRUCTIONS": "تعليمات",
+    "N_A": "لا يوجد",
+    "ACTIONS_TITLE": "الإجراءات",
+    "EDIT_PRESCRIPTION": "تعديل الوصفة",
+    "PRINT_PRESCRIPTION": "طباعة الوصفة",
+    "DELETE_PRESCRIPTION": "حذف الوصفة"
   }
 }

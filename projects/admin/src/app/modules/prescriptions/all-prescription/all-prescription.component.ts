@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DetailsPrescriptionComponent } from '../details-prescription/details-prescription.component';
 import { Sort } from '@angular/material/sort';
 import * as XLSX from 'xlsx';
-import { A11yModule } from "@angular/cdk/a11y";
+import { A11yModule } from '@angular/cdk/a11y';
 
 interface Customer {
   id: number;
@@ -77,20 +77,21 @@ export class AllPrescriptionComponent implements OnInit {
   }
 
   onSearch(query: string) {
-    this.getAllPrescription( 1, this.pageSize, query);
+    this.getAllPrescription(1, this.pageSize, query);
   }
 
   openDialogDetails(id: number) {
-    this.prescriptionService.getById(id).subscribe({
-      next: (res) => {
-        const dialogRef = this.dialog.open(DetailsPrescriptionComponent, {
-          data: res,
-          width: '750px',
-        });
+    // this.prescriptionService.getById(id).subscribe({
+    //   next: (res) => {
+    //     const dialogRef = this.dialog.open(DetailsPrescriptionComponent, {
+    //       data: res,
+    //       width: '750px',
+    //     });
 
-        dialogRef.afterClosed().subscribe((result) => {});
-      },
-    });
+    //     dialogRef.afterClosed().subscribe((result) => {});
+    //   },
+    // });
+    this.router.navigate(['/prescriptions/details', id]);
   }
 
   initColumns(): void {

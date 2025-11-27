@@ -41,11 +41,11 @@ OR
   --sys-tertiary-fixed-dim: #ffa9fc;
   --sys-on-tertiary-fixed: #37003c;
   --sys-on-tertiary-fixed-variant: #78197f;
-  --sys-background: #fcf8f9;
+  --sys-background: #ffffff;
   --sys-on-background: #1c1b1c;
-  --sys-surface: #fcf8f9;
+  --sys-surface: #ffffff;
   --sys-surface-dim: #ddd9d9;
-  --sys-surface-bright: #fcf8f9;
+  --sys-surface-bright: #ffffff;
   --sys-surface-container-lowest: #ffffff;
   --sys-surface-container-low: #f7f3f3;
   --sys-surface-container: #f1eded;
@@ -133,7 +133,7 @@ OR
 }
 
 /* Typography */
-.theme-blue  {
+.theme-blue {
   --sys-brand-font-family: Cairo;
   --sys-plain-font-family: Cairo;
   --sys-bold-font-weight: 700;

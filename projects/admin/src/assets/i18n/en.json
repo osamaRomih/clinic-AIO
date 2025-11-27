@@ -194,5 +194,32 @@
       "VIEW_ALL": "View All",
       "VIEW_LESS": "View Less"
     }
+  },
+  "PRESCRIPTION_DETAILS": {
+    "DETAILS_TITLE": "Prescriptions Details",
+    "PATIENT_INFO_TITLE": "Patient Information",
+    "PATIENT_ID": "Patient ID:",
+    "VIEW_PROFILE": "View Full Profile",
+    "INFO_TITLE": "Prescription Information",
+    "INFO_SUBTITLE": "Details about this prescription",
+    "STATUS_ACTIVE": "Active",
+    "ID": "Prescription ID",
+    "PRESCRIBED_BY": "Prescribed By",
+    "ISSUE_DATE": "Issue Date",
+    "DIAGNOSIS": "Diagnosis",
+    "MEDICATIONS_TITLE": "Medications",
+    "NO_MEDICATIONS": "No medications prescribed.",
+    "NOTES_TITLE": "Notes",
+    "TABLE_ID": "ID",
+    "TABLE_MEDICINE_NAME": "Medicine Name",
+    "TABLE_DOSAGE": "Dosage",
+    "TABLE_FREQUENCY": "Frequency (x/day)",
+    "TABLE_DURATION": "Duration (Days)",
+    "TABLE_INSTRUCTIONS": "Instructions",
+    "N_A": "N/A",
+    "ACTIONS_TITLE": "Actions",
+    "EDIT_PRESCRIPTION": "Edit Prescription",
+    "PRINT_PRESCRIPTION": "Print Prescription",
+    "DELETE_PRESCRIPTION": "Delete Prescription"
   }
 }

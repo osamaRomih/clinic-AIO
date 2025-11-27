@@ -19,6 +19,7 @@ import { AllPatientsComponent } from './modules/patients/all-patients/all-patien
 import { AddPatientComponent } from './modules/patients/add-patient/add-patient.component';
 import { UpdatePatientComponent } from './modules/patients/update-patient/update-patient.component';
 import { PatientDetailsComponent } from './modules/patients/patient-details/patient-details.component';
+import { DetailsPrescriptionComponent } from './modules/prescriptions/details-prescription/details-prescription.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,7 @@ export const routes: Routes = [
           { path: '', component: AllPrescriptionComponent },
           { path: 'add', component: AddPrescriptionComponent },
           { path: 'edit/:id', component: UpdatePrescriptionComponent },
+          { path: 'details/:id', component: DetailsPrescriptionComponent },
         ],
       },
       {

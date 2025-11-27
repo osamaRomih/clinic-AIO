@@ -1,9 +1,9 @@
 <lib-header (onCollapsed)="toggleCollapsed()" />
 <mat-sidenav-container>
-  <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+  <mat-sidenav opened mode="side" position="start" [style.width]="sidenavWidth()">
     <lib-side-nav [collapsed]="collapsed()" [menuItems]="menuItems()" />
   </mat-sidenav>
-  <mat-sidenav-content [style.margin-right]="sidenavWidth()" [style.margin-left]="'0px'">
+  <mat-sidenav-content [style.margin-inline-start]="sidenavWidth()" [style.margin-inline-end]="'0px'">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,0 +1,21 @@
+<mat-card appearance="outlined" class="">
+  <mat-card-content>
+    <h5 class="h5 fw-semibold mb-3">{{ 'PRESCRIPTION_DETAILS.ACTIONS_TITLE' | translate }}</h5>
+
+    <button mat-raised-button color="primary" class="w-100 mb-2" (click)="editPrescription()">
+      <mat-icon class="me-2">edit</mat-icon>
+      {{ 'PRESCRIPTION_DETAILS.EDIT_PRESCRIPTION' | translate }}
+    </button>
+
+    <button mat-raised-button color="accent" class="w-100 mb-2" (click)="printPrescription()">
+      <mat-icon class="me-2">print</mat-icon>
+      {{ 'PRESCRIPTION_DETAILS.PRINT_PRESCRIPTION' | translate }}
+    </button>
+
+    <button mat-flat-button color="warn" class="w-100" (click)="deletePrescription()">
+      <mat-icon class="me-2">delete_outline</mat-icon>
+      {{ 'PRESCRIPTION_DETAILS.DELETE_PRESCRIPTION' | translate }}
+    </button>
+
+  </mat-card-content>
+</mat-card>
