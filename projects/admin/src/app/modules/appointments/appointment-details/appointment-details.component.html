@@ -97,20 +97,30 @@
         <mat-card-content>
           <h5 class="h6 fw-semibold mb-3 text-center">{{ 'APPOINTMENT_DETAILS.ACTION_TITLE' | translate }}</h5>
 
-          <button mat-raised-button color="warn" class="w-100 mb-2" (click)="cancelAppointment()">
-            <mat-icon class="me-2">event_busy</mat-icon>
-            {{ 'APPOINTMENT_DETAILS.CANCEL_APPOINTMENT' | translate }}
-          </button>
+          <div class="d-flex flex-column gap-3">
+            <button mat-raised-button color="warn" class="w-100" (click)="cancelAppointment()">
+              <mat-icon class="me-2">event_busy</mat-icon>
+              {{ 'APPOINTMENT_DETAILS.CANCEL_APPOINTMENT' | translate }}
+            </button>
 
-          <button mat-raised-button color="accent" class="w-100 mb-2" (click)="rescheduleAppointment()">
-            <mat-icon class="me-2">schedule</mat-icon>
-            {{ 'APPOINTMENT_DETAILS.RESCHEDULE' | translate }}
-          </button>
+            <button mat-raised-button color="accent" class="w-100" (click)="rescheduleAppointment()">
+              <mat-icon class="me-2">schedule</mat-icon>
+              {{ 'APPOINTMENT_DETAILS.RESCHEDULE' | translate }}
+            </button>
+            <button mat-raised-button color="accent" class=" w-100" (click)="editAppointment()">
+              <mat-icon class="me-2">edit</mat-icon>
+              {{ 'APPOINTMENT_DETAILS.UPDATE_APPOINTMENT' | translate }}
+            </button>
+            <button mat-raised-button color="primary" class="w-100" (click)="completeVisit()">
+              <mat-icon class="me-2">check_circle_outline</mat-icon>
+              {{ 'APPOINTMENT_DETAILS.COMPLETE_VISIT' | translate }}
+            </button>
+            <button mat-flat-button color="warn" class="w-100" (click)="deleteAppointment()">
+              <mat-icon class="me-2">delete</mat-icon>
+              {{ 'APPOINTMENT_DETAILS.DELETE_APPOINTMENT' | translate }}
+            </button>
+          </div>
 
-          <button mat-flat-button color="primary" class="w-100" (click)="completeVisit()">
-            <mat-icon class="me-2">check_circle_outline</mat-icon>
-            {{ 'APPOINTMENT_DETAILS.COMPLETE_VISIT' | translate }}
-          </button>
 
         </mat-card-content>
       </mat-card>

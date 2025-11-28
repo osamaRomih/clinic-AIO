@@ -241,6 +241,8 @@
     "CANCEL_APPOINTMENT": "Cancel Appointment",
     "RESCHEDULE": "Reschedule Appointment",
     "COMPLETE_VISIT": "Mark as Complete",
+    "UPDATE_APPOINTMENT": "Update Appointment",
+    "DELETE_APPOINTMENT": "Delete Appointment",
 
     "MEDICAL_HISTORY_SUMMARY": "Medical History Summary",
     "NO_HISTORY": "No relevant medical history found for this visit."

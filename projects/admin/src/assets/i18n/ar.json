@@ -245,7 +245,8 @@
     "CANCEL_APPOINTMENT": "إلغاء الموعد",
     "RESCHEDULE": "إعادة جدولة الموعد",
     "COMPLETE_VISIT": "وضع علامة كمكتمل",
-
+    "UPDATE_APPOINTMENT": "تحديث الموعد",
+    "DELETE_APPOINTMENT": "حذف الموعد",
     "MEDICAL_HISTORY_SUMMARY": "ملخص التاريخ الطبي",
     "NO_HISTORY": "لم يتم العثور على تاريخ طبي ذي صلة لهذه الزيارة."
   }

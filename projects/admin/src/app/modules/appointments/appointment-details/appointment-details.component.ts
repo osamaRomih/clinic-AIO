@@ -12,7 +12,7 @@ import { AppointmentService, DatePipe, DialogService, IAppointmentDetails, Snack
 @Component({
   selector: 'app-appointment-details',
   standalone: true,
-  imports: [MatCardModule, MatDividerModule, MatButtonModule, MatIconModule, TranslatePipe, TimeShortPipe, DatePipe],
+  imports: [MatCardModule, MatDividerModule, MatButtonModule, MatIconModule, TranslatePipe, TimeShortPipe],
   templateUrl: './appointment-details.component.html',
   styleUrl: './appointment-details.component.scss',
 })
@@ -70,6 +70,25 @@ export class AppointmentDetailsComponent implements OnInit {
 
   rescheduleAppointment() {
     // console.log(`Action: Reschedule Appointment ${this.appointment().id}`);
+  }
+
+  editAppointment() {
+    this.router.navigate(['/appointments/edit', this.appointmentId]);
+  }
+
+  deleteAppointment() {
+    this.confirmationDiaglog.confirmDialog('Delete Appointment', 'Are you sure you want to delete this appointment?').subscribe({
+      next: (res) => {
+        if (res) {
+          this.appointmentService.delete(this.appointmentId).subscribe({
+            next: () => {
+              this.snackBarService.success('Appointment deleted successfully');
+              this.router.navigate(['/appointments']);
+            },
+          });
+        }
+      },
+    });
   }
 
   completeVisit() {
