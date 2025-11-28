@@ -117,17 +117,18 @@ export class AllAppointmentsComponent {
   }
 
   openDialogDetails(id: number) {
-      this.service.getById(id).subscribe({
-        next: (res) => {
-          const dialogRef = this.dialog.open(AppointmentDetailsComponent, {
-            data: res,
-            width: '750px',
-          });
-  
-          dialogRef.afterClosed().subscribe((result) => {});
-        },
-      });
-    }
+    // this.service.getById(id).subscribe({
+    //   next: (res) => {
+    //     const dialogRef = this.dialog.open(AppointmentDetailsComponent, {
+    //       data: res,
+    //       width: '750px',
+    //     });
+
+    //     dialogRef.afterClosed().subscribe((result) => {});
+    //   },
+    // });
+    this.router.navigate(['appointments/details', id]);
+  }
 
   initColumns(): void {
     this.appointmentsTableColumns = [

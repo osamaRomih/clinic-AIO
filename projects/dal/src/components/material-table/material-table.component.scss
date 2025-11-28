@@ -1,9 +1,9 @@
-.mat-mdc-row:hover .mat-mdc-cell{
+.mat-mdc-row:hover .mat-mdc-cell {
   cursor: pointer;
   background-color: var(--sys-surface-container-high) !important;
 }
 
-.materialTableHeader{
+.materialTableHeader {
   align-items: center;
   border-color: var(--sys-surface-container-high) !important;
   background-color: var(--sys-surface-dim) !important;
@@ -11,23 +11,23 @@
   flex-wrap: wrap;
   text-align: center;
   border-radius: 10px 10px 0 0;
-  padding:0 5px;
+  padding: 0 5px;
 }
 
-.materialTableHeader .left{
+.materialTableHeader .left {
   flex: 35%;
   height: 60px;
   display: flex;
   align-items: center;
-  
+
 }
 
-.materialTableHeader h2{
+.materialTableHeader h2 {
   font-size: 16px;
   color: var(--sys-on-surface-variant) !important;
 }
 
-.materialTableHeader .input-search-field{
+.materialTableHeader .input-search-field {
   font-weight: 500;
   color: var(--sys-on-surface-variant) !important;
   border-radius: 5px;
@@ -37,6 +37,7 @@
   width: 100%;
   background: var(--sys-surface-container-low);
 }
+
 .search-icon {
   position: absolute;
   top: 10px;
@@ -58,7 +59,8 @@
 
 /* download button */
 .btn-download {
-  color: var(--sys-tertiary) !important;   /* tertiary = hyperlink accent */
+  color: var(--sys-tertiary) !important;
+  /* tertiary = hyperlink accent */
 }
 
 /* download icon */
@@ -102,7 +104,7 @@
 }
 
 .status-completed {
-  background-color: #9E9E9E;
+  background-color: #3b52ca;
   color: #fff;
   border: 1px solid #8e8e8e;
 

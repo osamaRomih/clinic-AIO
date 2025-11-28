@@ -2,14 +2,14 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChil
 import { MatPaginator, PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatInputModule } from "@angular/material/input";
-import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TableColumn } from '../../models/table-column';
 import { TimeShortPipe } from '../../public-api';
 import { debounceTime, distinct, distinctUntilChanged, Subject, Subscription } from 'rxjs';
@@ -30,12 +30,12 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatTabsModule,
     MatCheckboxModule,
     TimeShortPipe,
-    TranslatePipe
+    TranslatePipe,
   ],
   templateUrl: './material-table.component.html',
-  styleUrl: './material-table.component.scss'
+  styleUrl: './material-table.component.scss',
 })
-export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,OnDestroy {
+export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   public tableDataSource = new MatTableDataSource<any>([]);
   private _displayedColumns: string[] = [];
 
@@ -69,7 +69,7 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,
   @Output() openDialogDetails = new EventEmitter<any>();
 
   private searchSubject = new Subject<string>();
-  private searchSubscription :Subscription | undefined;
+  private searchSubscription: Subscription | undefined;
 
   // backing field for tableData
   private _tableData: any[] = [];
@@ -90,32 +90,31 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,
   }
 
   private initSearch() {
-    this.searchSubscription = this.searchSubject.pipe(
-      debounceTime(500),// Wait 500ms after the last keystroke
-      distinctUntilChanged()// Only emit if the value is different from previous
-    ).subscribe(searchValue=>{
-      if(this.isServerSidePagination){
-        this.search.emit(searchValue);
-        if(this.matPaginator)
-          this.matPaginator.firstPage();
-      }else{
-        this.tableDataSource.filter = searchValue.trim().toLowerCase();
-      }
-    })
+    this.searchSubscription = this.searchSubject
+      .pipe(
+        debounceTime(500), // Wait 500ms after the last keystroke
+        distinctUntilChanged(), // Only emit if the value is different from previous
+      )
+      .subscribe((searchValue) => {
+        if (this.isServerSidePagination) {
+          this.search.emit(searchValue);
+          if (this.matPaginator) this.matPaginator.firstPage();
+        } else {
+          this.tableDataSource.filter = searchValue.trim().toLowerCase();
+        }
+      });
   }
   ngOnInit(): void {
-    // initial build 
+    // initial build
     this.buildDisplayedColumns();
     this.tableDataSource.data = this._tableData ?? [];
   }
 
   ngAfterViewInit(): void {
     // wire paginator / sort if available
-    if (!this.isServerSidePagination && this.matPaginator)
-       this.tableDataSource.paginator = this.matPaginator;
+    if (!this.isServerSidePagination && this.matPaginator) this.tableDataSource.paginator = this.matPaginator;
 
-    if(!this.isServerSideSortable && this.matSort)
-      this.tableDataSource.sort = this.matSort;
+    if (!this.isServerSideSortable && this.matSort) this.tableDataSource.sort = this.matSort;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -130,8 +129,8 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,
   }
 
   private buildDisplayedColumns() {
-    // use dataKey as matColumnDef 
-    const cols = this.tableColumns?.map(c => c.dataKey) ?? [];
+    // use dataKey as matColumnDef
+    const cols = this.tableColumns?.map((c) => c.dataKey) ?? [];
     const displayed = [...cols];
 
     // put select at start if selection enabled
@@ -164,7 +163,7 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,
   }
 
   sortTable(sortParameters: Sort) {
-    const col = this.tableColumns.find(column => column.name === sortParameters.active);
+    const col = this.tableColumns.find((column) => column.name === sortParameters.active);
 
     if (this.isServerSideSortable === false && this.matSort) {
       this.tableDataSource.sort = this.matSort;
@@ -181,19 +180,32 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,
     this.page.emit({ pageIndex: e.pageIndex, pageSize: e.pageSize });
   }
 
-  onAdd() { this.add.emit(); }
-  onEdit(id: any) { this.edit.emit(id); }
-  onDelete(id: any) { this.delete.emit(id); }
-  exportAsExcel() { this.exportExcel.emit(); }
-  confirmBulkDelete() { this.bulkDelete.emit(this.selection.selected);this.selection.clear() }
-  openDialog(id: any) { this.openDialogDetails.emit(id); }
+  onAdd() {
+    this.add.emit();
+  }
+  onEdit(id: any) {
+    this.edit.emit(id);
+  }
+  onDelete(id: any) {
+    this.delete.emit(id);
+  }
+  exportAsExcel() {
+    this.exportExcel.emit();
+  }
+  confirmBulkDelete() {
+    this.bulkDelete.emit(this.selection.selected);
+    this.selection.clear();
+  }
+  openDialog(id: any) {
+    this.openDialogDetails.emit(id);
+  }
 
   // selection helpers
   toggleAll() {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {
-      (this.tableData || []).forEach(row => this.selection.select(row));
+      (this.tableData || []).forEach((row) => this.selection.select(row));
     }
   }
 
@@ -210,7 +222,7 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,
   masterToggle() {
     this.isAllSelected() ? this.selection.clear() : (this.tableData || []).forEach((row) => this.selection.select(row));
   }
-  getValue(obj:any,path:string){
+  getValue(obj: any, path: string) {
     return obj[path];
   }
 
@@ -220,6 +232,8 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnChanges,
         return 'status-booked';
       case 'cancelled':
         return 'status-cancelled';
+      case 'completed':
+        return 'status-completed';
       default:
         return '';
     }

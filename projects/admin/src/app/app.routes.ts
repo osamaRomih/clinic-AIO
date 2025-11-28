@@ -20,6 +20,7 @@ import { AddPatientComponent } from './modules/patients/add-patient/add-patient.
 import { UpdatePatientComponent } from './modules/patients/update-patient/update-patient.component';
 import { PatientDetailsComponent } from './modules/patients/patient-details/patient-details.component';
 import { DetailsPrescriptionComponent } from './modules/prescriptions/details-prescription/details-prescription.component';
+import { AppointmentDetailsComponent } from './modules/appointments/appointment-details/appointment-details.component';
 
 export const routes: Routes = [
   {
@@ -48,6 +49,7 @@ export const routes: Routes = [
           { path: 'calendar', component: AppointmentCalenderComponent },
           { path: 'add', component: AddAppointmentComponent },
           { path: 'edit/:id', component: UpdateAppointmentComponent },
+          { path: 'details/:id', component: AppointmentDetailsComponent },
         ],
       },
       {

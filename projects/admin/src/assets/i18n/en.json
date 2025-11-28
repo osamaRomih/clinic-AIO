@@ -221,5 +221,28 @@
     "EDIT_PRESCRIPTION": "Edit Prescription",
     "PRINT_PRESCRIPTION": "Print Prescription",
     "DELETE_PRESCRIPTION": "Delete Prescription"
+  },
+  "APPOINTMENT_DETAILS": {
+    "TITLE": "Appointment Details",
+    "DATE": "Date",
+    "TIME": "Time Slot",
+    "STATUS": "Status",
+    "TYPE": "Visit Type",
+    "REASON": "Reason for Visit",
+
+    "PATIENT_INFO_TITLE": "Patient Information",
+    "PATIENT_ID": "Patient ID:",
+    "VIEW_PROFILE": "View Full Profile",
+
+    "DOCTOR_INFO_TITLE": "Doctor Information",
+    "SPECIALIZATION": "Specialization",
+
+    "ACTION_TITLE": "Actions",
+    "CANCEL_APPOINTMENT": "Cancel Appointment",
+    "RESCHEDULE": "Reschedule Appointment",
+    "COMPLETE_VISIT": "Mark as Complete",
+
+    "MEDICAL_HISTORY_SUMMARY": "Medical History Summary",
+    "NO_HISTORY": "No relevant medical history found for this visit."
   }
 }

@@ -225,5 +225,28 @@
     "EDIT_PRESCRIPTION": "تعديل الوصفة",
     "PRINT_PRESCRIPTION": "طباعة الوصفة",
     "DELETE_PRESCRIPTION": "حذف الوصفة"
+  },
+  "APPOINTMENT_DETAILS": {
+    "TITLE": "تفاصيل الموعد",
+    "DATE": "التاريخ",
+    "TIME": "وقت الموعد",
+    "STATUS": "الحالة",
+    "TYPE": "نوع الزيارة",
+    "REASON": "سبب الزيارة",
+
+    "PATIENT_INFO_TITLE": "معلومات المريض",
+    "PATIENT_ID": "رقم المريض:",
+    "VIEW_PROFILE": "عرض الملف الكامل",
+
+    "DOCTOR_INFO_TITLE": "معلومات الطبيب",
+    "SPECIALIZATION": "التخصص",
+
+    "ACTION_TITLE": "الإجراءات",
+    "CANCEL_APPOINTMENT": "إلغاء الموعد",
+    "RESCHEDULE": "إعادة جدولة الموعد",
+    "COMPLETE_VISIT": "وضع علامة كمكتمل",
+
+    "MEDICAL_HISTORY_SUMMARY": "ملخص التاريخ الطبي",
+    "NO_HISTORY": "لم يتم العثور على تاريخ طبي ذي صلة لهذه الزيارة."
   }
 }

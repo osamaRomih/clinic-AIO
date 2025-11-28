@@ -2,13 +2,12 @@ import { inject, OnDestroy, Pipe, PipeTransform } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import moment from 'moment';
 import { Subscription } from 'rxjs';
-import 'moment/locale/ar';
 
 @Pipe({
   name: 'timeAgo',
   standalone: true,
 })
-export class TimeAgoPipe implements PipeTransform , OnDestroy {
+export class TimeAgoPipe implements PipeTransform, OnDestroy {
   private translateService = inject(TranslateService);
   private langChangeSubscription: Subscription;
 

@@ -1,67 +1,119 @@
-<mat-card class="appt-card shadow-sm">
-  <mat-card-header>
-    <div class="d-flex justify-content-between w-100 align-items-center">
-      <div class="d-flex align-items-center gap-2">
-        <mat-icon>calendar_today</mat-icon>
-        <span class="header-text">Appointment Details</span>
-      </div>
-      <button mat-icon-button (click)="closeDialog()">
-      <mat-icon>close</mat-icon>
+<div class="page-wrapper">
+
+  <div class="d-flex align-items-center gap-2 mb-4">
+    <button mat-icon-button color="primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
     </button>
-    </div>
-    
-  </mat-card-header>
-  <div class="d-flex justify-content-between align-items-start appt-card-header">
     <div>
-      <div class="appt-date">{{ appointment.date | date:'dddd, MMM d, yyyy'}}</div>
-      <div class="appt-time text-muted">{{ appointment.startTime | timeShort }} - {{ appointment.endTime | timeShort }}
-      </div>
-    </div>
-
-    <div class="text-end">
-      <!-- <mat-chip class="status-chip" [ngClass]="statusClass(appointment.status)"> -->
-      {{ appointment.status }}
-      <!-- </mat-chip> -->
+      <h4 class="h4 fw-bold m-0">
+        {{ 'APPOINTMENT_DETAILS.TITLE' | translate }}
+      </h4>
     </div>
   </div>
 
-  <mat-divider></mat-divider>
+  <div class="row">
 
-  <div class="p-3">
-    <h6 class="text-primary fs-4">Patient Information</h6>
-    <div class="d-flex flex-column gap-2">
-      <div class="d-flex justify-content-between">
-      <small class="text-muted fs-5">Name:</small>
-      <strong class="fs-6">{{ appointment.patientName }}</strong>
+    <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+
+      <mat-card appearance="outlined">
+        <mat-card-header class="border-bottom pb-3 mb-3">
+          <mat-card-title>
+            <h2 class="h5 fw-semibold m-0">{{ 'APPOINTMENT_DETAILS.TITLE' | translate }}</h2>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="p-4">
+
+          <div class="row mb-4">
+
+            <div class="col-12 col-md-6 mb-3">
+              <span class="text-sm fw-medium text-muted d-block">{{ 'APPOINTMENT_DETAILS.DATE' | translate }}</span>
+              <span class="fw-medium h6">{{ appointment.date }}</span>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
+              <span class="text-sm fw-medium text-muted d-block">{{ 'APPOINTMENT_DETAILS.TIME' | translate }}</span>
+              <span class="fw-medium h6">{{ appointment.startTime|timeShort }} - {{ appointment.endTime|timeShort
+                }}</span>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
+              <span class="text-sm fw-medium text-muted d-block">{{ 'APPOINTMENT_DETAILS.STATUS' | translate }}</span>
+              <span class="fw-medium h6 text-success">{{ appointment.status }}</span>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
+              <span class="text-sm fw-medium text-muted d-block">{{ 'APPOINTMENT_DETAILS.TYPE' | translate }}</span>
+              <span class="fw-medium h6">{{ appointment.visitType }}</span>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <!-- Reason for Visit -->
+          <h3 class="mt-4 fw-medium mb-2 h6">{{ 'APPOINTMENT_DETAILS.REASON' | translate }}</h3>
+          <p class="text-muted text-base fst-italic">{{ appointment.reasonForVisit }}</p>
+
+        </mat-card-content>
+      </mat-card>
     </div>
-    <div class="d-flex justify-content-between">
-      <small class="text-muted fs-5">Phone:</small>
-      <div class="fs-6">{{ appointment.patientPhoneNumber || 'No phone number' }}</div>
-    </div>
 
-    <div class="d-flex justify-content-between">
-      <small class="text-muted fs-5">Patient ID:</small>
-      <div class="fs-6">{{ appointment.patientId }}</div>
-    </div>
-    </div>
+    <div class="col-12 col-lg-4 d-grid gap-4">
 
-    <mat-divider class="my-2"></mat-divider>
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <h2 class="h6 fw-semibold mb-3">{{ 'APPOINTMENT_DETAILS.PATIENT_INFO_TITLE' | translate }}</h2>
+          <div class="d-flex my-3 align-items-center">
+            <img width="60" height="60" class="rounded-circle border border-primary"
+              [src]="'http://localhost:5069'+appointment.patient.imageUrl" alt="Patient image" />
+            <div class="mx-3">
+              <div class="fw-medium text-base">{{appointment.patient.fullName}}</div>
+              <div class="text-muted text-sm">{{ 'APPOINTMENT_DETAILS.PATIENT_ID' | translate }}
+                {{appointment.patient.id}}</div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="mt-3">
+            <div class="mb-2 d-flex align-items-center text-muted text-sm">
+              <mat-icon class="me-2 text-primary">calendar_today</mat-icon>
+              <span>{{appointment.patient.dateOfBirth}}</span>
+            </div>
+            <div class="mb-2 d-flex align-items-center text-muted text-sm">
+              <mat-icon class="me-2 text-primary">phone</mat-icon>
+              <span>{{appointment.patient.phoneNumber}}</span>
+            </div>
+            <div class="mb-2 d-flex align-items-center text-muted text-sm">
+              <mat-icon class="me-2 text-primary">location_on</mat-icon>
+              <span>{{appointment.patient.address}}</span>
+            </div>
+          </div>
+          <button mat-raised-button color="primary" class="mt-3 w-100" (click)="viewPatientProfile()">
+            {{ 'APPOINTMENT_DETAILS.VIEW_PROFILE' | translate }}
+          </button>
+        </mat-card-content>
+      </mat-card>
 
-    <h6 class="text-primary fs-5">Visit Details</h6>
-    <div class="d-flex justify-content-between">
-      <small class="text-muted fs-5">Visit Type:</small>
-      <div class="fs-6">{{ appointment.visitType || '—' }}</div>
-    </div>
+      <!-- Actions Card -->
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <h5 class="h6 fw-semibold mb-3 text-center">{{ 'APPOINTMENT_DETAILS.ACTION_TITLE' | translate }}</h5>
 
-    <div class="reason-box mt-2 mb-3">
-      <small class="text-muted fs-5">Reason for Visit:</small>
-      <div class="reason-text">{{ appointment.reasonForVisit || '—' }}</div>
-    </div>
+          <button mat-raised-button color="warn" class="w-100 mb-2" (click)="cancelAppointment()">
+            <mat-icon class="me-2">event_busy</mat-icon>
+            {{ 'APPOINTMENT_DETAILS.CANCEL_APPOINTMENT' | translate }}
+          </button>
 
-    <mat-divider></mat-divider>
+          <button mat-raised-button color="accent" class="w-100 mb-2" (click)="rescheduleAppointment()">
+            <mat-icon class="me-2">schedule</mat-icon>
+            {{ 'APPOINTMENT_DETAILS.RESCHEDULE' | translate }}
+          </button>
 
-    <div class="d-flex justify-content-between align-items-center mt-3">
-      <small class="meta-text">Appt ID: {{ appointment.id }} | Slot ID: {{ appointment.timeSlotId }}</small>
+          <button mat-flat-button color="primary" class="w-100" (click)="completeVisit()">
+            <mat-icon class="me-2">check_circle_outline</mat-icon>
+            {{ 'APPOINTMENT_DETAILS.COMPLETE_VISIT' | translate }}
+          </button>
+
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
-</mat-card>
+</div>

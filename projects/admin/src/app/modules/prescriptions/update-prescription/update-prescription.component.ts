@@ -10,7 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { CommonModule, FormatWidth } from '@angular/common';
-import { IPatientActiveRead, IPatientRead, IPrescription, PatientService, PrescriptionService, SnackbarService } from 'DAL';
+import { IPatientActiveRead, IPatientRead, IPrescription, IPrescriptionDetails, PatientService, PrescriptionService, SnackbarService } from 'DAL';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
@@ -33,7 +33,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatLabel,
     MatButton,
-    MatSelectModule
+    MatSelectModule,
   ],
   templateUrl: './update-prescription.component.html',
   styleUrl: './update-prescription.component.scss',
@@ -45,14 +45,14 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
   private snackbarService = inject(SnackbarService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private prescriptionService = inject(PrescriptionService)
+  private prescriptionService = inject(PrescriptionService);
   private patientService = inject(PatientService);
   private fb = inject(FormBuilder);
-  
+
   prescriptionForm!: FormGroup;
   medicationForm!: FormGroup;
   id!: number;
-  prescription!: IPrescription;
+  prescription!: IPrescriptionDetails;
   patients: IPatientActiveRead[] = [];
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.prescriptionForm = this.fb.group({
-      patientId: [this.prescription?.patientId || '', Validators.required],
+      patientId: [this.prescription?.patient.id || '', Validators.required],
       date: [new Date(this.prescription?.date) || '', Validators.required],
       age: [this.prescription?.age || '', Validators.required],
       diagnosis: [this.prescription?.diagnosis || '', Validators.required],
