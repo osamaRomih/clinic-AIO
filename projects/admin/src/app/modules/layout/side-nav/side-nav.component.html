@@ -1,9 +1,6 @@
 <div class="sidenav-header">
-  <img
-    [src]="'http://localhost:5069/'+this.authService.user()?.imageUrl"
-    [width]="profilePicSize()"
-    [height]="profilePicSize()"
-  />
+  <img [src]="'http://localhost:5069/'+this.authService.user()?.imageUrl" [width]="profilePicSize()"
+    [height]="profilePicSize()" />
   <div class="header-text" [class.hide-header-text]="sidenavCollapsed()">
     <h2>Clinic</h2>
     <p>{{authService.user()?.fullName}}</p>
@@ -11,6 +8,6 @@
 </div>
 <mat-nav-list>
   @for (item of menuItems; track item.lable) {
-    <lib-menu-item [item]="item" [collapsed]="sidenavCollapsed()" />
+  <app-menu-item [item]="item" [collapsed]="sidenavCollapsed()" />
   }
 </mat-nav-list>

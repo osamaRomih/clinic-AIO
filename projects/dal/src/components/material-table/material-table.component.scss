@@ -41,7 +41,7 @@
 .search-icon {
   position: absolute;
   top: 10px;
-  padding-left: 4px;
+  margin: 0 7px;
   color: var(--sys-on-surface-variant) !important;
 }
 
@@ -52,9 +52,10 @@
   border-radius: 5px;
   border: 0;
   height: 45px;
-  padding: 8px 8px 8px 50px;
+  padding: 8px 50px;
   width: 100%;
   background: var(--sys-surface-container-low);
+  outline: none;
 }
 
 /* download button */

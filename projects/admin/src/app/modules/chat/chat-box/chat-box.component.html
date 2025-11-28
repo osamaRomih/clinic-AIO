@@ -1,112 +1,124 @@
 <div class="p-1">
   @if(chatService.currentOpenedChat()){
-<div class="card chat-card">
-  <div class="chat-header d-flex gap-2">
-    <div class="d-flex flex-column justify-content-start">
-      <img [src]="'http://localhost:5069'+chatService.currentOpenedChat()?.imageUrl " class="p-img" />
-    </div>
-    <div class="chat-about">
-      <div class="chat-with">{{chatService.currentOpenedChat()?.fullName}}</div>
-      <div class="chat-num-msg">
-        {{chatService.currentOpenedChat()?.phoneNumber}}
+  <div class="card chat-card">
+    <div class="chat-header d-flex gap-2">
+      <div class="d-flex flex-column justify-content-start">
+        <img [src]="'http://localhost:5069'+chatService.currentOpenedChat()?.imageUrl " class="p-img" />
+      </div>
+      <div class="chat-about">
+        <div class="chat-with">{{chatService.currentOpenedChat()?.fullName}}</div>
+        <div class="chat-num-msg">
+          {{chatService.currentOpenedChat()?.phoneNumber}}
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="p-1">
-    <div class="chat-content overflow-y-auto p-3 d-flex flex-column gap-3" #chatBox>
-      @if(chatService.chatMessages().length ==0 && chatService.isLoading()){
-      <div class="d-flex justify-content-center">
-        <mat-spinner diameter="20" strokeWidth="3" color="primary"></mat-spinner>
-      </div>
-      }
-      @if (!chatService.isLoading() && chatService.chatMessages().length == 0 && chatService.currentOpenedChat()) {
-      <div class="empty-state text-center py-5">
-        <p>{{ 'CHAT.NO_MESSAGES_YET' | translate }}</p>
-        <small>{{ 'CHAT.START_CONVERSATION' | translate }}</small>
-      </div>
-      }
+    <div class="p-1">
+      <div class="chat-content overflow-y-auto p-3 d-flex flex-column gap-3" #chatBox>
+        @if(chatService.chatMessages().length ==0 && chatService.isLoading()){
+        <div class="d-flex justify-content-center">
+          <mat-spinner diameter="20" strokeWidth="3" color="primary"></mat-spinner>
+        </div>
+        }
+        @if (!chatService.isLoading() && chatService.chatMessages().length == 0 && chatService.currentOpenedChat()) {
+        <div class="empty-state text-center py-5">
+          <p>{{ 'CHAT.NO_MESSAGES_YET' | translate }}</p>
+          <small>{{ 'CHAT.START_CONVERSATION' | translate }}</small>
+        </div>
+        }
 
-      @if(chatService.totalPages() > pageNumber && chatService.chatMessages().length > 5){
-      <div class="text-center py-1 w-100">
-        <button class="btn btn-primary load-more-btn" (click)="loadMoreMessages()">
-          <div class="d-flex align-items-center gap-2">
-            @if(chatService.isLoading()){
-            <mat-spinner diameter="20" strokeWidth="3" color="primary"></mat-spinner>
+        @if(chatService.totalPages() > pageNumber && chatService.chatMessages().length > 5){
+        <div class="text-center py-1 w-100">
+          <button class="btn btn-primary load-more-btn" (click)="loadMoreMessages()">
+            <div class="d-flex align-items-center gap-2">
+              @if(chatService.isLoading()){
+              <mat-spinner diameter="20" strokeWidth="3" color="primary"></mat-spinner>
+              }
+              {{ 'CHAT.LOAD_MORE' | translate }}
+            </div>
+          </button>
+        </div>
+        }
+
+        @for (item of chatService.chatMessages(); track $index) {
+        @if(item.senderId!=authService.user()?.id){
+        <div class="msg-item d-flex align-items-start min-w-64 gap-2">
+          <div class="d-flex flex-column justify-content-start">
+            <img [src]="'http://localhost:5069/'+chatService.currentOpenedChat()?.imageUrl"
+              [alt]="chatService.currentOpenedChat()?.fullName" class="p-img" />
+          </div>
+          <div class="msg received">
+            <div class="msg-content">
+              <div class="mb-1 fw-semibold">{{item.content}}</div>
+              <div>{{item.createdDate | date:'LLL'}}</div>
+
+            </div>
+          </div>
+        </div>
+        }@else {
+        <div class="msg-item d-flex align-items-start flex-row-reverse justify-content-start w-100 gap-2 min-w-64 ">
+          <div class="d-flex flex-column justify-content-end">
+            <img [src]="'http://localhost:5069/'+authService.user()?.imageUrl" class="p-img" />
+          </div>
+          <div class="d-flex align-items-center">
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon color="warn">delete</mat-icon>
+                  <span (click)="deleteMessage(item)">{{ 'CHAT.DELETE_MESSAGE' | translate }}</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon color="accent">edit</mat-icon>
+                  <span (click)="updateMessage(item)">{{ 'CHAT.EDIT_MESSAGE' | translate }}</span>
+                </button>
+              </mat-menu>
+            </div>
+            <div class="msg sent">
+              <div class="msg-content">
+                <div class="mb-1 fw-semibold d-flex flex-row-reverse">{{item.content}}</div>
+                <div>{{item.createdDate | date:'LLL'}}</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        }
+        }
+
+      </div>
+    </div>
+
+    <div class="send-msg p-3">
+      <div class="d-flex gap-3">
+        <!-- <form> -->
+        <mat-form-field class="w-100">
+          <mat-label>{{ 'CHAT.MESSAGE_LABEL' | translate }}</mat-label>
+          <input matInput type="text" placeholder="{{ 'CHAT.MESSAGE_PLACEHOLDER' | translate }}"
+            [(ngModel)]="messageContent" (keyup)="onTyping()" (keydown.enter)="sendMessage()" />
+        </mat-form-field>
+        <div class="d-flex align-items-center">
+          <button mat-mini-fab color="primary" class="d-flex align-items-center" type="button" (click)="sendMessage()"
+            [disabled]="messageContent==null || messageContent==''">
+            @if(translateService.getCurrentLang()==='ar'){
+            <mat-icon>arrow_back</mat-icon>
+            }@else {
+            <mat-icon>arrow_forward</mat-icon>
             }
-            {{ 'CHAT.LOAD_MORE' | translate }}
-          </div>
-        </button>
+          </button>
+        </div>
+        <!-- </form> -->
       </div>
-      }
-
-      @for (item of chatService.chatMessages(); track $index) {
-      @if(item.senderId!=authService.user()?.id){
-      <div class="msg-item d-flex align-items-start min-w-64 gap-2">
-        <div class="d-flex flex-column justify-content-start">
-          <img [src]="'http://localhost:5069/'+chatService.currentOpenedChat()?.imageUrl"
-            [alt]="chatService.currentOpenedChat()?.fullName" class="p-img" />
-        </div>
-        <div class="msg received">
-          <div class="msg-content"> 
-            <div class="mb-1 fw-semibold">{{item.content}}</div>
-            <div>{{item.createdDate | date:'LLL'}}</div>
-            
-          </div>
-        </div>
-      </div>
-      }@else {
-      <div class="msg-item d-flex align-items-start flex-row-reverse justify-content-start w-100 gap-2 min-w-64 ">
-        <div class="d-flex flex-column justify-content-end">
-          <img [src]="'http://localhost:5069/'+authService.user()?.imageUrl" class="p-img" />
-        </div>
-        <div class="msg sent">
-          <div class="msg-content"> 
-            <div class="mb-1 fw-semibold d-flex flex-row-reverse">{{item.content}}</div>
-            <div>{{item.createdDate | date:'LLL'}}</div>
-            <button mat-icon-button (click)="deleteMessage(item)">
-              <mat-icon>delete</mat-icon>
-            </button>
-            <button mat-icon-button (click)="updateMessage(item)">
-              <mat-icon>edit</mat-icon>
-            </button>
-          </div>
-        </div>
-      </div>
-      }
-      }
-
     </div>
   </div>
-
-  <div class="send-msg p-3">
-    <div class="d-flex gap-3">
-      <!-- <form> -->
-      <mat-form-field class="w-100">
-        <mat-label>{{ 'CHAT.MESSAGE_LABEL' | translate }}</mat-label>
-        <input matInput type="text" placeholder="{{ 'CHAT.MESSAGE_PLACEHOLDER' | translate }}" [(ngModel)]="messageContent"
-          (keyup)="onTyping()" (keydown.enter)="sendMessage()" />
-      </mat-form-field>
-      <div class="d-flex align-items-center">
-        <button mat-mini-fab color="primary" class="d-flex align-items-center" type="button" (click)="sendMessage()"
-          [disabled]="messageContent==null || messageContent==''">
-          @if(translateService.getCurrentLang()==='ar'){
-          <mat-icon>arrow_back</mat-icon>
-          }@else {
-          <mat-icon>arrow_forward</mat-icon>
-          }
-        </button>
-      </div>
-      <!-- </form> -->
+  }@else {
+  <div class="card chat-card empty-card d-flex align-items-center justify-content-center" style="min-height: 400px;">
+    <div class="text-center empty-content">
+      <img src="/assets/images/empty-chat.jpg" alt="Select chat" width="120" class="mb-3" />
+      <p class="fw-medium">{{ 'CHAT.EMPTY_SELECT' | translate }}</p>
     </div>
   </div>
-</div>
-}@else {
-<div class="card chat-card empty-card d-flex align-items-center justify-content-center" style="min-height: 400px;">
-  <div class="text-center empty-content">
-    <img src="/assets/images/empty-chat.jpg" alt="Select chat" width="120" class="mb-3" />
-    <p class="fw-medium">{{ 'CHAT.EMPTY_SELECT' | translate }}</p>
-  </div>
-</div>
-}
+  }
 </div>

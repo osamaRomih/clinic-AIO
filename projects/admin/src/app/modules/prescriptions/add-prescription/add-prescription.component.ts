@@ -67,6 +67,7 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy {
       age: [null, [Validators.required, Validators.min(0), Validators.max(120)]],
       diagnosis: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(1000)]],
       notes: ['', [Validators.maxLength(2000)]],
+      nextVisit: [null, [Validators.required]],
       medications: this.fb.array([], [this.minArrayLength(1)]),
     });
   }
@@ -100,9 +101,8 @@ export class AddPrescriptionComponent implements OnInit, OnDestroy {
   }
 
   // Remove medication row
-  removeMedication(index:number): void {
+  removeMedication(index: number): void {
     this.medications.removeAt(index);
-
   }
 
   onSubmit() {

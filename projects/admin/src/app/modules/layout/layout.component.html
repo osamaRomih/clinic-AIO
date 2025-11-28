@@ -1,9 +1,10 @@
-<lib-header (onCollapsed)="toggleCollapsed()" />
+<app-header (onCollapsed)="toggleCollapsed()" />
 <mat-sidenav-container>
   <mat-sidenav opened mode="side" position="start" [style.width]="sidenavWidth()">
-    <lib-side-nav [collapsed]="collapsed()" [menuItems]="menuItems()" />
+    <app-side-nav [collapsed]="collapsed()" [menuItems]="menuItems()" />
   </mat-sidenav>
-  <mat-sidenav-content [style.margin-inline-start]="sidenavWidth()" [style.margin-inline-end]="'0px'">
+  <mat-sidenav-content [style.margin-left]="!isRtl() ? sidenavWidth() : '0px'"
+    [style.margin-right]="isRtl() ? sidenavWidth() : '0px'">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

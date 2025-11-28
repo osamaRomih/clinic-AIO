@@ -148,7 +148,9 @@
     "LOAD_MORE": "Load more",
     "MESSAGE_LABEL": "Message",
     "MESSAGE_PLACEHOLDER": "Write your message...",
-    "EMPTY_SELECT": "Select a conversation to start chatting 💬"
+    "EMPTY_SELECT": "Select a conversation to start chatting 💬",
+    "DELETE_MESSAGE": "Delete",
+    "EDIT_MESSAGE": "Edit"
   },
   "USER_STATUS": {
     "ONLINE": "Online",
@@ -220,7 +222,8 @@
     "ACTIONS_TITLE": "Actions",
     "EDIT_PRESCRIPTION": "Edit Prescription",
     "PRINT_PRESCRIPTION": "Print Prescription",
-    "DELETE_PRESCRIPTION": "Delete Prescription"
+    "DELETE_PRESCRIPTION": "Delete Prescription",
+    "NEXT_VISIT": "Next Visit"
   },
   "APPOINTMENT_DETAILS": {
     "TITLE": "Appointment Details",

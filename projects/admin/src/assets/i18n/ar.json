@@ -152,7 +152,9 @@
     "LOAD_MORE": "تحميل المزيد",
     "MESSAGE_LABEL": "رسالة",
     "MESSAGE_PLACEHOLDER": "اكتب رسالتك...",
-    "EMPTY_SELECT": "اختر محادثة لبدء الدردشة 💬"
+    "EMPTY_SELECT": "اختر محادثة لبدء الدردشة 💬",
+    "DELETE_MESSAGE": "حذف",
+    "EDIT_MESSAGE": "تعديل"
   },
   "USER_STATUS": {
     "ONLINE": "متصل",
@@ -224,7 +226,8 @@
     "ACTIONS_TITLE": "الإجراءات",
     "EDIT_PRESCRIPTION": "تعديل الوصفة",
     "PRINT_PRESCRIPTION": "طباعة الوصفة",
-    "DELETE_PRESCRIPTION": "حذف الوصفة"
+    "DELETE_PRESCRIPTION": "حذف الوصفة",
+    "NEXT_VISIT": "الزيارة القادمة"
   },
   "APPOINTMENT_DETAILS": {
     "TITLE": "تفاصيل الموعد",

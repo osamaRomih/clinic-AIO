@@ -91,15 +91,15 @@
             }@else if(tableColumn.dataKey=='isBooked'){
             <ng-container>
               <div
-                [ngClass]="element.isBooked ? 'badge rounded-pill bg-danger text-white p-2' : 'badge rounded-pill bg-primary text-white p-2'">
+                [ngClass]="element.isBooked ? 'badge rounded-pill bg-success text-white p-2' : 'badge rounded-pill bg-primary text-white p-2'">
                 {{ element.isBooked ? 'Booked' : 'Not Booked' }}
               </div>
             </ng-container>
             }@else if(tableColumn.dataKey=='isDeleted'){
             <ng-container>
               <div
-                [ngClass]="element.isDeleted ? 'badge rounded-pill bg-danger text-white p-2' : 'badge rounded-pill bg-success text-white p-2'">
-                {{ element.isDeleted ? 'Deleted' : 'Active' }}
+                [ngClass]="element.isDeleted ? 'badge rounded-pill bg-danger text-white p-2' : 'badge rounded-pill bg-primary text-white p-2'">
+                {{ element.isDeleted ? 'Deleted' : 'Not Deleted' }}
               </div>
             </ng-container>
             }@else {

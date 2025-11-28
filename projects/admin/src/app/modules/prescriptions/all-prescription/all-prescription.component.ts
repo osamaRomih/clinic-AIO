@@ -112,6 +112,16 @@ export class AllPrescriptionComponent implements OnInit {
         isSortable: true,
       },
       {
+        name: 'Date',
+        dataKey: 'date',
+        isSortable: true,
+      },
+      {
+        name: 'Next Visit',
+        dataKey: 'nextVisit',
+        isSortable: true,
+      },
+      {
         name: 'Diagnosis',
         dataKey: 'diagnosis',
         isSortable: true,

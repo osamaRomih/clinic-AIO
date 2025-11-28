@@ -10,7 +10,16 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { CommonModule, FormatWidth } from '@angular/common';
-import { IPatientActiveRead, IPatientRead, IPrescription, IPrescriptionDetails, PatientService, PrescriptionService, SnackbarService } from 'DAL';
+import {
+  FieldErrorDirective,
+  IPatientActiveRead,
+  IPatientRead,
+  IPrescription,
+  IPrescriptionDetails,
+  PatientService,
+  PrescriptionService,
+  SnackbarService,
+} from 'DAL';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
@@ -34,6 +43,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatLabel,
     MatButton,
     MatSelectModule,
+    FieldErrorDirective,
   ],
   templateUrl: './update-prescription.component.html',
   styleUrl: './update-prescription.component.scss',
@@ -72,6 +82,7 @@ export class UpdatePrescriptionComponent implements OnInit, OnDestroy {
       age: [this.prescription?.age || '', Validators.required],
       diagnosis: [this.prescription?.diagnosis || '', Validators.required],
       notes: [this.prescription?.notes || ''],
+      nextVisit: [this.prescription?.nextVisit || '', Validators.required],
       items: this.fb.array([]),
     });
   }

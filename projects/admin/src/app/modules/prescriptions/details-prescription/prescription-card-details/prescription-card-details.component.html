@@ -23,7 +23,7 @@
           <div class="fw-medium">Dr. Anas Awaad</div>
         </div>
       </div>
-      <div class="row">
+      <div class="row mb-3">
         <div class="col-12 col-md-6">
           <div class="text-sm fw-medium text-muted">{{ 'PRESCRIPTION_DETAILS.ISSUE_DATE' | translate }}</div>
           <div class="fw-medium">{{prescription.date}}</div>
@@ -31,6 +31,12 @@
         <div class="col-12 col-md-6">
           <div class="text-sm fw-medium text-muted">{{ 'PRESCRIPTION_DETAILS.DIAGNOSIS' | translate }}</div>
           <div class="fw-medium">{{prescription.diagnosis}}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <div class="text-sm fw-medium text-muted">{{ 'PRESCRIPTION_DETAILS.NEXT_VISIT' | translate }}</div>
+          <div class="fw-medium">{{prescription.nextVisit}}</div>
         </div>
       </div>
     </div>

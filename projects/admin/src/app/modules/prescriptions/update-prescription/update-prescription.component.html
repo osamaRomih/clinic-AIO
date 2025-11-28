@@ -20,9 +20,7 @@
             <input matInput formControlName="date" [matDatepicker]="datePicker">
             <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle>
             <mat-datepicker #datePicker></mat-datepicker>
-            @if(prescriptionForm.get('date')?.hasError('required')){
-            <mat-error>Date is required</mat-error>
-            }
+            <mat-error libFieldError></mat-error>
           </mat-form-field>
         </div>
         <div class="mb-3 col-md-6 col-lg-4 col-12">
@@ -48,12 +46,9 @@
         </div>
         <div class="mb-3 col-md-6 col-lg-4 col-12">
           <mat-form-field appearance="outline" class="w-100">
-
             <mat-label>Age</mat-label>
             <input formControlName="age" matInput placeholder="Patient age">
-            @if(prescriptionForm.get('age')?.hasError('required')){
-            <mat-error>Age is required</mat-error>
-            }
+            <mat-error libFieldError></mat-error>
           </mat-form-field>
         </div>
 
@@ -64,9 +59,14 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Diagnosis</mat-label>
             <input formControlName="diagnosis" matInput placeholder="Patient diagnosis">
-            @if(prescriptionForm.get('diagnosis')?.hasError('required')){
-            <mat-error>Diagnosis is required</mat-error>
-            }
+            <mat-error libFieldError></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="mb-3 col-md-6 col-lg-4 col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Next Visit</mat-label>
+            <input formControlName="nextVisit" matInput placeholder="Next Visit">
+            <mat-error libFieldError></mat-error>
           </mat-form-field>
         </div>
       </div>

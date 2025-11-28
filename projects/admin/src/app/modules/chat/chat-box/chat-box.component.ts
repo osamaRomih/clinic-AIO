@@ -3,24 +3,36 @@ import { AfterViewChecked, Component, ElementRef, inject, NgModule, ViewChild } 
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinner, ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { AuthService, ChatService, DatePipe, DialogService, IMessage, LanguageService, TimeShortPipe } from 'DAL';
-import { MatButton, MatButtonModule } from "@angular/material/button";
+import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-chat-box',
   standalone: true,
-  imports: [MatProgressSpinner, FormsModule, MatButtonModule,MatIcon,MatLabel,MatFormFieldModule,MatInputModule,TranslatePipe,DatePipe],
+  imports: [
+    MatProgressSpinner,
+    FormsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIcon,
+    MatLabel,
+    MatFormFieldModule,
+    MatInputModule,
+    TranslatePipe,
+    DatePipe,
+  ],
   templateUrl: './chat-box.component.html',
-  styleUrl: './chat-box.component.scss'
+  styleUrl: './chat-box.component.scss',
 })
 export class ChatBoxComponent implements AfterViewChecked {
-  message:IMessage | null = null;
-  messageContent?:string;
+  message: IMessage | null = null;
+  messageContent?: string;
   pageNumber = 1;
-  @ViewChild('chatBox') public chatBox?:ElementRef
+  @ViewChild('chatBox') public chatBox?: ElementRef;
 
   protected chatService = inject(ChatService);
   protected authService = inject(AuthService);
@@ -28,62 +40,57 @@ export class ChatBoxComponent implements AfterViewChecked {
   private confirmDialog = inject(DialogService);
 
   ngAfterViewChecked(): void {
-    if(this.chatService.autoScrollEnabled()){
+    if (this.chatService.autoScrollEnabled()) {
       this.scrollToBottom();
     }
   }
 
-  scrollToBottom(){
+  scrollToBottom() {
     this.chatService.autoScrollEnabled.set(true);
     this.chatBox?.nativeElement.scrollTo({
-      top:this.chatBox.nativeElement.scrollHeight,
-      behavior:'smooth'
-    })
+      top: this.chatBox.nativeElement.scrollHeight,
+      behavior: 'smooth',
+    });
   }
 
-  scrollToTop(){
+  scrollToTop() {
     this.chatService.autoScrollEnabled.set(false);
     this.chatBox?.nativeElement.scrollTo({
-      top:0,
-      behavior:'smooth'
-    })
+      top: 0,
+      behavior: 'smooth',
+    });
   }
 
-  sendMessage(){
-    if(!this.messageContent || this.messageContent?.trim() === '') return;
-    if(this.message && this.message.id){
-      this.chatService.updateMessage({...this.message,content:this.messageContent!});
+  sendMessage() {
+    if (!this.messageContent || this.messageContent?.trim() === '') return;
+    if (this.message && this.message.id) {
+      this.chatService.updateMessage({ ...this.message, content: this.messageContent! });
       this.message = null;
-    }
-    else
-      this.chatService.sendMessage(this.messageContent!);
-      
+    } else this.chatService.sendMessage(this.messageContent!);
+
     this.scrollToBottom();
     this.messageContent = '';
   }
 
-  onTyping(){
+  onTyping() {
     this.chatService.typing();
   }
 
-  loadMoreMessages(){
+  loadMoreMessages() {
     this.pageNumber++;
-    if(this.pageNumber <= this.chatService.totalPages())
-      this.chatService.loadMessages(this.pageNumber);
+    if (this.pageNumber <= this.chatService.totalPages()) this.chatService.loadMessages(this.pageNumber);
     this.scrollToTop();
-
   }
 
-  deleteMessage(item:IMessage){
-    this.confirmDialog.confirmDialog('Delete message','Are you sure that you want to delete this message?').subscribe({
-      next:(result)=>{
-        if(result)
-          this.chatService.deleteMessage(item);
-      }
-    })
+  deleteMessage(item: IMessage) {
+    this.confirmDialog.confirmDialog('Delete message', 'Are you sure that you want to delete this message?').subscribe({
+      next: (result) => {
+        if (result) this.chatService.deleteMessage(item);
+      },
+    });
   }
 
-  updateMessage(item:IMessage){
+  updateMessage(item: IMessage) {
     this.messageContent = item.content;
     this.message = item;
   }

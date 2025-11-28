@@ -4,16 +4,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { IPrescription, IPrescriptionDetails, PrescriptionService } from 'DAL';
+import { IPrescriptionDetails, PrescriptionService } from 'DAL';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatCardModule } from '@angular/material/card';
 import { Location } from '@angular/common';
-import { PrescriptionCardDetailsComponent } from '../prescription-card-details/prescription-card-details.component';
-import { PrescriptionPatientInfoComponent } from '../prescription-patient-info/prescription-patient-info.component';
-import { PrescriptionActionsComponent } from '../prescription-actions/prescription-actions.component';
 import { ActivatedRoute } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PrescriptionCardDetailsComponent } from './prescription-card-details/prescription-card-details.component';
+import { PrescriptionPatientInfoComponent } from './prescription-patient-info/prescription-patient-info.component';
+import { PrescriptionActionsComponent } from './prescription-actions/prescription-actions.component';
 
 @Component({
   selector: 'app-details-prescription',

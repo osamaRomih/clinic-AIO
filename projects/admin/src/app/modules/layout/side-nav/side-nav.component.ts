@@ -1,20 +1,15 @@
 import { Component, computed, inject, Input, signal } from '@angular/core';
-import { AuthService, MenuItem, MenuItemComponent } from '../../public-api';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
+import { AuthService, MenuItem } from 'DAL';
+import { MenuItemComponent } from '../menu-item/menu-item.component';
 
 @Component({
-  selector: 'lib-side-nav',
+  selector: 'app-side-nav',
   standalone: true,
-  imports: [
-    MatListModule,
-    CommonModule,
-    MatIconModule,
-    RouterModule,
-    MenuItemComponent,
-  ],
+  imports: [MatListModule, CommonModule, MatIconModule, RouterModule, MenuItemComponent],
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.scss',
 })
@@ -23,7 +18,7 @@ export class SideNavComponent {
 
   sidenavCollapsed = signal(false);
 
-  @Input() menuItems:MenuItem[] = [];
+  @Input() menuItems: MenuItem[] = [];
   @Input() set collapsed(val: boolean) {
     this.sidenavCollapsed.set(val);
   }

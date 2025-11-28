@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
-import { PrescriptionHistoryComponent } from "../../prescriptions/prescription-history/prescription-history.component";
+import { PrescriptionHistoryComponent } from '../../prescriptions/details-prescription/prescription-history/prescription-history.component';
 import { AppointmentHistoryComponent } from '../../appointments/appointment-history/appointment-history.component';
 import { IPatientProfileDetails, PatientService } from 'DAL';
 import { ActivatedRoute } from '@angular/router';
@@ -12,11 +12,11 @@ import { ActivatedRoute } from '@angular/router';
   standalone: true,
   imports: [MatIconModule, MatCardModule, TranslatePipe, PrescriptionHistoryComponent, AppointmentHistoryComponent],
   templateUrl: './patient-details.component.html',
-  styleUrl: './patient-details.component.scss'
+  styleUrl: './patient-details.component.scss',
 })
 export class PatientDetailsComponent implements OnInit {
-  patientId!:string;
-  patient!:IPatientProfileDetails;
+  patientId!: string;
+  patient!: IPatientProfileDetails;
 
   private patientService = inject(PatientService);
   private route = inject(ActivatedRoute);
@@ -27,11 +27,11 @@ export class PatientDetailsComponent implements OnInit {
     this.loadPatient();
   }
 
-  loadPatient(){
+  loadPatient() {
     this.patientService.getProfileDetails(this.patientId).subscribe({
-      next:(res)=>{
+      next: (res) => {
         this.patient = res;
-      }
-    })
+      },
+    });
   }
 }

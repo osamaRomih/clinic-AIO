@@ -83,7 +83,6 @@ export class AllTimeSlotsComponent {
             this.getAllTimeSlots();
           },
           error: (err) => {
-            this.snackBarService.error('Failed to toggle time slot status');
             console.error(err);
           },
         });
