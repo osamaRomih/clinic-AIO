@@ -11,6 +11,7 @@ import { DetailsPrescriptionComponent } from '../details-prescription/details-pr
 import { Sort } from '@angular/material/sort';
 import * as XLSX from 'xlsx';
 import { A11yModule } from '@angular/cdk/a11y';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 interface Customer {
   id: number;
@@ -20,7 +21,7 @@ interface Customer {
 @Component({
   selector: 'app-all-prescription',
   standalone: true,
-  imports: [MatButtonModule, MatTableModule, MatPaginatorModule, MatIconModule, MatButtonModule, MaterialTableComponent, A11yModule],
+  imports: [MatButtonModule, MatTableModule, MatPaginatorModule, MatIconModule, MatButtonModule, MaterialTableComponent, A11yModule, TranslatePipe],
   templateUrl: './all-prescription.component.html',
   styleUrl: './all-prescription.component.scss',
 })
@@ -81,48 +82,38 @@ export class AllPrescriptionComponent implements OnInit {
   }
 
   openDialogDetails(id: number) {
-    // this.prescriptionService.getById(id).subscribe({
-    //   next: (res) => {
-    //     const dialogRef = this.dialog.open(DetailsPrescriptionComponent, {
-    //       data: res,
-    //       width: '750px',
-    //     });
-
-    //     dialogRef.afterClosed().subscribe((result) => {});
-    //   },
-    // });
     this.router.navigate(['/prescriptions/details', id]);
   }
 
   initColumns(): void {
     this.prescriptionsTableColumns = [
       {
-        name: 'Id',
+        name: 'PRESCRIPTIONS_LIST.COL_ID',
         dataKey: 'id',
         isSortable: true,
       },
       {
-        name: 'Patient Name',
+        name: 'PRESCRIPTIONS_LIST.COL_PATIENT_NAME',
         dataKey: 'patientName',
         isSortable: true,
       },
       {
-        name: 'Age',
+        name: 'PRESCRIPTIONS_LIST.COL_AGE',
         dataKey: 'age',
         isSortable: true,
       },
       {
-        name: 'Date',
+        name: 'PRESCRIPTIONS_LIST.COL_DATE',
         dataKey: 'date',
         isSortable: true,
       },
       {
-        name: 'Next Visit',
+        name: 'PRESCRIPTIONS_LIST.COL_NEXT_VISIT',
         dataKey: 'nextVisit',
         isSortable: true,
       },
       {
-        name: 'Diagnosis',
+        name: 'PRESCRIPTIONS_LIST.COL_DIAGNOSIS',
         dataKey: 'diagnosis',
         isSortable: true,
       },

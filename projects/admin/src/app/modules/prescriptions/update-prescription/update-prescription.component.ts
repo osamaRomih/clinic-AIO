@@ -23,6 +23,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
+import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-update-prescription',
   standalone: true,
@@ -44,6 +45,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatButton,
     MatSelectModule,
     FieldErrorDirective,
+    TranslatePipe,
   ],
   templateUrl: './update-prescription.component.html',
   styleUrl: './update-prescription.component.scss',

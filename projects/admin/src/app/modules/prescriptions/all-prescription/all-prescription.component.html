@@ -2,18 +2,17 @@
 
   <div class="breadcrumb">
     <li>
-      <h4 class="page-title">View Prescriptions</h4>
+      <h4 class="page-title">{{ 'PRESCRIPTIONS_LIST.VIEW_PRESCRIPTIONS' | translate }}</h4>
     </li>
   </div>
 
   <div class="card-body">
-    <lib-material-table [title]="'Prescriptions'" [tableData]="prescriptions" [tableColumns]="prescriptionsTableColumns"
-      [isFilterable]="true" [isSortable]="true" [isPageable]="true" (add)="onAdd()" (edit)="onEdit($event)"
-      (delete)="onDelete($event)" [totalItems]="totalItems" [pageSize]="pageSize" [isServerSidePagination]="true"
-      (search)="onSearch($event)" (page)="onPageChange($event)" (openDialogDetails)="openDialogDetails($event)"
-      (exportExcel)="exportAsExcel()" [enableSelection]="false"></lib-material-table>
+    <lib-material-table [title]="'PRESCRIPTIONS_LIST.PRESCRIPTIONS_TITLE' | translate" [tableData]="prescriptions"
+      [tableColumns]="prescriptionsTableColumns" [isFilterable]="true" [isSortable]="true" [isPageable]="true"
+      (add)="onAdd()" (edit)="onEdit($event)" (delete)="onDelete($event)" [totalItems]="totalItems"
+      [pageSize]="pageSize" [isServerSidePagination]="true" (search)="onSearch($event)" (page)="onPageChange($event)"
+      (openDialogDetails)="openDialogDetails($event)" (exportExcel)="exportAsExcel()" [enableSelection]="false">
+    </lib-material-table>
   </div>
-
-
 
 </div>

@@ -14,6 +14,7 @@ import { FieldErrorDirective, IPatientActiveRead, IPatientRead, PatientService, 
 import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-add-prescription',
   standalone: true,
@@ -35,6 +36,7 @@ import { Router } from '@angular/router';
     MatButton,
     FieldErrorDirective,
     MatSelectModule,
+    TranslatePipe,
   ],
   templateUrl: './add-prescription.component.html',
   styleUrl: './add-prescription.component.scss',

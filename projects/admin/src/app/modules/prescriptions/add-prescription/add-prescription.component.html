@@ -2,14 +2,14 @@
 
   <div class="breadcrumb">
     <li>
-      <h4 class="page-title">Add Appointment</h4>
+      <h4 class="page-title">{{ 'PRESCRIPTION.PAGE_TITLE' | translate }}</h4>
     </li>
     <mat-icon>chevron_right</mat-icon>
     <li class="breadcrumb-item breadcrumb-icon d-flex align-items-center"><img src="/assets/images/home.svg" /></li>
     <mat-icon>chevron_right</mat-icon>
-    <li class="breadcrumb-item">Appointment</li>
+    <li class="breadcrumb-item">{{ 'PRESCRIPTION.BREADCRUMB_APPOINTMENT' | translate }}</li>
     <mat-icon>chevron_right</mat-icon>
-    <li class="breadcrumb-item active">Add</li>
+    <li class="breadcrumb-item active">{{ 'PRESCRIPTION.BREADCRUMB_ADD' | translate }}</li>
   </div>
 
 
@@ -21,14 +21,14 @@
           <mat-icon aria-hidden="false" class="icon-display" aria-label="Example home icon"
             fontIcon="person"></mat-icon>
           <h3 class="section-title d-flex align-content-center">
-            <span>Patient Information</span>
+            <span>{{ 'PRESCRIPTION.SECTION_PATIENT_INFO' | translate }}</span>
           </h3>
         </div>
 
         <div class="row">
           <div class=" col-md-6 col-lg-4 col-12">
             <mat-form-field class="w-100">
-              <mat-label>Choose a date</mat-label>
+              <mat-label>{{ 'PRESCRIPTION.FIELD_DATE' | translate }}</mat-label>
               <input matInput formControlName="date" [matDatepicker]="picker">
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
@@ -37,9 +37,9 @@
           </div>
           <div class="mb-3 col-md-6 col-lg-4 col-12">
             <mat-form-field class="w-100">
-              <mat-label>Patient</mat-label>
+              <mat-label>{{ 'PRESCRIPTION.FIELD_PATIENT' | translate }}</mat-label>
               <mat-select formControlName="patientId">
-                <mat-option value="">-- Select patient --</mat-option>
+                <mat-option value="">{{ 'PRESCRIPTION.SELECT_PATIENT_PLACEHOLDER' | translate }}</mat-option>
                 @for (patient of patients; track patient.id) {
                 <mat-option [value]="patient.id">
                   <div class="d-flex align-items-center">
@@ -58,8 +58,8 @@
           </div>
           <div class="mb-3 col-md-6 col-lg-4 col-12">
             <mat-form-field class="w-100">
-              <mat-label>Age</mat-label>
-              <input formControlName="age" matInput placeholder="Patient age">
+              <mat-label>{{ 'PRESCRIPTION.FIELD_AGE' | translate }}</mat-label>
+              <input formControlName="age" matInput [placeholder]="'PRESCRIPTION.FIELD_AGE_PLACEHOLDER' | translate">
               <mat-error libFiledError></mat-error>
             </mat-form-field>
           </div>
@@ -69,15 +69,17 @@
         <div class="row">
           <div class="mb-3 col-md-6 col-lg-4 col-12">
             <mat-form-field class="w-100">
-              <mat-label>Diagnosis</mat-label>
-              <input formControlName="diagnosis" matInput placeholder="Patient diagnosis">
+              <mat-label>{{ 'PRESCRIPTION.FIELD_DIAGNOSIS' | translate }}</mat-label>
+              <input formControlName="diagnosis" matInput
+                [placeholder]="'PRESCRIPTION.FIELD_DIAGNOSIS_PLACEHOLDER' | translate">
               <mat-error libFiledError></mat-error>
             </mat-form-field>
           </div>
           <div class="mb-3 col-md-6 col-lg-4 col-12">
             <mat-form-field class="w-100">
-              <mat-label>Next Visit</mat-label>
-              <input formControlName="nextVisit" matInput placeholder="Next Visit">
+              <mat-label>{{ 'PRESCRIPTION.FIELD_NEXT_VISIT' | translate }}</mat-label>
+              <input formControlName="nextVisit" matInput
+                [placeholder]="'PRESCRIPTION.FIELD_NEXT_VISIT_PLACEHOLDER' | translate">
               <mat-error libFiledError></mat-error>
             </mat-form-field>
           </div>
@@ -86,7 +88,7 @@
         <div class="section-heading mt-3 d-flex align-items-center gap-2 mb-3">
           <i class="fa-regular fa-clipboard"></i>
           <h3 class="section-title d-flex align-content-center">
-            Prescription Details
+            {{ 'PRESCRIPTION.SECTION_PRESCRIPTION_DETAILS' | translate }}
           </h3>
         </div>
 
@@ -95,7 +97,7 @@
             <div class="NgxEditor__Wrapper">
               <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
               <ngx-editor [editor]="editor" formControlName="notes"
-                [placeholder]="'Type here your notes...'"></ngx-editor>
+                [placeholder]="'PRESCRIPTION.FIELD_NOTES_PLACEHOLDER' | translate"></ngx-editor>
             </div>
           </div>
         </div>
@@ -103,58 +105,61 @@
         <div [formGroup]="medicationForm" class="row">
           <div class="mb-3 col-md-4 col-lg-3 col-12">
             <mat-form-field class="w-100">
-              <mat-label>Medication Name</mat-label>
-              <input formControlName="name" matInput placeholder="Medication Name">
+              <mat-label>{{ 'PRESCRIPTION.FIELD_MEDICATION_NAME' | translate }}</mat-label>
+              <input formControlName="name" matInput
+                [placeholder]="'PRESCRIPTION.FIELD_MEDICATION_NAME_PLACEHOLDER' | translate">
               <mat-error libFiledError></mat-error>
             </mat-form-field>
           </div>
           <div class="mb-3 col-md-4 col-lg-3 col-12">
             <mat-form-field class="w-100">
-              <mat-label>Dosage</mat-label>
-              <input formControlName="dosage" matInput placeholder="Dosage">
+              <mat-label>{{ 'PRESCRIPTION.FIELD_DOSAGE' | translate }}</mat-label>
+              <input formControlName="dosage" matInput
+                [placeholder]="'PRESCRIPTION.FIELD_DOSAGE_PLACEHOLDER' | translate">
               <mat-error libFiledError></mat-error>
             </mat-form-field>
           </div>
           <div class="mb-3 col-md-4 col-lg-1 col-12">
             <mat-form-field class="w-100">
-              <mat-label>Frequency</mat-label>
-              <input formControlName="frequency" matInput placeholder="Frequency">
+              <mat-label>{{ 'PRESCRIPTION.FIELD_FREQUENCY' | translate }}</mat-label>
+              <input formControlName="frequency" matInput
+                [placeholder]="'PRESCRIPTION.FIELD_FREQUENCY_PLACEHOLDER' | translate">
               <mat-error libFiledError></mat-error>
             </mat-form-field>
           </div>
           <div class="mb-3 col-md-4 col-lg-1 col-12">
             <mat-form-field class="w-100">
-              <mat-label>Days</mat-label>
-              <input formControlName="days" matInput placeholder="Days">
+              <mat-label>{{ 'PRESCRIPTION.FIELD_DAYS' | translate }}</mat-label>
+              <input formControlName="days" matInput [placeholder]="'PRESCRIPTION.FIELD_DAYS_PLACEHOLDER' | translate">
               <mat-error libFiledError></mat-error>
             </mat-form-field>
           </div>
           <div class="mb-3 col-md-4 col-lg-3 col-12">
             <mat-form-field class="w-100">
-              <mat-label>Instructions</mat-label>
-              <input formControlName="instructions" matInput placeholder="Instructions">
+              <mat-label>{{ 'PRESCRIPTION.FIELD_INSTRUCTIONS' | translate }}</mat-label>
+              <input formControlName="instructions" matInput
+                [placeholder]="'PRESCRIPTION.FIELD_INSTRUCTIONS_PLACEHOLDER' | translate">
               <mat-error libFiledError></mat-error>
             </mat-form-field>
           </div>
           <div class="col-1 h-100">
             <button mat-flat-button color="primary" type="button" [disabled]="medicationForm.invalid"
-              (click)="addToTable()">Add</button>
+              (click)="addToTable()">{{ 'PRESCRIPTION.BUTTON_ADD' | translate }}</button>
           </div>
 
         </div>
 
-        <!-- Medications Table -->
         <div class="overflow-x-auto">
           <div class=" table-responsive mt-3" *ngIf="medications.controls.length > 0">
             <table class="table mt-3 table-bordered align-middle">
               <thead class=" thead-dark">
                 <tr>
-                  <th>Medication Name</th>
-                  <th>Dosage</th>
-                  <th>Frequency</th>
-                  <th>Days</th>
-                  <th>Instructions</th>
-                  <th class="text-center ">Actions</th>
+                  <th>{{ 'PRESCRIPTION.TABLE_HEADER_MEDICATION_NAME' | translate }}</th>
+                  <th>{{ 'PRESCRIPTION.TABLE_HEADER_DOSAGE' | translate }}</th>
+                  <th>{{ 'PRESCRIPTION.TABLE_HEADER_FREQUENCY' | translate }}</th>
+                  <th>{{ 'PRESCRIPTION.TABLE_HEADER_DAYS' | translate }}</th>
+                  <th>{{ 'PRESCRIPTION.TABLE_HEADER_INSTRUCTIONS' | translate }}</th>
+                  <th class="text-center ">{{ 'PRESCRIPTION.TABLE_HEADER_ACTIONS' | translate }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -195,8 +200,9 @@
           </div>
         </div>
         <div class="my-3 d-flex justify-content-end">
-          <button mat-flat-button color="primary" [disabled]="prescriptionForm.invalid" type="submit">Submit
-            Prescription</button>
+          <button mat-flat-button color="primary" [disabled]="prescriptionForm.invalid" type="submit">{{
+            'PRESCRIPTION.BUTTON_SUBMIT' | translate }}
+          </button>
         </div>
       </form>
 
