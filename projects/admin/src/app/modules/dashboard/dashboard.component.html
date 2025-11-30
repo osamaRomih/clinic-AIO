@@ -1,1 +1,28 @@
-<p>dashboard works!</p>
+<div class="page-wrapper">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h4>Dashboard</h4>
+    <div>
+      <button mat-raised-button color="primary" [matMenuTriggerFor]="widgetMenu">
+        <mat-icon>add_circle</mat-icon>
+        Add Widget
+      </button>
+      <mat-menu #widgetMenu="matMenu">
+        @for (w of store.widgetsToAdd(); track w.id) {
+        <button mat-menu-item (click)="store.addWidget(w)">
+          {{ w.label }}
+        </button>
+        } @empty {
+        <button mat-menu-item disabled>
+          All widgets added
+        </button>
+        }
+
+      </mat-menu>
+    </div>
+  </div>
+  <div class="widget-container">
+    @for (w of store.addedWidgets(); track w.id) {
+    <app-widget [data]="w"></app-widget>
+    }
+  </div>
+</div>

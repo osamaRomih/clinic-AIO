@@ -1,0 +1,68 @@
+// /* operations-widget.component.scss */
+// .stat-card {
+//   width: 260px;
+//   padding: 12px 14px;
+//   border-radius: 16px;
+//   background: linear-gradient(180deg, #ffe5cf 0%, #ffece0 100%);
+//   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+// }
+
+// .stat-header {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+// }
+
+// .stat-icon {
+//   width: 40px;
+//   height: 40px;
+//   border-radius: 12px;
+//   background-color: #ff7a00;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 22px;
+//   color: #ffffff;
+// }
+
+// .stat-text {
+//   text-align: right;
+// }
+
+// .stat-title {
+//   font-size: 14px;
+//   font-weight: 500;
+//   color: #333;
+// }
+
+// .stat-value {
+//   font-size: 20px;
+//   font-weight: 600;
+//   color: #222;
+// }
+
+// .stat-chart {
+//   margin-top: 8px;
+// }
+
+// ::ng-deep .stat-chart .apexcharts-canvas {
+//   margin: 0 auto;
+// }
+
+.material-icon {
+  font-size: 32px;
+  color: #fff;
+  line-height: 50px;
+  width: 100%;
+  height: 100%;
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 15px;
+}

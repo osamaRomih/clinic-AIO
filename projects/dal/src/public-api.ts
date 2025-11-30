@@ -24,6 +24,7 @@ export { ResponsiveService } from './services/responsive.service';
 export { ThemeService } from './services/admin/theme.service';
 export { DialogService } from './services/dialog.service';
 export { LanguageService } from './services/admin/language.service';
+export { DashboardService } from './services/admin/dashboard.service';
 // patient services
 
 // secretary services
@@ -53,6 +54,7 @@ export { IUser } from './models/user';
 export { ConfirmDialogData } from './models/confirmation-dialog-data';
 export { IExternalAuth } from './models/external-auth';
 export { IProfileUpdate } from './models/profile';
+export { IWidget } from './models/widget';
 export * from './models/patient-profile-details';
 export * from './models/appointment';
 

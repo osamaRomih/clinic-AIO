@@ -1,0 +1,21 @@
+<div class="widget-card mat-elevation-z3 rounded-2 position-relative overflow-hidden"
+  [style.backgroundColor]="data.backgroundColor ?? 'white'" [style.color]="data.color ?? 'inherit'"
+  [style.--mdc-icon-button-icon-color]="data.color ?? 'inherit'">
+
+
+  <button mat-icon-button class="position-absolute top-0 end-0 mt-2 me-2" (click)="toggleSettings()">
+    <mat-icon>settings</mat-icon>
+  </button>
+
+  <div>
+    <ng-container *ngComponentOutlet="data.content; 
+            inputs: componentInputs">
+    </ng-container>
+  </div>
+
+  @if (showSettings()) {
+  <app-widget-settings class="position-absolute top-0 start-0 w-100 h-100" [data]="data"
+    (toggleSettings)="toggleSettings()">
+  </app-widget-settings>
+  }
+</div>

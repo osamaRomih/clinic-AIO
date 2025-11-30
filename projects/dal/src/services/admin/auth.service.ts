@@ -6,72 +6,70 @@ import { ChatService, IExternalAuth, ILoginRequest, ILoginResponse, IUser } from
 import { IRegisterCred } from '../../models/login-request';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   user = signal<IUser | null>(null);
   baseAPI = 'http://localhost:5069/api';
-  constructor(private httpClient:HttpClient,private router:Router,private chatService:ChatService){
+  constructor(private httpClient: HttpClient, private router: Router, private chatService: ChatService) {}
+
+  login(model: ILoginRequest) {
+    return this.httpClient.post<ILoginResponse>(`${this.baseAPI}/auth/login`, model);
   }
 
-  login(model:ILoginRequest){
-    return this.httpClient.post<ILoginResponse>(`${this.baseAPI}/auth/login`,model);
-  } 
-
-  register(model:IRegisterCred){
-    return this.httpClient.post(`${this.baseAPI}/auth/register`,model);
+  register(model: IRegisterCred) {
+    return this.httpClient.post(`${this.baseAPI}/auth/register`, model);
   }
 
-  loginWithGoogle(body:IExternalAuth){
-    console.log(body)
-    return this.httpClient.post<ILoginResponse>(`${this.baseAPI}/auth/external-login`,body);
+  loginWithGoogle(body: IExternalAuth) {
+    console.log(body);
+    return this.httpClient.post<ILoginResponse>(`${this.baseAPI}/auth/external-login`, body);
   }
 
-
-  getUserInfo(){
+  getUserInfo() {
     return this.httpClient.get<IUser>(`${this.baseAPI}/me`).pipe(
       map((res) => {
         this.setCurrentUser(res);
         return res;
-      })
+      }),
     );
   }
-  
-  setCurrentUser(user:IUser){
-    localStorage.setItem('user',JSON.stringify(user));
+
+  setCurrentUser(user: IUser) {
+    localStorage.setItem('user', JSON.stringify(user));
     this.user.set(user);
   }
 
-  refreshToken(){
-    const body  = {
+  refreshToken() {
+    const body = {
       token: localStorage.getItem('token'),
-      refreshToken: localStorage.getItem('refreshToken')
-    }
-      console.log('Sending refresh body:', body);
+      refreshToken: localStorage.getItem('refreshToken'),
+    };
+    console.log('Sending refresh body:', body);
 
-    return this.httpClient.post(`${this.baseAPI}/auth/refresh-token`,body).pipe(
-      tap((res:any)=>{
+    return this.httpClient.post(`${this.baseAPI}/auth/refresh-token`, body).pipe(
+      tap((res: any) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('refreshToken', res.refreshToken);
-      })
+      }),
     );
   }
 
-  revokeRefreshToken(){
-    const body  = {
+  revokeRefreshToken() {
+    const body = {
       token: localStorage.getItem('token'),
-    refreshToken: localStorage.getItem('refreshToken')
-    }
-    return this.httpClient.put(`${this.baseAPI}/auth/revoke-refresh-token`,body).pipe(
-      tap((res:any)=>{
+      refreshToken: localStorage.getItem('refreshToken'),
+    };
+    return this.httpClient.put(`${this.baseAPI}/auth/revoke-refresh-token`, body).pipe(
+      tap((res: any) => {
         this.logout();
-      })
+      }),
     );
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken')
+    localStorage.removeItem('refreshToken');
     this.router.navigateByUrl('/auth/login');
     this.user.set(null);
     this.chatService.closeConnection();

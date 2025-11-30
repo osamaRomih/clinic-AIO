@@ -1,0 +1,15 @@
+<div class="d-flex gap-3 p-3">
+  <div class="card-icon rounded-3" [style.backgroundColor]="data.iconBackgroundColor ?? '#fff'">
+    <mat-icon class="material-icon">{{data.icon}}</mat-icon>
+  </div>
+  <div class="d-flex justify-content-between flex-column">
+    <h6 class="h6">{{ data.label }}</h6>
+    <p class="fw-medium">150</p>
+  </div>
+</div>
+<div id="chart">
+  <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [stroke]="chartOptions.stroke"
+    [dataLabels]="chartOptions.dataLabels" [xaxis]="chartOptions.xaxis" [fill]="chartOptions.fill"
+    [grid]="chartOptions.grid" [tooltip]="chartOptions.tooltip">
+  </apx-chart>
+</div>

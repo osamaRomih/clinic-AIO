@@ -1,0 +1,42 @@
+<div class="widget-settings position-absolute bg-white border rounded-2 p-3">
+
+  <button mat-icon-button color="warn" class="position-absolute top-0 end-0 mt-2 me-2" (click)="onClose()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <button mat-icon-button color="warn" class="delete-widget" (click)="store.deleteWidget(data().id)">
+    <mat-icon>delete</mat-icon>
+  </button>
+
+  <div class="d-flex flex-column align-items-center h-100 justify-content-center">
+    <div class="mb-3 d-flex align-items-center justify-content-center">
+      <div class="fs-6 mx-2">Width</div>
+      <mat-button-toggle-group [value]="data().cols ?? 1"
+        (change)="store.updateWidgetLayout(data().id, { cols: +$event.value })" hideSingleSelectionIndicator="true">
+        <mat-button-toggle [value]="1">1</mat-button-toggle>
+        <mat-button-toggle [value]="2">2</mat-button-toggle>
+        <mat-button-toggle [value]="3">3</mat-button-toggle>
+        <mat-button-toggle [value]="4">4</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="mb-3 d-flex align-items-center justify-content-center">
+      <div class="fs-6 mx-2">Height</div>
+      <mat-button-toggle-group [value]="data().rows ?? 1"
+        (change)="store.updateWidgetLayout(data().id, { rows: +$event.value })" hideSingleSelectionIndicator="true">
+        <mat-button-toggle [value]="1">1</mat-button-toggle>
+        <mat-button-toggle [value]="2">2</mat-button-toggle>
+        <mat-button-toggle [value]="3">3</mat-button-toggle>
+        <mat-button-toggle [value]="4">4</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <button mat-icon-button class="move-right" (click)="store.moveWidgetRight(data().id)">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+
+  <button mat-icon-button class="move-left" (click)="store.moveWidgetLeft(data().id)">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+
+</div>
