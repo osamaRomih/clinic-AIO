@@ -66,13 +66,13 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item>
+                <button mat-menu-item (click)="deleteMessage(item)">
                   <mat-icon color="warn">delete</mat-icon>
-                  <span (click)="deleteMessage(item)">{{ 'CHAT.DELETE_MESSAGE' | translate }}</span>
+                  <span>{{ 'CHAT.DELETE_MESSAGE' | translate }}</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item (click)="updateMessage(item)">
                   <mat-icon color="accent">edit</mat-icon>
-                  <span (click)="updateMessage(item)">{{ 'CHAT.EDIT_MESSAGE' | translate }}</span>
+                  <span>{{ 'CHAT.EDIT_MESSAGE' | translate }}</span>
                 </button>
               </mat-menu>
             </div>

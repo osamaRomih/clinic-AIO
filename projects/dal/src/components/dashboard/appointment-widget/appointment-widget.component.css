@@ -12,3 +12,10 @@
   text-align: center;
   border-radius: 15px;
 }
+
+#chart {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}

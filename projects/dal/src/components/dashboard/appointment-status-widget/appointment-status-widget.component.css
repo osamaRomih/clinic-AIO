@@ -1,0 +1,19 @@
+.stat-box {
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.stat-box .value {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+/* Make chart responsive */
+apx-chart {
+  display: block;
+  width: 100%;
+}

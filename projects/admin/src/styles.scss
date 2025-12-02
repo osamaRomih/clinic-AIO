@@ -418,3 +418,53 @@ button .btn-spinner {
   font-size: 14px;
   line-height: 20px;
 }
+
+.apx-custom-tooltip {
+  font-family: Inter, Roboto, system-ui, 'Segoe UI', Arial, sans-serif;
+  background: rgba(255, 255, 255, 0.98);
+  /* or use theme color */
+  color: #222;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  min-width: 140px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* date — top */
+.apx-tooltip-date {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+/* thin separator line */
+.apx-tooltip-sep {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 6px 0;
+  width: 100%;
+}
+
+/* value row */
+.apx-tooltip-value {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 6px;
+}
+
+/* numeric count bigger */
+.apx-tooltip-num {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* label under the number or next to it */
+.apx-tooltip-label {
+  font-size: 12px;
+  color: #666;
+  align-self: flex-end;
+}

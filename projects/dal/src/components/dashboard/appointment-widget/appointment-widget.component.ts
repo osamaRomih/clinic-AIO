@@ -1,4 +1,4 @@
-import { Component, Input, input, ViewChild } from '@angular/core';
+import { Component, computed, inject, Input, input, signal, ViewChild } from '@angular/core';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -11,8 +11,10 @@ import {
   NgApexchartsModule,
   ApexGrid,
 } from 'ng-apexcharts';
-import { IWidget } from '../../../public-api';
+import { IWidget, ResultsService } from '../../../public-api';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { IAppointmentsPerDay } from '../../../models/results';
+import { CommonModule } from '@angular/common';
 
 const DEFAULT_LINE_COLOR = '#ff7a00';
 const DEFAULT_BG_COLOR = 'transparent';
@@ -31,7 +33,7 @@ export type MiniChartOptions = {
 @Component({
   selector: 'lib-appointment-widget',
   standalone: true,
-  imports: [MatIconModule, NgApexchartsModule],
+  imports: [MatIconModule, NgApexchartsModule, CommonModule],
   templateUrl: './appointment-widget.component.html',
   styleUrl: './appointment-widget.component.css',
 })
@@ -49,8 +51,25 @@ export class AppointmentWidgetComponent {
 
   chartOptions!: MiniChartOptions;
 
+  private resultService = inject(ResultsService);
+  private appointments = signal<IAppointmentsPerDay[]>([]);
+
+  protected totalAppointments = computed(() => {
+    return this.appointments().reduce((acc, curr) => acc + Number(curr.count), 0);
+  });
+
   ngOnInit(): void {
-    this.initChartOptions();
+    this.loadAppointmentsPerDays();
+  }
+
+  loadAppointmentsPerDays() {
+    this.resultService.getAppointmentsPerDay().subscribe({
+      next: (result) => {
+        this.appointments.set(result);
+        console.log(this.appointments().map((x) => Number(x.count)));
+        this.initChartOptions();
+      },
+    });
   }
 
   initChartOptions(): void {
@@ -61,7 +80,9 @@ export class AppointmentWidgetComponent {
       series: [
         {
           name: 'Appointments',
-          data: [10, 18, 14, 22, 19, 30, 27, 35, 28, 32],
+          data: this.appointments()
+            .map((x) => Number(x.count))
+            .reverse(),
         },
       ],
       chart: {
@@ -89,6 +110,9 @@ export class AppointmentWidgetComponent {
         enabled: false,
       },
       xaxis: {
+        categories: this.appointments()
+          .map((x) => x.date)
+          .reverse(),
         labels: { show: false },
         axisBorder: { show: false },
         axisTicks: { show: false },
@@ -99,8 +123,33 @@ export class AppointmentWidgetComponent {
       },
       tooltip: {
         enabled: true,
+        shared: false,
         x: { show: false },
+        y: { formatter: (v: number) => v?.toString() ?? '' },
         marker: { show: false },
+        custom: ({ series, seriesIndex, dataPointIndex, w }: any) => {
+          // `w.globals.categoryLabels` contains the xaxis categories (your dates)
+          const rawDate = w?.globals?.categoryLabels?.[dataPointIndex];
+          const value = series?.[seriesIndex]?.[dataPointIndex];
+
+          // Format the date
+          const d = rawDate ? new Date(rawDate) : null;
+          const formattedDate = d
+            ? d.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })
+            : rawDate ?? '';
+
+          // Build HTML — date on top, a thin separator, then the count
+          return `
+      <div class="apx-custom-tooltip">
+        <div class="apx-tooltip-date">${formattedDate}</div>
+        <div class="apx-tooltip-sep" role="separator" aria-hidden="true"></div>
+        <div class="apx-tooltip-value d-flex align-items-center">
+          <span class="apx-tooltip-num" style="color:${lineColor}">${value ?? '-'}</span>
+          <span class="apx-tooltip-label"> appointments</span>
+        </div>
+      </div>
+    `;
+        },
       },
     };
   }

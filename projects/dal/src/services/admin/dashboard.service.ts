@@ -2,6 +2,7 @@ import { computed, Injectable, signal } from '@angular/core';
 import { IWidget } from '../../public-api';
 import { PatientsWidgetComponent } from '../../components/dashboard/patients-widget/patients-widget.component';
 import { AppointmentWidgetComponent } from '../../components/dashboard/appointment-widget/appointment-widget.component';
+import { AppointmentStatusWidgetComponent } from '../../components/dashboard/appointment-status-widget/appointment-status-widget.component';
 
 @Injectable()
 export class DashboardService {
@@ -24,7 +25,7 @@ export class DashboardService {
       label: 'Patients',
       content: PatientsWidgetComponent,
       rows: 1,
-      cols: 1,
+      cols: 2,
       backgroundColor: '#d7e9e2',
       color: '#000',
       icon: 'person_add',
@@ -37,7 +38,21 @@ export class DashboardService {
       label: 'Appointments',
       content: AppointmentWidgetComponent,
       rows: 1,
-      cols: 1,
+      cols: 2,
+      backgroundColor: '#ddd9f3',
+      color: '#000',
+      icon: 'face',
+      iconBackgroundColor: '#6f42c1',
+      lineColor: '#6f42c1',
+      chartBackgroundColor: '#ccc1eb',
+    },
+
+    {
+      id: 3,
+      label: 'Appointments',
+      content: AppointmentStatusWidgetComponent,
+      rows: 3,
+      cols: 4,
       backgroundColor: '#ddd9f3',
       color: '#000',
       icon: 'face',

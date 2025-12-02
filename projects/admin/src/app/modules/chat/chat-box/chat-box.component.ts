@@ -83,6 +83,7 @@ export class ChatBoxComponent implements AfterViewChecked {
   }
 
   deleteMessage(item: IMessage) {
+    console.log('first');
     this.confirmDialog.confirmDialog('Delete message', 'Are you sure that you want to delete this message?').subscribe({
       next: (result) => {
         if (result) this.chatService.deleteMessage(item);

@@ -25,6 +25,7 @@ export { ThemeService } from './services/admin/theme.service';
 export { DialogService } from './services/dialog.service';
 export { LanguageService } from './services/admin/language.service';
 export { DashboardService } from './services/admin/dashboard.service';
+export { ResultsService } from './services/admin/results.service';
 // patient services
 
 // secretary services

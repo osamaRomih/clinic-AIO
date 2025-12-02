@@ -1,4 +1,4 @@
-import { Component, Input, input, ViewChild } from '@angular/core';
+import { Component, computed, inject, Input, input, signal, ViewChild } from '@angular/core';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -11,8 +11,10 @@ import {
   NgApexchartsModule,
   ApexGrid,
 } from 'ng-apexcharts';
-import { IWidget } from '../../../public-api';
+import { IWidget, ResultsService } from '../../../public-api';
 import { MatIcon } from '@angular/material/icon';
+import { IPatientsPerDay } from '../../../models/results';
+import { CommonModule } from '@angular/common';
 
 const DEFAULT_LINE_COLOR = '#ff7a00';
 const DEFAULT_BG_COLOR = 'transparent';
@@ -31,7 +33,7 @@ export type MiniChartOptions = {
 @Component({
   selector: 'app-patients-widget',
   standalone: true,
-  imports: [NgApexchartsModule, MatIcon],
+  imports: [NgApexchartsModule, MatIcon, CommonModule],
   templateUrl: './patients-widget.component.html',
   styleUrl: './patients-widget.component.scss',
 })
@@ -49,8 +51,25 @@ export class PatientsWidgetComponent {
 
   chartOptions!: MiniChartOptions;
 
+  private resultService = inject(ResultsService);
+  protected patients = signal<IPatientsPerDay[]>([]);
+
+  protected totalPatients = computed(() => {
+    return this.patients().reduce((acc, curr) => acc + Number(curr.count), 0);
+  });
+
   ngOnInit(): void {
-    this.initChartOptions();
+    this.loadPatientsPerDays();
+  }
+
+  loadPatientsPerDays() {
+    this.resultService.getPatientsPerDay().subscribe({
+      next: (result) => {
+        this.patients.set(result);
+        console.log(this.patients().map((x) => Number(x.count)));
+        this.initChartOptions();
+      },
+    });
   }
 
   initChartOptions(): void {
@@ -60,8 +79,10 @@ export class PatientsWidgetComponent {
     this.chartOptions = {
       series: [
         {
-          name: 'Appointments',
-          data: [10, 18, 14, 22, 19, 30, 27, 35, 28, 32],
+          name: 'Patients',
+          data: this.patients()
+            .map((x) => Number(x.count))
+            .reverse(),
         },
       ],
       chart: {
@@ -89,6 +110,9 @@ export class PatientsWidgetComponent {
         enabled: false,
       },
       xaxis: {
+        categories: this.patients()
+          .map((x) => x.date)
+          .reverse(),
         labels: { show: false },
         axisBorder: { show: false },
         axisTicks: { show: false },
@@ -99,8 +123,32 @@ export class PatientsWidgetComponent {
       },
       tooltip: {
         enabled: true,
+        shared: false,
         x: { show: false },
+        y: { formatter: (v: number) => v?.toString() ?? '' },
         marker: { show: false },
+        custom: ({ series, seriesIndex, dataPointIndex, w }: any) => {
+          // `w.globals.categoryLabels` contains the xaxis categories
+          const rawDate = w?.globals?.categoryLabels?.[dataPointIndex];
+          const value = series?.[seriesIndex]?.[dataPointIndex];
+
+          // Format the date
+          const d = rawDate ? new Date(rawDate) : null;
+          const formattedDate = d
+            ? d.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })
+            : rawDate ?? '';
+
+          return `
+      <div class="apx-custom-tooltip">
+        <div class="apx-tooltip-date">${formattedDate}</div>
+        <div class="apx-tooltip-sep" role="separator" aria-hidden="true"></div>
+        <div class="apx-tooltip-value d-flex align-items-center">
+          <span class="apx-tooltip-num" style="color:${lineColor}">${value ?? '-'}</span>
+          <span class="apx-tooltip-label"> patients</span>
+        </div>
+      </div>
+    `;
+        },
       },
     };
   }
